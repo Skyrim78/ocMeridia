@@ -25,11 +25,11 @@ ocMeridia::ocMeridia(QWidget *parent) :
 //    connect_locDB();
 
     //setting
-    connect(ui->pushButton_sA_connect, SIGNAL(clicked(bool)), this, SLOT(testConnect()));
+    connect(ui->pushButton_sA_connect, SIGNAL(clicked(bool)), this, SLOT(setting_testConnect()));
     connect(ui->pushButton_settingWrite, SIGNAL(clicked(bool)), this, SLOT(writeSetting()));
-    connect(ui->comboBox_sB_lang, SIGNAL(activated(int)), this, SLOT(changeLangStore(int)));
-    connect(ui->toolButton_dir1C, SIGNAL(clicked(bool)), this, SLOT(selectDir1C()));
-    connect(ui->toolButton_dirPL, SIGNAL(clicked(bool)), this, SLOT(selectDirPL()));
+    connect(ui->comboBox_sB_lang, SIGNAL(activated(int)), this, SLOT(setting_changeLangStore(int)));
+    connect(ui->toolButton_dir1C, SIGNAL(clicked(bool)), this, SLOT(setting_selectDir1C()));
+    connect(ui->toolButton_dirPL, SIGNAL(clicked(bool)), this, SLOT(setting_selectDirPL()));
 
     //file
     connect(ui->toolButton_file, SIGNAL(clicked(bool)), this, SLOT(file_Open()));
@@ -43,7 +43,7 @@ ocMeridia::ocMeridia(QWidget *parent) :
     connect(ui->pushButton_cat_save, SIGNAL(clicked(bool)), this, SLOT(category_save()));
 
     //product
-    ui->tableWidget_product->setColumnHidden(0, true);
+    //ui->tableWidget_product->setColumnHidden(0, true);
     connect(ui->tableWidget_product, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(product_openForm()));
     connect(ui->pushButton_loadOnServer, SIGNAL(clicked(bool)), this, SLOT(product_loadOnServer()));
 }
@@ -68,7 +68,9 @@ void ocMeridia::readSetting()
     _TAX = sett.value("oc/tax").toInt();
     _STOCK = sett.value("oc/stock").toInt();
     _STATUS = sett.value("oc/status").toInt();
-    _DIR = sett.value("oc/dir").toString();
+    _DIR = "catalog/";
+    _DIR.append(sett.value("oc/dir").toString());
+    ui->lineEdit_sB_dir->setText(sett.value("oc/dir").toString());
 
     //--------------------loads
     ui->radioButton_sC_catout->setChecked(sett.value("load1c/cat_out").toBool());
@@ -76,6 +78,8 @@ void ocMeridia::readSetting()
     ui->radioButton_sC_priceount->setChecked(sett.value("load1c/prod_out").toBool());
     ui->radioButton_sC_pricein->setChecked(sett.value("load1c/prod_in").toBool());
     ui->doubleSpinBox_sC_pricein->setValue(sett.value("load1c/prod_price").toDouble());
+    ui->radioButton_sC_newProdOunt->setChecked(sett.value("load1c/new_prod_out").toBool());
+    ui->radioButton_sC_newProdIn->setChecked(sett.value("load1c/new_prod_in").toBool());
     ui->checkBox_sC_upname->setChecked(sett.value("load1c/up_name").toInt());
     ui->checkBox_sC_upprice->setChecked(sett.value("load1c/up_price").toInt());
     ui->checkBox_sC_updesc->setChecked(sett.value("load1c/up_desc").toInt());
@@ -96,11 +100,10 @@ void ocMeridia::readSetting()
     //load status products
     ui->comboBox_sB_status->setCurrentIndex(statusMap.key(_STATUS));
 
-    //dir
-    ui->lineEdit_sB_dir->setText(_DIR);
 
-    connect_netDB();
-    connect_locDB();
+
+    setting_connect_netDB();
+    setting_connect_locDB();
 
 }
 
@@ -128,6 +131,8 @@ void ocMeridia::writeSetting()
     sett.setValue("prod_out", ui->radioButton_sC_priceount->isChecked());
     sett.setValue("prod_in", ui->radioButton_sC_pricein->isChecked());
     sett.setValue("prod_price", ui->doubleSpinBox_sC_pricein->value());
+    sett.setValue("new_prod_out", ui->radioButton_sC_newProdOunt->isChecked());
+    sett.setValue("new_prod_in", ui->radioButton_sC_newProdIn->isChecked());
     sett.setValue("up_name", ui->checkBox_sC_upname->checkState());
     sett.setValue("up_price", ui->checkBox_sC_upprice->checkState());
     sett.setValue("up_desc", ui->checkBox_sC_updesc->checkState());
@@ -152,7 +157,7 @@ void ocMeridia::writeSetting()
 }
 
 
-void ocMeridia::connect_netDB()
+void ocMeridia::setting_connect_netDB()
 {
     db_server = QSqlDatabase::addDatabase("QMYSQL", "serverDB");
     db_server.setDatabaseName(ui->lineEdit_sA_dbname->text());
@@ -212,22 +217,22 @@ void ocMeridia::connect_netDB()
     }
 }
 
-void ocMeridia::connect_locDB()
+void ocMeridia::setting_connect_locDB()
 {
     db_local = QSqlDatabase::addDatabase("QSQLITE", "localDB");
     db_local.setDatabaseName("meridia.db3");
     db_local.open();
 }
 
-void ocMeridia::testConnect()
+void ocMeridia::setting_testConnect()
 {
     if(db_server.isOpen()){
         db_server.close();
         db_server.removeDatabase("serverDB");
     }
-    connect_netDB();
+    setting_connect_netDB();
     if (!db_local.isOpen()){
-        connect_locDB();
+        setting_connect_locDB();
     }
 }
 
@@ -274,22 +279,24 @@ void ocMeridia::loadMaps()
     ui->comboBox_sC_catin->setCurrentIndex(categoryMap.key(sett.value("load1c/cat_target").toInt()));
     ui->comboBox_sCpl_catin->setCurrentIndex(categoryMap.key(sett.value("loadpl/cat_target").toInt()));
 
+    category_loadFromDB();
+
 
 }
 
 
-void ocMeridia::changeLangStore(int idx)
+void ocMeridia::setting_changeLangStore(int idx)
 {
     _LANG = langMap.value(idx);
     loadMaps();
 }
 
-void ocMeridia::selectDir1C()
+void ocMeridia::setting_selectDir1C()
 {
     ui->lineEdit_sD_dir1c->setText(QFileDialog::getExistingDirectory(this, "Выберите директорию", "HOME"));
 }
 
-void ocMeridia::selectDirPL()
+void ocMeridia::setting_selectDirPL()
 {
     ui->lineEdit_sD_dirpl->setText(QFileDialog::getExistingDirectory(this, "Выберите директорию", "HOME"));
 }
@@ -367,7 +374,7 @@ void ocMeridia::file_Open()
         QDomNode nodePredAll = nodeAll.childNodes().at(idxPred);
 
         QString line;
-        QMap<QString, QString> mapPrice; //ИД товаров + Цена
+        QMap<QString, double> mapPrice; //ИД товаров + Цена
 
         // собираем ID товаров и цены из предложений
         for (int x = 0; x < nodePredAll.childNodes().count(); x++){
@@ -375,7 +382,12 @@ void ocMeridia::file_Open()
             QString _ID = nodePred.firstChildElement("Ид").text();
             QString _Price = nodePred.firstChildElement("Цены").firstChildElement("Цена")
                     .firstChildElement("ЦенаЗаЕдиницу").text();
-            mapPrice.insert(_ID, _Price);
+            if (_Price.isEmpty()){
+                mapPrice.insert(_ID, 0.00);
+            } else {
+                mapPrice.insert(_ID, _Price.toDouble());
+            }
+
             ui->progressBar->setValue(qFloor((x+1) * 100 / nodePredAll.childNodes().count()));
             QApplication::processEvents();
         }
@@ -392,7 +404,7 @@ void ocMeridia::file_Open()
                 line.clear();
                 line.append(QString("%0").arg(nodeProduct.firstChildElement("ПолноеНаименование").text()));//Наименование
                 line.append(QString("||%0").arg(nodeProduct.firstChildElement("Группы").firstChildElement("Ид").text()));//Группа
-                line.append(QString("||%0").arg(mapPrice.value(_ID)));//Цена
+                line.append(QString("||%0").arg(QString::number(mapPrice.value(_ID), 'f', 2)));//Цена
                 line.append(QString("||%0").arg(nodeProduct.firstChildElement("Картинка").text()));//Картина
                 line.append(QString("||%0||Цвет:").arg(nodeProduct.firstChildElement("Описание").text()));//Описание
                 QDomElement elAttributes = nodeProduct.firstChildElement("ЗначенияСвойств");
@@ -417,7 +429,7 @@ void ocMeridia::file_Open()
                     if (line_post.isEmpty()){
                         line_post.append(QString("%0").arg(nodeProduct.firstChildElement("ПолноеНаименование").text()));//Наименование
                         line_post.append(QString("||%0").arg(nodeProduct.firstChildElement("Группы").firstChildElement("Ид").text()));//Группа
-                        line_post.append(QString("||%0").arg(mapPrice.value(_ID)));//Цена
+                        line_post.append(QString("||%0").arg(QString::number(mapPrice.value(_ID), 'f', 2)));//Цена
                         line_post.append(QString("||%0").arg(nodeProduct.firstChildElement("Картинка").text()));//Картина
                         line_post.append(QString("||%0||Цвет:").arg(nodeProduct.firstChildElement("Описание").text()));//Описание
                         QDomElement elAttributes = nodeProduct.firstChildElement("ЗначенияСвойств");
@@ -807,7 +819,7 @@ void ocMeridia::product_testServer()
                     ui->tableWidget_product->setItem(row, 0, item);
                     idx = true;
                 } else {
-                    QTableWidgetItem *item = new QTableWidgetItem("");
+                    QTableWidgetItem *item = new QTableWidgetItem("0");
                     ui->tableWidget_product->setItem(row, 0, item);
                     idx = false;
                     //помечаем
@@ -853,7 +865,210 @@ void ocMeridia::product_openForm()
 void ocMeridia::product_loadOnServer()
 {
 
+    if (ui->tableWidget_product->rowCount() > 0){
+        QString error;
+        bool idxIN = true;
+        bool idxUP = true;
+        double price;
+        QString image = "";
+
+        // ID аттрибута "ЦВЕТ"
+        QSqlQuery query_GA(QString("SELECT rmrt_attribute_description.attribute_id "
+                                   "FROM rmrt_attribute_description "
+                                   "WHERE rmrt_attribute_description.name = \'Цвет\' "
+                                   "AND rmrt_attribute_description.language_id = \'%1\' ").arg(_LANG), db_server);
+        query_GA.next();
+        int IDcolor = query_GA.value(0).toInt();
+        qDebug() << IDcolor;
+        //*******
+
+        for (int row = 0; row < ui->tableWidget_product->rowCount(); row++){
+            image.clear();
+            price = ui->tableWidget_product->item(row, 4)->text().toDouble();
+            int id = ui->tableWidget_product->item(row, 0)->text().toInt();
+            if (id == 0){
+                idxIN = true;
+                idxUP = false;
+                //add?
+                if (ui->radioButton_sC_newProdIn->isChecked()){
+                    idxIN = true;
+                    // price?
+                    //price = ui->tableWidget_product->item(row, 4)->text().toDouble();
+                    if (price == 0.00){
+                        if (ui->radioButton_sC_priceount->isChecked()){ // если в настройках стоит пропускать с 0 ценой
+                            idxIN = false;
+                        } else if (ui->radioButton_sC_pricein->isChecked()) { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                            idxIN = true;
+                            price = ui->doubleSpinBox_sC_pricein->value();
+                        }
+                    }
+                } else if (ui->radioButton_sC_newProdOunt->isChecked()){
+                    idxIN = false;
+                }
+            } else if (id > 0){
+                idxUP = true;
+                idxIN = false;
+
+                if (price == 0.00){
+                    if (ui->radioButton_sC_priceount->isChecked()){ // если в настройках стоит пропускать с 0 ценой
+                        idxUP = false;
+                    } else if (ui->radioButton_sC_pricein->isChecked()) { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                        idxUP = true;
+                        price = ui->doubleSpinBox_sC_pricein->value();
+                    }
+                }
+
+            }
+            if (idxIN){
+                if (!ui->tableWidget_product->item(row, 5)->text().isEmpty()){
+                    image = _DIR.append("/").append(ui->tableWidget_product->item(row, 5)->text());
+                }
+
+                QSqlQuery queryAddProduct("INSERT INTO rmrt_product (sku, quantity, manufacturer_id, stock_status_id, "
+                                          "tax_class_id, status, price, image, date_added, date_modified) "
+                                          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", db_server);
+                queryAddProduct.bindValue(0, ui->tableWidget_product->item(row, 1)->text());
+                queryAddProduct.bindValue(1, QString::number(ui->doubleSpinBox_sB_quan->value(), 'f', 2));
+                queryAddProduct.bindValue(2, 0); // производителя нет
+                queryAddProduct.bindValue(3, _STOCK); //stock status  = 7 (в наличие)
+                queryAddProduct.bindValue(4, _TAX); // tax_class = 9 (облагаемый налогом)
+                queryAddProduct.bindValue(5, _STATUS); // status = 1 (включено)
+                queryAddProduct.bindValue(6, price); // price
+                queryAddProduct.bindValue(7, image); // image
+                queryAddProduct.bindValue(8, QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss"));
+                queryAddProduct.bindValue(9, QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss"));
+                queryAddProduct.exec();
+                if (queryAddProduct.lastError().text().size() > 3){
+                  error.append(queryAddProduct.lastError().text());
+                  break;
+                } else {
+                    int _ID = queryAddProduct.lastInsertId().toInt();
+                    //добавляем description
+                    QSqlQuery queryAddProdDesc("INSERT INTO rmrt_product_description (product_id, language_id, name, description) "
+                                               "VALUES (?, ?, ?, ?)", db_server);
+                    queryAddProdDesc.bindValue(0, _ID);
+                    queryAddProdDesc.bindValue(1, _LANG);
+                    queryAddProdDesc.bindValue(2, ui->tableWidget_product->item(row, 2)->text());
+                    queryAddProdDesc.bindValue(3, ui->tableWidget_product->item(row, 6)->text());
+                    queryAddProdDesc.exec();
+                    if (queryAddProdDesc.lastError().text().size() > 3){
+                      error.append(queryAddProdDesc.lastError().text());
+                    }
+
+                    //добавляем store
+                    QSqlQuery queryAddProdStore("INSERT INTO rmrt_product_to_store (product_id, store_id) "
+                                               "VALUES (?, ?)", db_server);
+                    queryAddProdStore.bindValue(0, _ID);
+                    queryAddProdStore.bindValue(1, _STORE);
+                    queryAddProdStore.exec();
+                    if (queryAddProdStore.lastError().text().size() > 3){
+                      error.append(queryAddProdStore.lastError().text());
+                    }
+                    //добавляем category
+                    QSqlQuery queryAddProdCat("INSERT INTO rmrt_product_to_category (product_id, category_id, main_category) "
+                                               "VALUES (?, ?, ?)", db_server);
+                    queryAddProdCat.bindValue(0, _ID);
+                    queryAddProdCat.bindValue(1, ui->tableWidget_product->item(row, 3)->text());
+                    queryAddProdCat.bindValue(2, 1);
+                    queryAddProdCat.exec();
+                    if (queryAddProdCat.lastError().text().size() > 3){
+                      error.append(queryAddProdCat.lastError().text());
+                    }
+
+                    //добавляем аттрибуты
+                    QString strAttr = ui->tableWidget_product->item(row, 7)->text();
+                    if (strAttr.size() > 1){
+                        for (int x = 0; x < strAttr.split(",").size(); x++){
+                            if (!strAttr.split(",").at(x).isEmpty()){
+                                QSqlQuery queryAddProdAttribute("INSERT INTO rmrt_product_attribute (product_id, attribute_id, language_id, text) "
+                                                                "VALUES (?, ?, ?, ?)", db_server);
+                                queryAddProdAttribute.bindValue(0, _ID);
+                                queryAddProdAttribute.bindValue(1, IDcolor);
+                                queryAddProdAttribute.bindValue(2, _LANG);
+                                queryAddProdAttribute.bindValue(3, strAttr.split(",").at(x));
+                                queryAddProdAttribute.exec();
+                                if (queryAddProdAttribute.lastError().text().size() > 3){
+                                  error.append(queryAddProdAttribute.lastError().text());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (idxUP){
+                QString mainStr;
+                if (ui->checkBox_sC_upprice->isChecked()){
+                    mainStr.append(QString("UPDATE rmrt_product SET price = \'%1\' WHERE rmrt_product.product_id = \'%2\'; ")
+                                   .arg(price)
+                                   .arg(id));
+                }
+                if (ui->checkBox_sC_upimage->isChecked()){
+                    if (!ui->tableWidget_product->item(row, 5)->text().isEmpty()){
+                        image = _DIR.append("/").append(ui->tableWidget_product->item(row, 5)->text());
+                    }
+                    mainStr.append(QString("UPDATE rmrt_product SET image = \'%1\' WHERE rmrt_product.product_id = \'%2\'; ")
+                                   .arg(image)
+                                   .arg(id));
+                }
+                if (ui->checkBox_sC_upname->isChecked()){
+                    mainStr.append(QString("UPDATE rmrt_product_description SET `name` = \'%1\' "
+                                           "WHERE rmrt_product_description.product_id = \'%2\' "
+                                           "AND rmrt_product_description.language_id = \'%3\'; ")
+                                   .arg(ui->tableWidget_product->item(row, 2)->text())
+                                   .arg(id)
+                                   .arg(_LANG));
+                }
+                if (ui->checkBox_sC_updesc->isChecked()){
+                    mainStr.append(QString("UPDATE rmrt_product_description SET description = \'%1\' "
+                                           "WHERE rmrt_product_description.product_id = \'%2\' "
+                                           "AND rmrt_product_description.language_id = \'%3\'; ")
+                                   .arg(ui->tableWidget_product->item(row, 6)->text())
+                                   .arg(id)
+                                   .arg(_LANG));
+                }
+                if (ui->checkBox_sC_upcolor->isChecked()){
+                    QString strAttr = ui->tableWidget_product->item(row, 7)->text();
+                    if (strAttr.size() > 1){
+                        //clear;
+                        QSqlQuery queryClearProdAttribute(QString("DELETE FROM rmrt_product_attribute WHERE rmrt_product_attribute.product_id = \'%1\' ")
+                                                          .arg(id), db_server);
+                        queryClearProdAttribute.exec();
+                        for (int x = 0; x < strAttr.split(",").size(); x++){
+                            if (!strAttr.split(",").at(x).isEmpty()){
+                                QSqlQuery queryAddProdAttribute("INSERT INTO rmrt_product_attribute (product_id, attribute_id, language_id, text) "
+                                                                "VALUES (?, ?, ?, ?)", db_server);
+                                queryAddProdAttribute.bindValue(0, id);
+                                queryAddProdAttribute.bindValue(1, IDcolor);
+                                queryAddProdAttribute.bindValue(2, _LANG);
+                                queryAddProdAttribute.bindValue(3, strAttr.split(",").at(x));
+                                queryAddProdAttribute.exec();
+                                if (queryAddProdAttribute.lastError().text().size() > 3){
+                                  error.append(queryAddProdAttribute.lastError().text());
+                                }
+                            }
+                        }
+                    }
+                }
+                if (mainStr.size() > 0){
+                    QSqlQuery queryUP(mainStr, db_server);
+                    queryUP.exec();
+                    if (queryUP.lastError().text().size() > 3){
+                      error.append(queryUP.lastError().text());
+                      break;
+                    }
+                }
+            }
+        }
+        if (error.size() > 0){
+            makeMessage(error, false);
+        } else {
+            makeMessage("Товары успешно загружены на сервер!", true);
+            product_testServer();
+        }
+    }
+
 }
+
 
 
 void ocMeridia::makeMessage(const QString str, bool x)

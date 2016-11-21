@@ -63,12 +63,12 @@ public slots:
     void writeSetting();
     void loadMaps();
 
-    void connect_netDB();
-    void connect_locDB();
-    void testConnect();
-    void changeLangStore(int idx);
-    void selectDir1C();
-    void selectDirPL();
+    void setting_connect_netDB();
+    void setting_connect_locDB();
+    void setting_testConnect();
+    void setting_changeLangStore(int idx);
+    void setting_selectDir1C();
+    void setting_selectDirPL();
 
     void file_Open();
 

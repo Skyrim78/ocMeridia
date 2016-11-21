@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ocMeridia_t {
     QByteArrayData data[31];
-    char stringdata[395];
+    char stringdata[443];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,43 +34,44 @@ QT_MOC_LITERAL(1, 10, 11),
 QT_MOC_LITERAL(2, 22, 0),
 QT_MOC_LITERAL(3, 23, 12),
 QT_MOC_LITERAL(4, 36, 8),
-QT_MOC_LITERAL(5, 45, 13),
-QT_MOC_LITERAL(6, 59, 13),
-QT_MOC_LITERAL(7, 73, 11),
-QT_MOC_LITERAL(8, 85, 15),
-QT_MOC_LITERAL(9, 101, 3),
-QT_MOC_LITERAL(10, 105, 11),
-QT_MOC_LITERAL(11, 117, 11),
-QT_MOC_LITERAL(12, 129, 9),
-QT_MOC_LITERAL(13, 139, 19),
-QT_MOC_LITERAL(14, 159, 26),
-QT_MOC_LITERAL(15, 186, 16),
-QT_MOC_LITERAL(16, 203, 3),
-QT_MOC_LITERAL(17, 207, 9),
-QT_MOC_LITERAL(18, 217, 21),
-QT_MOC_LITERAL(19, 239, 19),
-QT_MOC_LITERAL(20, 259, 19),
-QT_MOC_LITERAL(21, 279, 13),
-QT_MOC_LITERAL(22, 293, 17),
-QT_MOC_LITERAL(23, 311, 3),
-QT_MOC_LITERAL(24, 315, 4),
-QT_MOC_LITERAL(25, 320, 18),
-QT_MOC_LITERAL(26, 339, 16),
-QT_MOC_LITERAL(27, 356, 20),
-QT_MOC_LITERAL(28, 377, 11),
-QT_MOC_LITERAL(29, 389, 3),
-QT_MOC_LITERAL(30, 393, 1)
+QT_MOC_LITERAL(5, 45, 21),
+QT_MOC_LITERAL(6, 67, 21),
+QT_MOC_LITERAL(7, 89, 19),
+QT_MOC_LITERAL(8, 109, 23),
+QT_MOC_LITERAL(9, 133, 3),
+QT_MOC_LITERAL(10, 137, 19),
+QT_MOC_LITERAL(11, 157, 19),
+QT_MOC_LITERAL(12, 177, 9),
+QT_MOC_LITERAL(13, 187, 19),
+QT_MOC_LITERAL(14, 207, 26),
+QT_MOC_LITERAL(15, 234, 16),
+QT_MOC_LITERAL(16, 251, 3),
+QT_MOC_LITERAL(17, 255, 9),
+QT_MOC_LITERAL(18, 265, 21),
+QT_MOC_LITERAL(19, 287, 19),
+QT_MOC_LITERAL(20, 307, 19),
+QT_MOC_LITERAL(21, 327, 13),
+QT_MOC_LITERAL(22, 341, 17),
+QT_MOC_LITERAL(23, 359, 3),
+QT_MOC_LITERAL(24, 363, 4),
+QT_MOC_LITERAL(25, 368, 18),
+QT_MOC_LITERAL(26, 387, 16),
+QT_MOC_LITERAL(27, 404, 20),
+QT_MOC_LITERAL(28, 425, 11),
+QT_MOC_LITERAL(29, 437, 3),
+QT_MOC_LITERAL(30, 441, 1)
     },
     "ocMeridia\0readSetting\0\0writeSetting\0"
-    "loadMaps\0connect_netDB\0connect_locDB\0"
-    "testConnect\0changeLangStore\0idx\0"
-    "selectDir1C\0selectDirPL\0file_Open\0"
-    "category_loadFromDB\0category_loadFromDB_parent\0"
-    "QTreeWidgetItem*\0par\0id_parent\0"
-    "category_selectServer\0category_checkState\0"
-    "category_testServer\0category_save\0"
-    "category_makePath\0_ID\0_PAR\0"
-    "product_testServer\0product_openForm\0"
+    "loadMaps\0setting_connect_netDB\0"
+    "setting_connect_locDB\0setting_testConnect\0"
+    "setting_changeLangStore\0idx\0"
+    "setting_selectDir1C\0setting_selectDirPL\0"
+    "file_Open\0category_loadFromDB\0"
+    "category_loadFromDB_parent\0QTreeWidgetItem*\0"
+    "par\0id_parent\0category_selectServer\0"
+    "category_checkState\0category_testServer\0"
+    "category_save\0category_makePath\0_ID\0"
+    "_PAR\0product_testServer\0product_openForm\0"
     "product_loadOnServer\0makeMessage\0str\0"
     "x"
 };
@@ -146,12 +147,12 @@ void ocMeridia::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 0: _t->readSetting(); break;
         case 1: _t->writeSetting(); break;
         case 2: _t->loadMaps(); break;
-        case 3: _t->connect_netDB(); break;
-        case 4: _t->connect_locDB(); break;
-        case 5: _t->testConnect(); break;
-        case 6: _t->changeLangStore((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: _t->selectDir1C(); break;
-        case 8: _t->selectDirPL(); break;
+        case 3: _t->setting_connect_netDB(); break;
+        case 4: _t->setting_connect_locDB(); break;
+        case 5: _t->setting_testConnect(); break;
+        case 6: _t->setting_changeLangStore((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 7: _t->setting_selectDir1C(); break;
+        case 8: _t->setting_selectDirPL(); break;
         case 9: _t->file_Open(); break;
         case 10: _t->category_loadFromDB(); break;
         case 11: _t->category_loadFromDB_parent((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;

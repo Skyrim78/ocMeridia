@@ -120,17 +120,18 @@ public:
     QGroupBox *groupBox;
     QGridLayout *gridLayout_4;
     QRadioButton *radioButton_sC_catout;
-    QSpacerItem *horizontalSpacer_28;
     QRadioButton *radioButton_sC_catin;
     QComboBox *comboBox_sC_catin;
-    QSpacerItem *horizontalSpacer_24;
     QGroupBox *groupBox_3;
     QGridLayout *gridLayout_10;
-    QDoubleSpinBox *doubleSpinBox_sC_pricein;
     QRadioButton *radioButton_sC_priceount;
-    QSpacerItem *horizontalSpacer_22;
     QRadioButton *radioButton_sC_pricein;
-    QSpacerItem *horizontalSpacer_23;
+    QDoubleSpinBox *doubleSpinBox_sC_pricein;
+    QGroupBox *groupBox_8;
+    QGridLayout *gridLayout_21;
+    QRadioButton *radioButton_sC_newProdIn;
+    QRadioButton *radioButton_sC_newProdOunt;
+    QSpacerItem *horizontalSpacer_13;
     QGroupBox *groupBox_4;
     QGridLayout *gridLayout_11;
     QVBoxLayout *verticalLayout_10;
@@ -614,7 +615,7 @@ public:
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
         groupBox_2 = new QGroupBox(tab_load);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setFlat(false);
+        groupBox_2->setFlat(true);
         gridLayout_13 = new QGridLayout(groupBox_2);
         gridLayout_13->setSpacing(6);
         gridLayout_13->setContentsMargins(11, 11, 11, 11);
@@ -634,24 +635,16 @@ public:
 
         gridLayout_4->addWidget(radioButton_sC_catout, 0, 0, 1, 1);
 
-        horizontalSpacer_28 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_28, 0, 1, 1, 1);
-
         radioButton_sC_catin = new QRadioButton(groupBox);
         radioButton_sC_catin->setObjectName(QStringLiteral("radioButton_sC_catin"));
         radioButton_sC_catin->setChecked(true);
 
-        gridLayout_4->addWidget(radioButton_sC_catin, 1, 0, 1, 1);
+        gridLayout_4->addWidget(radioButton_sC_catin, 0, 1, 1, 1);
 
         comboBox_sC_catin = new QComboBox(groupBox);
         comboBox_sC_catin->setObjectName(QStringLiteral("comboBox_sC_catin"));
 
-        gridLayout_4->addWidget(comboBox_sC_catin, 1, 1, 1, 1);
-
-        horizontalSpacer_24 = new QSpacerItem(107, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_24, 1, 2, 1, 1);
+        gridLayout_4->addWidget(comboBox_sC_catin, 0, 2, 1, 1);
 
 
         verticalLayout_6->addWidget(groupBox);
@@ -662,32 +655,48 @@ public:
         gridLayout_10->setSpacing(6);
         gridLayout_10->setContentsMargins(11, 11, 11, 11);
         gridLayout_10->setObjectName(QStringLiteral("gridLayout_10"));
-        doubleSpinBox_sC_pricein = new QDoubleSpinBox(groupBox_3);
-        doubleSpinBox_sC_pricein->setObjectName(QStringLiteral("doubleSpinBox_sC_pricein"));
-
-        gridLayout_10->addWidget(doubleSpinBox_sC_pricein, 1, 1, 1, 1);
-
         radioButton_sC_priceount = new QRadioButton(groupBox_3);
         radioButton_sC_priceount->setObjectName(QStringLiteral("radioButton_sC_priceount"));
         radioButton_sC_priceount->setChecked(true);
 
         gridLayout_10->addWidget(radioButton_sC_priceount, 0, 0, 1, 1);
 
-        horizontalSpacer_22 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_10->addItem(horizontalSpacer_22, 0, 1, 1, 1);
-
         radioButton_sC_pricein = new QRadioButton(groupBox_3);
         radioButton_sC_pricein->setObjectName(QStringLiteral("radioButton_sC_pricein"));
 
-        gridLayout_10->addWidget(radioButton_sC_pricein, 1, 0, 1, 1);
+        gridLayout_10->addWidget(radioButton_sC_pricein, 0, 1, 1, 1);
 
-        horizontalSpacer_23 = new QSpacerItem(84, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        doubleSpinBox_sC_pricein = new QDoubleSpinBox(groupBox_3);
+        doubleSpinBox_sC_pricein->setObjectName(QStringLiteral("doubleSpinBox_sC_pricein"));
 
-        gridLayout_10->addItem(horizontalSpacer_23, 1, 2, 1, 1);
+        gridLayout_10->addWidget(doubleSpinBox_sC_pricein, 0, 2, 1, 1);
 
 
         verticalLayout_6->addWidget(groupBox_3);
+
+        groupBox_8 = new QGroupBox(groupBox_2);
+        groupBox_8->setObjectName(QStringLiteral("groupBox_8"));
+        gridLayout_21 = new QGridLayout(groupBox_8);
+        gridLayout_21->setSpacing(6);
+        gridLayout_21->setContentsMargins(11, 11, 11, 11);
+        gridLayout_21->setObjectName(QStringLiteral("gridLayout_21"));
+        radioButton_sC_newProdIn = new QRadioButton(groupBox_8);
+        radioButton_sC_newProdIn->setObjectName(QStringLiteral("radioButton_sC_newProdIn"));
+
+        gridLayout_21->addWidget(radioButton_sC_newProdIn, 0, 1, 1, 1);
+
+        radioButton_sC_newProdOunt = new QRadioButton(groupBox_8);
+        radioButton_sC_newProdOunt->setObjectName(QStringLiteral("radioButton_sC_newProdOunt"));
+        radioButton_sC_newProdOunt->setChecked(true);
+
+        gridLayout_21->addWidget(radioButton_sC_newProdOunt, 0, 0, 1, 1);
+
+        horizontalSpacer_13 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_21->addItem(horizontalSpacer_13, 0, 2, 1, 1);
+
+
+        verticalLayout_6->addWidget(groupBox_8);
 
         groupBox_4 = new QGroupBox(groupBox_2);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
@@ -1254,7 +1263,7 @@ public:
         retranslateUi(ocMeridia);
 
         tabWidget_main->setCurrentIndex(3);
-        tabWidget_setting->setCurrentIndex(3);
+        tabWidget_setting->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(ocMeridia);
@@ -1292,7 +1301,10 @@ public:
         groupBox_3->setTitle(QApplication::translate("ocMeridia", "\320\242\320\276\320\262\320\260\321\200\321\213 \320\261\320\265\320\267 \321\206\320\265\320\275:", 0));
         radioButton_sC_priceount->setText(QApplication::translate("ocMeridia", "\320\277\321\200\320\276\320\277\321\203\321\201\320\272\320\260\321\202\321\214", 0));
         radioButton_sC_pricein->setText(QApplication::translate("ocMeridia", "\320\267\320\260\320\263\321\200\321\203\320\266\320\260\321\202\321\214 \321\201 \321\206\320\265\320\275\320\276\320\271:", 0));
-        groupBox_4->setTitle(QApplication::translate("ocMeridia", "\320\237\321\200\320\270 \320\267\320\260\320\263\321\200\321\203\320\267\320\272\320\265 \320\276\320\261\320\275\320\276\320\262\320\273\321\217\321\202\321\214:", 0));
+        groupBox_8->setTitle(QApplication::translate("ocMeridia", "\320\235\320\276\320\262\321\213\320\265 \321\202\320\276\320\262\320\260\321\200\321\213", 0));
+        radioButton_sC_newProdIn->setText(QApplication::translate("ocMeridia", "\320\264\320\276\320\261\320\260\320\262\320\273\321\217\321\202\321\214", 0));
+        radioButton_sC_newProdOunt->setText(QApplication::translate("ocMeridia", "\320\277\321\200\320\276\320\277\321\203\321\201\320\272\320\260\321\202\321\214", 0));
+        groupBox_4->setTitle(QApplication::translate("ocMeridia", "\320\237\321\200\320\270 \320\267\320\260\320\263\321\200\321\203\320\267\320\272\320\265 \320\270\320\267\320\262\320\265\321\201\321\202\320\275\321\213\321\205 \321\202\320\276\320\262\320\260\321\200\320\276\320\262 \320\276\320\261\320\275\320\276\320\262\320\273\321\217\321\202\321\214:", 0));
         checkBox_sC_upname->setText(QApplication::translate("ocMeridia", "\320\235\320\260\320\270\320\274\320\265\320\275\320\276\320\262\320\260\320\275\320\270\320\265", 0));
         checkBox_sC_upprice->setText(QApplication::translate("ocMeridia", "\320\246\320\265\320\275\321\203", 0));
         checkBox_sC_upimage->setText(QApplication::translate("ocMeridia", "\320\230\320\267\320\276\320\261\321\200\320\260\320\266\320\265\320\275\320\270\320\265", 0));
