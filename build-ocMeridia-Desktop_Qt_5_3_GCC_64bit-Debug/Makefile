@@ -49,15 +49,19 @@ SOURCES       = ../ocMeridia/main.cpp \
 		../ocMeridia/ocmeridia.cpp \
 		../ocMeridia/connectdb.cpp \
 		../ocMeridia/mcategory.cpp \
-		../ocMeridia/product_form.cpp moc_ocmeridia.cpp \
-		moc_product_form.cpp
+		../ocMeridia/product_form.cpp \
+		../ocMeridia/setting.cpp moc_ocmeridia.cpp \
+		moc_product_form.cpp \
+		moc_setting.cpp
 OBJECTS       = main.o \
 		ocmeridia.o \
 		connectdb.o \
 		mcategory.o \
 		product_form.o \
+		setting.o \
 		moc_ocmeridia.o \
-		moc_product_form.o
+		moc_product_form.o \
+		moc_setting.o
 DIST          = /home/ev/Qt/5.3/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/ev/Qt/5.3/gcc_64/mkspecs/common/shell-unix.conf \
 		/home/ev/Qt/5.3/gcc_64/mkspecs/common/unix.conf \
@@ -170,7 +174,8 @@ DIST          = /home/ev/Qt/5.3/gcc_64/mkspecs/features/spec_pre.prf \
 		../ocMeridia/ocmeridia.cpp \
 		../ocMeridia/connectdb.cpp \
 		../ocMeridia/mcategory.cpp \
-		../ocMeridia/product_form.cpp
+		../ocMeridia/product_form.cpp \
+		../ocMeridia/setting.cpp
 QMAKE_TARGET  = ocMeridia
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = ocMeridia
@@ -200,7 +205,7 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET): ui_ocmeridia.h ui_product_form.h $(OBJECTS)  
+$(TARGET): ui_ocmeridia.h ui_product_form.h ui_setting.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../ocMeridia/ocMeridia.pro /home/ev/Qt/5.3/gcc_64/mkspecs/linux-g++/qmake.conf /home/ev/Qt/5.3/gcc_64/mkspecs/features/spec_pre.prf \
@@ -439,7 +444,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/ocMeridia1.0.0 || mkdir -p .tmp/ocMeridia1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/ocMeridia1.0.0/ && $(COPY_FILE) --parents ../ocMeridia/ocmeridia.h ../ocMeridia/connectdb.h ../ocMeridia/mcategory.h ../ocMeridia/product_form.h .tmp/ocMeridia1.0.0/ && $(COPY_FILE) --parents ../ocMeridia/main.cpp ../ocMeridia/ocmeridia.cpp ../ocMeridia/connectdb.cpp ../ocMeridia/mcategory.cpp ../ocMeridia/product_form.cpp .tmp/ocMeridia1.0.0/ && $(COPY_FILE) --parents ../ocMeridia/ocmeridia.ui ../ocMeridia/product_form.ui .tmp/ocMeridia1.0.0/ && (cd `dirname .tmp/ocMeridia1.0.0` && $(TAR) ocMeridia1.0.0.tar ocMeridia1.0.0 && $(COMPRESS) ocMeridia1.0.0.tar) && $(MOVE) `dirname .tmp/ocMeridia1.0.0`/ocMeridia1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ocMeridia1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/ocMeridia1.0.0/ && $(COPY_FILE) --parents ../ocMeridia/ocmeridia.h ../ocMeridia/connectdb.h ../ocMeridia/mcategory.h ../ocMeridia/product_form.h ../ocMeridia/setting.h .tmp/ocMeridia1.0.0/ && $(COPY_FILE) --parents ../ocMeridia/main.cpp ../ocMeridia/ocmeridia.cpp ../ocMeridia/connectdb.cpp ../ocMeridia/mcategory.cpp ../ocMeridia/product_form.cpp ../ocMeridia/setting.cpp .tmp/ocMeridia1.0.0/ && $(COPY_FILE) --parents ../ocMeridia/ocmeridia.ui ../ocMeridia/product_form.ui ../ocMeridia/setting.ui .tmp/ocMeridia1.0.0/ && (cd `dirname .tmp/ocMeridia1.0.0` && $(TAR) ocMeridia1.0.0.tar ocMeridia1.0.0 && $(COMPRESS) ocMeridia1.0.0.tar) && $(MOVE) `dirname .tmp/ocMeridia1.0.0`/ocMeridia1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ocMeridia1.0.0
 
 
 clean:compiler_clean 
@@ -462,9 +467,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_ocmeridia.cpp moc_product_form.cpp
+compiler_moc_header_make_all: moc_ocmeridia.cpp moc_product_form.cpp moc_setting.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_ocmeridia.cpp moc_product_form.cpp
+	-$(DEL_FILE) moc_ocmeridia.cpp moc_product_form.cpp moc_setting.cpp
 moc_ocmeridia.cpp: /home/ev/Qt/5.3/gcc_64/include/QtWidgets/QMainWindow \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qmainwindow.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qwidget.h \
@@ -714,6 +719,7 @@ moc_ocmeridia.cpp: /home/ev/Qt/5.3/gcc_64/include/QtWidgets/QMainWindow \
 		/home/ev/Qt/5.3/gcc_64/include/QtXml/qdom.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtXml/qxml.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtXml/qtxmlversion.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QSettings \
 		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QFileDialog \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
@@ -971,19 +977,136 @@ moc_product_form.cpp: /home/ev/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
 		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqltablemodel.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtSql/qtsqlversion.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
 		../ocMeridia/product_form.h
 	/home/ev/Qt/5.3/gcc_64/bin/moc $(DEFINES) -I/home/ev/Qt/5.3/gcc_64/mkspecs/linux-g++ -I/media/ev/MyLinuxLive/Git/ocMeridia/ocMeridia -I/home/ev/Qt/5.3/gcc_64/include -I/home/ev/Qt/5.3/gcc_64/include/QtWidgets -I/home/ev/Qt/5.3/gcc_64/include/QtXml -I/home/ev/Qt/5.3/gcc_64/include/QtSql -I/home/ev/Qt/5.3/gcc_64/include/QtGui -I/home/ev/Qt/5.3/gcc_64/include/QtCore -I. ../ocMeridia/product_form.h -o moc_product_form.cpp
 
+moc_setting.cpp: /home/ev/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qdialog.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qwidget.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qglobal.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qconfig.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfeatures.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtypetraits.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsysinfo.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlogging.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qflags.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmutex.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qnumeric.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qnamespace.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qobject.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstring.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qchar.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbytearray.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qrefcount.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qarraydata.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlist.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qalgorithms.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qiterator.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcoreevent.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmetatype.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qisenum.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qobject_impl.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmargins.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qrect.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsize.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpoint.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpalette.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qcolor.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qrgb.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstringlist.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdatastream.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qiodevice.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpair.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qregexp.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qbrush.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qvector.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qmatrix.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpolygon.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qregion.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qline.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtransform.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpainterpath.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qimage.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpixmap.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qshareddata.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qhash.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qfont.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qfontinfo.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qcursor.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qkeysequence.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qevent.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qvariant.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmap.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdebug.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtextstream.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlocale.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qset.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qurl.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qurlquery.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfile.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfiledevice.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qvector2d.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QSettings \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsettings.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtimer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbasictimer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QFileDialog \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdir.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfileinfo.h \
+		../ocMeridia/setting.h
+	/home/ev/Qt/5.3/gcc_64/bin/moc $(DEFINES) -I/home/ev/Qt/5.3/gcc_64/mkspecs/linux-g++ -I/media/ev/MyLinuxLive/Git/ocMeridia/ocMeridia -I/home/ev/Qt/5.3/gcc_64/include -I/home/ev/Qt/5.3/gcc_64/include/QtWidgets -I/home/ev/Qt/5.3/gcc_64/include/QtXml -I/home/ev/Qt/5.3/gcc_64/include/QtSql -I/home/ev/Qt/5.3/gcc_64/include/QtGui -I/home/ev/Qt/5.3/gcc_64/include/QtCore -I. ../ocMeridia/setting.h -o moc_setting.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_ocmeridia.h ui_product_form.h
+compiler_uic_make_all: ui_ocmeridia.h ui_product_form.h ui_setting.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_ocmeridia.h ui_product_form.h
+	-$(DEL_FILE) ui_ocmeridia.h ui_product_form.h ui_setting.h
 ui_ocmeridia.h: ../ocMeridia/ocmeridia.ui
 	/home/ev/Qt/5.3/gcc_64/bin/uic ../ocMeridia/ocmeridia.ui -o ui_ocmeridia.h
 
 ui_product_form.h: ../ocMeridia/product_form.ui
 	/home/ev/Qt/5.3/gcc_64/bin/uic ../ocMeridia/product_form.ui -o ui_product_form.h
+
+ui_setting.h: ../ocMeridia/setting.ui
+	/home/ev/Qt/5.3/gcc_64/bin/uic ../ocMeridia/setting.ui -o ui_setting.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -1245,6 +1368,7 @@ main.o: ../ocMeridia/main.cpp ../ocMeridia/ocmeridia.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtXml/qdom.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtXml/qxml.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtXml/qtxmlversion.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QSettings \
 		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QFileDialog \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
@@ -1513,6 +1637,7 @@ ocmeridia.o: ../ocMeridia/ocmeridia.cpp ../ocMeridia/ocmeridia.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtXml/qdom.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtXml/qxml.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtXml/qtxmlversion.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QSettings \
 		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QFileDialog \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
@@ -1536,6 +1661,12 @@ ocmeridia.o: ../ocMeridia/ocmeridia.cpp ../ocMeridia/ocmeridia.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtGui/qinputmethod.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QButtonGroup \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QCheckBox \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qcheckbox.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QComboBox \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QDoubleSpinBox \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qspinbox.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QGridLayout \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlayout.h \
@@ -1561,10 +1692,10 @@ ocmeridia.o: ../ocMeridia/ocmeridia.cpp ../ocMeridia/ocmeridia.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qprogressbar.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QPushButton \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qpushbutton.h \
-		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractbutton.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QRadioButton \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qradiobutton.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QSpacerItem \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QSpinBox \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QSplitter \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qsplitter.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QStatusBar \
@@ -2263,14 +2394,181 @@ product_form.o: ../ocMeridia/product_form.cpp ../ocMeridia/product_form.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqltablemodel.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtSql/qtsqlversion.h \
-		ui_product_form.h
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
+		ui_product_form.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QVariant \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QAction \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qaction.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QApplication \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qapplication.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qguiapplication.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qinputmethod.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QCheckBox \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qcheckbox.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QComboBox \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QGridLayout \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlayout.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QGroupBox \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QHeaderView \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QLabel \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlabel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QLineEdit \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtextcursor.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtextformat.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpen.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtextoption.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QPushButton \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QRadioButton \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qradiobutton.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QSpacerItem \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QSplitter \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qsplitter.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QTableWidget \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtablewidget.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtableview.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QTextEdit \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtextdocument.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QToolButton \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtoolbutton.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o product_form.o ../ocMeridia/product_form.cpp
+
+setting.o: ../ocMeridia/setting.cpp ../ocMeridia/setting.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qdialog.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qwidget.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qglobal.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qconfig.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfeatures.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtypetraits.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsysinfo.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlogging.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qflags.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmutex.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qnumeric.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qnamespace.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qobject.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstring.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qchar.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbytearray.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qrefcount.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qarraydata.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlist.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qalgorithms.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qiterator.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcoreevent.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmetatype.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qisenum.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qobject_impl.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmargins.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qrect.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsize.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpoint.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpalette.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qcolor.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qrgb.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstringlist.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdatastream.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qiodevice.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpair.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qregexp.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qbrush.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qvector.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qmatrix.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpolygon.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qregion.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qline.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtransform.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpainterpath.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qimage.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpixmap.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qshareddata.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qhash.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qfont.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qfontinfo.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qcursor.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qkeysequence.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qevent.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qvariant.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmap.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdebug.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtextstream.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlocale.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qset.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qurl.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qurlquery.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfile.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfiledevice.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qvector2d.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QSettings \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsettings.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtimer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbasictimer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QFileDialog \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdir.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfileinfo.h \
+		ui_setting.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o setting.o ../ocMeridia/setting.cpp
 
 moc_ocmeridia.o: moc_ocmeridia.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ocmeridia.o moc_ocmeridia.cpp
 
 moc_product_form.o: moc_product_form.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_product_form.o moc_product_form.cpp
+
+moc_setting.o: moc_setting.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_setting.o moc_setting.cpp
 
 ####### Install
 

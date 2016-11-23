@@ -10,6 +10,7 @@
 #include <QTreeWidgetItem>
 #include "mcategory.h"
 #include "product_form.h"
+#include "setting.h"
 
 namespace Ui {
 class ocMeridia;
@@ -46,6 +47,7 @@ public:
     QMap<int,int> statusMap;
     QString _DIR;
     QMap<int,int> categoryMap;
+    double _QUAN;
 
     //-category
     int cat_activeID;
@@ -68,6 +70,7 @@ public slots:
     void setting_testConnect();
     void setting_changeLangStore(int idx);
     void setting_selectDir1C();
+    void setting_loadListFiles();
     void setting_selectDirPL();
 
     void file_Open();

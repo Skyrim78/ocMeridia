@@ -16,12 +16,15 @@ SOURCES += main.cpp\
         ocmeridia.cpp \
     connectdb.cpp \
     mcategory.cpp \
-    product_form.cpp
+    product_form.cpp \
+    setting.cpp
 
 HEADERS  += ocmeridia.h \
     connectdb.h \
     mcategory.h \
-    product_form.h
+    product_form.h \
+    setting.h
 
 FORMS    += ocmeridia.ui \
-    product_form.ui
+    product_form.ui \
+    setting.ui

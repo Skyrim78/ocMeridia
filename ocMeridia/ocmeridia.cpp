@@ -29,7 +29,9 @@ ocMeridia::ocMeridia(QWidget *parent) :
     connect(ui->pushButton_settingWrite, SIGNAL(clicked(bool)), this, SLOT(writeSetting()));
     connect(ui->comboBox_sB_lang, SIGNAL(activated(int)), this, SLOT(setting_changeLangStore(int)));
     connect(ui->toolButton_dir1C, SIGNAL(clicked(bool)), this, SLOT(setting_selectDir1C()));
-    connect(ui->toolButton_dirPL, SIGNAL(clicked(bool)), this, SLOT(setting_selectDirPL()));
+    connect(ui->tableWidget_priceFiles, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(setting_selectDirPL()));
+    connect(ui->toolButton_pl_edit, SIGNAL(clicked(bool)), this, SLOT(setting_selectDirPL()));
+    //connect(ui->toolButton_dirPL, SIGNAL(clicked(bool)), this, SLOT(setting_selectDirPL()));
 
     //file
     connect(ui->toolButton_file, SIGNAL(clicked(bool)), this, SLOT(file_Open()));
@@ -68,6 +70,7 @@ void ocMeridia::readSetting()
     _TAX = sett.value("oc/tax").toInt();
     _STOCK = sett.value("oc/stock").toInt();
     _STATUS = sett.value("oc/status").toInt();
+    _QUAN = sett.value("oc/quan").toDouble();
     _DIR = "catalog/";
     _DIR.append(sett.value("oc/dir").toString());
     ui->lineEdit_sB_dir->setText(sett.value("oc/dir").toString());
@@ -77,7 +80,7 @@ void ocMeridia::readSetting()
     ui->radioButton_sC_catin->setChecked(sett.value("load1c/cat_in").toBool());
     ui->radioButton_sC_priceount->setChecked(sett.value("load1c/prod_out").toBool());
     ui->radioButton_sC_pricein->setChecked(sett.value("load1c/prod_in").toBool());
-    ui->doubleSpinBox_sC_pricein->setValue(sett.value("load1c/prod_price").toDouble());
+    //ui->doubleSpinBox_sC_pricein->setValue(sett.value("load1c/prod_price").toDouble());
     ui->radioButton_sC_newProdOunt->setChecked(sett.value("load1c/new_prod_out").toBool());
     ui->radioButton_sC_newProdIn->setChecked(sett.value("load1c/new_prod_in").toBool());
     ui->checkBox_sC_upname->setChecked(sett.value("load1c/up_name").toInt());
@@ -93,17 +96,26 @@ void ocMeridia::readSetting()
     ui->radioButton_sCpl_upall->setChecked(sett.value("loadpl/up_all").toBool());
     ui->radioButton_sCpl_upprice->setChecked(sett.value("loadpl/up_price").toBool());
 
-    //----auto
-    ui->lineEdit_sD_dir1c->setText(sett.value("auto/1cdir").toString());
-    ui->lineEdit_sD_dirpl->setText(sett.value("auto/pldir").toString());
+
 
     //load status products
     ui->comboBox_sB_status->setCurrentIndex(statusMap.key(_STATUS));
+    ui->doubleSpinBox_sB_quan->setValue(_QUAN);
+
 
 
 
     setting_connect_netDB();
     setting_connect_locDB();
+
+    //----auto file
+    QSqlQuery queryMainFile("SELECT files.fname FROM files WHERE files.vid = \'2\' ", db_local);
+    queryMainFile.next();
+    if (queryMainFile.isValid()){
+        ui->lineEdit_sD_dir1c->setText(queryMainFile.value(0).toString());
+    }
+    setting_loadListFiles();
+    ui->tableWidget_priceFiles->setColumnHidden(0, true);
 
 }
 
@@ -119,9 +131,10 @@ void ocMeridia::writeSetting()
     sett.endGroup();
     sett.beginGroup("oc");
     sett.setValue("lang", langMap.value(ui->comboBox_sB_lang->currentIndex()));
-    sett.setValue("tax", langMap.value(ui->comboBox_sB_tax->currentIndex()));
-    sett.setValue("stock", langMap.value(ui->comboBox_sB_stock->currentIndex()));
-    sett.setValue("status", langMap.value(ui->comboBox_sB_status->currentIndex()));
+    sett.setValue("tax", taxMap.value(ui->comboBox_sB_tax->currentIndex()));
+    sett.setValue("stock", stockMap.value(ui->comboBox_sB_stock->currentIndex()));
+    sett.setValue("status", statusMap.value(ui->comboBox_sB_status->currentIndex()));
+    sett.setValue("quan", ui->doubleSpinBox_sB_quan->value());
     sett.setValue("dir", ui->lineEdit_sB_dir->text());
     sett.endGroup();
     sett.beginGroup("load1c");
@@ -130,7 +143,7 @@ void ocMeridia::writeSetting()
     sett.setValue("cat_target", categoryMap.value(ui->comboBox_sC_catin->currentIndex()));
     sett.setValue("prod_out", ui->radioButton_sC_priceount->isChecked());
     sett.setValue("prod_in", ui->radioButton_sC_pricein->isChecked());
-    sett.setValue("prod_price", ui->doubleSpinBox_sC_pricein->value());
+    //sett.setValue("prod_price", ui->doubleSpinBox_sC_pricein->value());
     sett.setValue("new_prod_out", ui->radioButton_sC_newProdOunt->isChecked());
     sett.setValue("new_prod_in", ui->radioButton_sC_newProdIn->isChecked());
     sett.setValue("up_name", ui->checkBox_sC_upname->checkState());
@@ -150,7 +163,7 @@ void ocMeridia::writeSetting()
     sett.endGroup();
     sett.beginGroup("auto");
     sett.setValue("1cdir", ui->lineEdit_sD_dir1c->text());
-    sett.setValue("pldir", ui->lineEdit_sD_dirpl->text());
+    //sett.setValue("pldir", ui->lineEdit_sD_dirpl->text());
     sett.endGroup();
 
     makeMessage("Настройки сохранены", true);
@@ -238,6 +251,11 @@ void ocMeridia::setting_testConnect()
 
 void ocMeridia::loadMaps()
 {
+    //status
+    statusMap.clear();
+    statusMap.insert(0, 1);
+    statusMap.insert(1, 0);
+
     //load tax class
     taxMap.clear();
     ui->comboBox_sB_tax->clear();
@@ -293,12 +311,48 @@ void ocMeridia::setting_changeLangStore(int idx)
 
 void ocMeridia::setting_selectDir1C()
 {
-    ui->lineEdit_sD_dir1c->setText(QFileDialog::getExistingDirectory(this, "Выберите директорию", "HOME"));
+    QString fname = QFileDialog::getOpenFileName(this, "Select file...", "HOME", "XML 1C (*.cml)");
+    if (fname.size() > 0){
+        if (ui->lineEdit_sD_dir1c->text().isEmpty()){
+            ui->lineEdit_sD_dir1c->setText(fname);
+            QSqlQuery query("INSERT INTO files (fname, vid, active) VALUES (?, ?, ?)", db_local);
+            query.bindValue(0, fname);
+            query.bindValue(1, 2);
+            query.bindValue(2, 2);
+            query.exec();
+        } else {
+            ui->lineEdit_sD_dir1c->setText(fname);
+            QSqlQuery query(QString("UPDATE files SET fname = \'%1\' WHERE files.vid = \'2\' ").arg(fname), db_local);
+            query.exec();
+        }
+    }
+}
+
+void ocMeridia::setting_loadListFiles()
+{
+    for (int row = ui->tableWidget_priceFiles->rowCount() - 1; row >= 0; row--){
+        ui->tableWidget_priceFiles->removeRow(row);
+    }
+    QSqlQuery queryPriceFile("SELECT files.id, files.fname FROM files WHERE files.vid = \'0\' AND files.active = \'1\' ", db_local);
+    int row = 0;
+    while (queryPriceFile.next()){
+        ui->tableWidget_priceFiles->insertRow(row);
+        for (int col = 0; col < 2; col++){
+            QTableWidgetItem *item = new QTableWidgetItem(queryPriceFile.value(col).toString());
+            ui->tableWidget_priceFiles->setItem(row, col, item);
+        }
+        row++;
+    }
+    ui->tableWidget_priceFiles->resizeColumnsToContents();
+    ui->tableWidget_priceFiles->horizontalHeader()->setStretchLastSection(true);
+
 }
 
 void ocMeridia::setting_selectDirPL()
 {
-    ui->lineEdit_sD_dirpl->setText(QFileDialog::getExistingDirectory(this, "Выберите директорию", "HOME"));
+    setting *se = new setting(db_local, this);
+    se->exec();
+    setting_loadListFiles();
 }
 
 //***************************************************************************
@@ -899,7 +953,6 @@ void ocMeridia::product_loadOnServer()
                             idxIN = false;
                         } else if (ui->radioButton_sC_pricein->isChecked()) { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
                             idxIN = true;
-                            price = ui->doubleSpinBox_sC_pricein->value();
                         }
                     }
                 } else if (ui->radioButton_sC_newProdOunt->isChecked()){
@@ -914,7 +967,6 @@ void ocMeridia::product_loadOnServer()
                         idxUP = false;
                     } else if (ui->radioButton_sC_pricein->isChecked()) { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
                         idxUP = true;
-                        price = ui->doubleSpinBox_sC_pricein->value();
                     }
                 }
 
@@ -928,7 +980,7 @@ void ocMeridia::product_loadOnServer()
                                           "tax_class_id, status, price, image, date_added, date_modified) "
                                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", db_server);
                 queryAddProduct.bindValue(0, ui->tableWidget_product->item(row, 1)->text());
-                queryAddProduct.bindValue(1, QString::number(ui->doubleSpinBox_sB_quan->value(), 'f', 2));
+                queryAddProduct.bindValue(1, QString::number(_QUAN, 'f', 2));
                 queryAddProduct.bindValue(2, 0); // производителя нет
                 queryAddProduct.bindValue(3, _STOCK); //stock status  = 7 (в наличие)
                 queryAddProduct.bindValue(4, _TAX); // tax_class = 9 (облагаемый налогом)

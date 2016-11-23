@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>870</width>
-    <height>672</height>
+    <height>732</height>
    </rect>
   </property>
   <property name="font">
@@ -25,7 +25,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget_main">
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab_setting">
          <attribute name="title">
@@ -365,64 +365,10 @@
                   <item row="0" column="0">
                    <layout class="QHBoxLayout" name="horizontalLayout_6">
                     <item>
-                     <spacer name="horizontalSpacer_7">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_8">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>100</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>Магазин:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QComboBox" name="comboBox_sB_store"/>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_8">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeType">
-                       <enum>QSizePolicy::Fixed</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
                      <widget class="QLabel" name="label_9">
                       <property name="minimumSize">
                        <size>
-                        <width>0</width>
+                        <width>250</width>
                         <height>0</height>
                        </size>
                       </property>
@@ -441,7 +387,11 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="comboBox_sB_lang"/>
+                     <widget class="QComboBox" name="comboBox_sB_lang">
+                      <property name="sizeAdjustPolicy">
+                       <enum>QComboBox::AdjustToContents</enum>
+                      </property>
+                     </widget>
                     </item>
                     <item>
                      <spacer name="horizontalSpacer_6">
@@ -483,7 +433,11 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="comboBox_sB_tax"/>
+                     <widget class="QComboBox" name="comboBox_sB_tax">
+                      <property name="sizeAdjustPolicy">
+                       <enum>QComboBox::AdjustToContents</enum>
+                      </property>
+                     </widget>
                     </item>
                     <item>
                      <spacer name="horizontalSpacer_9">
@@ -525,7 +479,11 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="comboBox_sB_stock"/>
+                     <widget class="QComboBox" name="comboBox_sB_stock">
+                      <property name="sizeAdjustPolicy">
+                       <enum>QComboBox::AdjustToContents</enum>
+                      </property>
+                     </widget>
                     </item>
                     <item>
                      <spacer name="horizontalSpacer_10">
@@ -721,13 +679,10 @@
                             <string>Отсутствующие категории:</string>
                            </property>
                            <layout class="QGridLayout" name="gridLayout_4">
-                            <item row="0" column="0">
-                             <widget class="QRadioButton" name="radioButton_sC_catout">
-                              <property name="text">
-                               <string>пропускать</string>
-                              </property>
-                              <property name="checked">
-                               <bool>false</bool>
+                            <item row="0" column="2">
+                             <widget class="QComboBox" name="comboBox_sC_catin">
+                              <property name="sizeAdjustPolicy">
+                               <enum>QComboBox::AdjustToContents</enum>
                               </property>
                              </widget>
                             </item>
@@ -741,8 +696,28 @@
                               </property>
                              </widget>
                             </item>
-                            <item row="0" column="2">
-                             <widget class="QComboBox" name="comboBox_sC_catin"/>
+                            <item row="0" column="0">
+                             <widget class="QRadioButton" name="radioButton_sC_catout">
+                              <property name="text">
+                               <string>пропускать</string>
+                              </property>
+                              <property name="checked">
+                               <bool>false</bool>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="3">
+                             <spacer name="horizontalSpacer_7">
+                              <property name="orientation">
+                               <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
                             </item>
                            </layout>
                           </widget>
@@ -766,12 +741,22 @@
                             <item row="0" column="1">
                              <widget class="QRadioButton" name="radioButton_sC_pricein">
                               <property name="text">
-                               <string>загружать с ценой:</string>
+                               <string>загружать</string>
                               </property>
                              </widget>
                             </item>
                             <item row="0" column="2">
-                             <widget class="QDoubleSpinBox" name="doubleSpinBox_sC_pricein"/>
+                             <spacer name="horizontalSpacer_8">
+                              <property name="orientation">
+                               <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
                             </item>
                            </layout>
                           </widget>
@@ -911,6 +896,16 @@
                             <string>Отсутствующие категории:</string>
                            </property>
                            <layout class="QGridLayout" name="gridLayout_14">
+                            <item row="0" column="1">
+                             <widget class="QRadioButton" name="radioButton_sCpl_catin">
+                              <property name="text">
+                               <string>загружать в:</string>
+                              </property>
+                              <property name="checked">
+                               <bool>false</bool>
+                              </property>
+                             </widget>
+                            </item>
                             <item row="0" column="0">
                              <widget class="QRadioButton" name="radioButton_sCpl_catout">
                               <property name="text">
@@ -921,40 +916,21 @@
                               </property>
                              </widget>
                             </item>
-                            <item row="0" column="1">
-                             <spacer name="horizontalSpacer_30">
-                              <property name="orientation">
-                               <enum>Qt::Horizontal</enum>
-                              </property>
-                              <property name="sizeHint" stdset="0">
-                               <size>
-                                <width>40</width>
-                                <height>20</height>
-                               </size>
-                              </property>
-                             </spacer>
-                            </item>
-                            <item row="1" column="0">
-                             <widget class="QRadioButton" name="radioButton_sCpl_catin">
-                              <property name="text">
-                               <string>загружать в:</string>
-                              </property>
-                              <property name="checked">
-                               <bool>false</bool>
+                            <item row="0" column="2">
+                             <widget class="QComboBox" name="comboBox_sCpl_catin">
+                              <property name="sizeAdjustPolicy">
+                               <enum>QComboBox::AdjustToContents</enum>
                               </property>
                              </widget>
                             </item>
-                            <item row="1" column="1">
-                             <widget class="QComboBox" name="comboBox_sCpl_catin"/>
-                            </item>
-                            <item row="1" column="2">
+                            <item row="0" column="3">
                              <spacer name="horizontalSpacer_29">
                               <property name="orientation">
                                <enum>Qt::Horizontal</enum>
                               </property>
                               <property name="sizeHint" stdset="0">
                                <size>
-                                <width>107</width>
+                                <width>83</width>
                                 <height>20</height>
                                </size>
                               </property>
@@ -979,7 +955,7 @@
                               </property>
                              </widget>
                             </item>
-                            <item row="1" column="0">
+                            <item row="0" column="1">
                              <widget class="QRadioButton" name="radioButton_sCpl_prodin">
                               <property name="text">
                                <string>добавлять</string>
@@ -988,6 +964,58 @@
                                <bool>true</bool>
                               </property>
                              </widget>
+                            </item>
+                            <item row="0" column="2">
+                             <spacer name="horizontalSpacer_14">
+                              <property name="orientation">
+                               <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QGroupBox" name="groupBox_9">
+                           <property name="title">
+                            <string>Товары без цен:</string>
+                           </property>
+                           <layout class="QGridLayout" name="gridLayout_22">
+                            <item row="0" column="0">
+                             <widget class="QRadioButton" name="radioButton_sC_priceount_2">
+                              <property name="text">
+                               <string>пропускать</string>
+                              </property>
+                              <property name="checked">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QRadioButton" name="radioButton_sC_pricein_2">
+                              <property name="text">
+                               <string>загружать</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="2">
+                             <spacer name="horizontalSpacer_16">
+                              <property name="orientation">
+                               <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
                             </item>
                            </layout>
                           </widget>
@@ -1005,7 +1033,7 @@
                               </property>
                              </widget>
                             </item>
-                            <item row="1" column="0">
+                            <item row="0" column="1">
                              <widget class="QRadioButton" name="radioButton_sCpl_upprice">
                               <property name="text">
                                <string>только цену</string>
@@ -1014,6 +1042,19 @@
                                <bool>true</bool>
                               </property>
                              </widget>
+                            </item>
+                            <item row="0" column="2">
+                             <spacer name="horizontalSpacer_15">
+                              <property name="orientation">
+                               <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
                             </item>
                            </layout>
                           </widget>
@@ -1046,15 +1087,15 @@
                <attribute name="title">
                 <string>Автомат</string>
                </attribute>
-               <layout class="QGridLayout" name="gridLayout_15">
-                <item row="0" column="0">
-                 <layout class="QVBoxLayout" name="verticalLayout_20">
+               <layout class="QVBoxLayout" name="verticalLayout_13">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_12">
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_28">
                     <item>
                      <widget class="QLabel" name="label_36">
                       <property name="text">
-                       <string>Расположение выгрузки 1С:</string>
+                       <string>Выгрузка 1С:</string>
                       </property>
                      </widget>
                     </item>
@@ -1084,6 +1125,7 @@
                       </property>
                       <property name="font">
                        <font>
+                        <pointsize>11</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -1096,63 +1138,67 @@
                    </layout>
                   </item>
                   <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_29">
-                    <item>
-                     <widget class="QLabel" name="label_37">
-                      <property name="text">
-                       <string>Расположение прайс-листов:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLineEdit" name="lineEdit_sD_dirpl">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QToolButton" name="toolButton_dirPL">
-                      <property name="minimumSize">
-                       <size>
-                        <width>30</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>30</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <weight>75</weight>
-                        <bold>true</bold>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>...</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <spacer name="verticalSpacer_6">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
+                   <widget class="QGroupBox" name="groupBox_10">
+                    <property name="title">
+                     <string>Список прайс-листов для загрузки</string>
                     </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
+                    <layout class="QGridLayout" name="gridLayout_15">
+                     <item row="0" column="0">
+                      <layout class="QHBoxLayout" name="horizontalLayout_13">
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_11">
+                         <item>
+                          <widget class="QToolButton" name="toolButton_pl_edit">
+                           <property name="minimumSize">
+                            <size>
+                             <width>30</width>
+                             <height>30</height>
+                            </size>
+                           </property>
+                           <property name="text">
+                            <string>e</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <spacer name="verticalSpacer_3">
+                           <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>20</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <widget class="QTableWidget" name="tableWidget_priceFiles">
+                         <property name="editTriggers">
+                          <set>QAbstractItemView::NoEditTriggers</set>
+                         </property>
+                         <property name="selectionBehavior">
+                          <enum>QAbstractItemView::SelectRows</enum>
+                         </property>
+                         <column>
+                          <property name="text">
+                           <string>шв</string>
+                          </property>
+                         </column>
+                         <column>
+                          <property name="text">
+                           <string>Файл</string>
+                          </property>
+                         </column>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </widget>
                   </item>
                  </layout>
                 </item>
