@@ -62,6 +62,9 @@ public slots:
     void product_load();
     int product_get_id(const QString prod_code, const QString prod_name);
     void product_insert(const QString pcode, const QString pname, const QString pgroup, const QString pimage, const QString pdesc, const QString pattr, double pprice);
+
+    //log
+    void writeLog();
 };
 
 #endif // OCMERIDIAAUTO_H

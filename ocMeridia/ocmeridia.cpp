@@ -299,7 +299,6 @@ void ocMeridia::loadMaps()
 
     category_loadFromDB();
 
-
 }
 
 
