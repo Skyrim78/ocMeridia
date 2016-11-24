@@ -8,28 +8,33 @@ ocMeridiaAuto::ocMeridiaAuto(QWidget *parent) :
 {
     ui->setupUi(this);
     QSettings sett("setting.ini", QSettings::IniFormat);
-    _LANG = sett.value("oc/lang").toInt();
-    _STATUS = sett.value("oc/status").toInt();
-    _STORE = 0;
-    _DIR = "catalog/";
-    _DIR.append(sett.value("oc/dir").toString());
+    if (sett.value("auto/active").toBool()){
+        _LANG = sett.value("oc/lang").toInt();
+        _STATUS = sett.value("oc/status").toInt();
+        _STORE = 0;
+        _DIR = "catalog/";
+        _DIR.append(sett.value("oc/dir").toString());
 
 
-    log.append(QString("Start at: %1").arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy")));
+        log.append(QString("Start at: %1").arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy")));
 
-    connect_db_local();
-    connect_db_server();
-    getMainFile();
-    readMainFile();
+        connect_db_local();
+        connect_db_server();
+        getMainFile();
+        readMainFile();
 
-    category_test();
-    product_load();
+        category_test();
+        product_load();
 
+        log.append(QString("Finish at: %1").arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy")));
+        writeLog();
+    }   else {
+        qDebug() << "-";
+    }
 
-    qDebug() << log;
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(close()));
-    timer->start(3000);
+    timer->start(10);
 }
 
 ocMeridiaAuto::~ocMeridiaAuto()
@@ -143,7 +148,7 @@ void ocMeridiaAuto::readMainFile()
         mapProduct.clear();
         QDomNode nodeProducts = nodeAll.childNodes().at(idxProd);
         QString _line;
-        for (int y = 0; y < 500; y++){; //*//*nodeProducts.childNodes().count(); y++){ //****
+        for (int y = 0; y < 500; y++){; //*/nodeProducts.childNodes().count(); y++){ //****
             QDomNode nodeProduct = nodeProducts.childNodes().at(y);
             QString _ID = nodeProduct.firstChildElement("Ид").text();
             if (_ID.size() == 36){
@@ -220,6 +225,8 @@ void ocMeridiaAuto::readMainFile()
 
 void ocMeridiaAuto::category_test()
 {
+    int idx_n = 0;
+    int idx_y = 0;
     QList<int> del_list;
     for (int x = 0; x < file_category_list.size(); x++){
         QSqlQuery queryS(QString("SELECT rmrt_category.category_id "
@@ -231,6 +238,7 @@ void ocMeridiaAuto::category_test()
             category_productChange(file_category_list.at(x).split("||").at(0), queryS.value(0).toString());
             // cтроки для удаления
             del_list.append(x);
+            idx_y++;
         } else {
             //test2: проверяем наличие записи по имени
             QSqlQuery queryS2(QString("SELECT rmrt_category_description.category_id "
@@ -249,6 +257,7 @@ void ocMeridiaAuto::category_test()
                 category_productChange(file_category_list.at(x).split("||").at(0), queryS2.value(0).toString());
                 // cтроки для удаления
                 del_list.append(x);
+                idx_y++;
             } else {
                 // проверяем наличие категории в синонимах
                 QSqlQuery queryL(QString("SELECT cat.id_db FROM cat WHERE cat.cod = \'%1\'")
@@ -260,6 +269,7 @@ void ocMeridiaAuto::category_test()
                     category_productChange(file_category_list.at(x).split("||").at(0), queryL.value(0).toString());
                     // cтроки для удаления
                     del_list.append(x);
+                    idx_y++;
                 } else {
                     QSettings sett("setting.ini", QSettings::IniFormat);
                     if (sett.value("load1c/cat_in").toBool()){ // если по настройкам новую категорию вносим
@@ -268,9 +278,11 @@ void ocMeridiaAuto::category_test()
                                                     sett.value("load1c/cat_target").toString());
                         category_productChange(file_category_list.at(x).split("||").at(0), QString::number(newCatID));
                         del_list.append(x);
+                        idx_y++;
                     } else if (sett.value("load1c/cat_out").toBool()) { //если по настройками новую категорию не вносим
                         category_productDelete(file_category_list.at(x).split("||").at(0));
                         del_list.append(x);
+                        idx_n++;
                     }
                 }
             }
@@ -279,9 +291,12 @@ void ocMeridiaAuto::category_test()
     for (int x = del_list.size() - 1; x >= 0; x--){
         file_category_list.removeAt(del_list.at(x));
     }
+    log.append(QString("%1 - обработано категорий: %2")
+               .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
+               .arg(idx_y));
     log.append(QString("%1 - осталось необработанных категорий: %2")
                .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
-               .arg(file_category_list.size()));
+               .arg(idx_n));
 }
 
 void ocMeridiaAuto::category_productChange(QString prevID, QString realID)
@@ -336,7 +351,7 @@ int ocMeridiaAuto::category_add(QString cat_code, QString cat_name, QString cat_
     query_C.bindValue(6, cat_code);
     query_C.exec();
     if (query_C.lastError().text().size() > 3){
-        error.append(query_C.lastError().text());
+        error.append(QString("category_add | query C -- error: %1").arg(query_C.lastError().text()));
     } else {
         cat_ID = query_C.lastInsertId().toInt();
         //description
@@ -348,15 +363,15 @@ int ocMeridiaAuto::category_add(QString cat_code, QString cat_name, QString cat_
         query_CD.bindValue(3, cat_name);
         query_CD.exec();
         if (query_CD.lastError().text().size() > 3){
-            error.append(query_CD.lastError().text());
+            error.append(QString("category_add | query CD -- error: %1").arg(query_CD.lastError().text()));
         }
         //store
         QSqlQuery query_CS("INSERT INTO `rmrt_category_to_store` (`category_id`, `store_id`) VALUES (?, ?)", db_server);
         query_CS.bindValue(0, cat_ID);
         query_CS.bindValue(1, _STORE);
         query_CS.exec();
-        if (query_CD.lastError().text().size() > 3){
-            error.append(query_CD.lastError().text());
+        if (query_CS.lastError().text().size() > 3){
+            error.append(QString("category_add | query CS -- error: %1").arg(query_CS.lastError().text()));
         }
 
         //path--------------------------------------
@@ -399,6 +414,11 @@ int ocMeridiaAuto::category_add(QString cat_code, QString cat_name, QString cat_
         log.append(QString("%1 - Ошибка создания новой категории: %2 *")
                    .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
                    .arg(error));
+    } else {
+        log.append(QString("%1 - Создания категория -- %2 | %3 *")
+                   .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
+                   .arg(cat_ID)
+                   .arg(cat_name));
     }
     return cat_ID;
 }
@@ -417,9 +437,25 @@ void ocMeridiaAuto::category_makePath(int _ID, int _PAR)
 
 void ocMeridiaAuto::product_load()
 {
-
+    QString error;
     if (mapProduct.keys().size() > 0){
         QSettings sett("setting.ini", QSettings::IniFormat);
+
+        // ID аттрибута "ЦВЕТ"
+        QSqlQuery query_GA(QString("SELECT rmrt_attribute_description.attribute_id "
+                                   "FROM rmrt_attribute_description "
+                                   "WHERE rmrt_attribute_description.name = \'Цвет\' "
+                                   "AND rmrt_attribute_description.language_id = \'%1\' ").arg(_LANG), db_server);
+        query_GA.next();
+
+        if (query_GA.lastError().text().size() > 3){
+            error.append(QString("product_load | query_GA - error: %1").arg(query_GA.lastError().text()));
+        }
+
+        IDcolor = query_GA.value(0).toInt();
+        qDebug() << IDcolor;
+        //*************
+
         for (int x = 0; x < mapProduct.keys().size(); x++){
             QString _code = mapProduct.keys().at(x);
             QString _name = mapProduct.value(_code).split("||").at(0);
@@ -433,7 +469,6 @@ void ocMeridiaAuto::product_load()
 
             bool idxIN;
             bool idxUP;
-            QString strUp;
             if (_id == 0){//новый товар
                 idxIN = true;
                 idxUP = false;
@@ -455,17 +490,10 @@ void ocMeridiaAuto::product_load()
                 idxIN = false;
                 idxUP = true;
             }
-            if (idxIN){ //ввод новых товаров
-                // ID аттрибута "ЦВЕТ"
-                QSqlQuery query_GA(QString("SELECT rmrt_attribute_description.attribute_id "
-                                           "FROM rmrt_attribute_description "
-                                           "WHERE rmrt_attribute_description.name = \'Цвет\' "
-                                           "AND rmrt_attribute_description.language_id = \'%1\' ").arg(_LANG), db_server);
-                query_GA.next();
-                IDcolor = query_GA.value(0).toInt();
 
+            if (idxIN == true){ //ввод новых товаров
                 product_insert(_code, _name, _group, _image, _descr, _attr, _price);
-            } else if (idxUP){ //обновление старых товаров
+            } else if (idxUP == false){ //обновление старых товаров
                 QString mainStr;
                 if (sett.value("load1c/up_price").toInt() == 2){
                     mainStr.append(QString("UPDATE rmrt_product SET price = \'%1\' WHERE rmrt_product.product_id = \'%2\'; ")
@@ -510,9 +538,15 @@ void ocMeridiaAuto::product_load()
                                 queryAddProdAttribute.bindValue(2, _LANG);
                                 queryAddProdAttribute.bindValue(3, _attr.split(",").at(x));
                                 queryAddProdAttribute.exec();
-//                                if (queryAddProdAttribute.lastError().text().size() > 3){
-//                                  error.append(queryAddProdAttribute.lastError().text());
-//                                }
+                                if (queryAddProdAttribute.lastError().text().size() > 3){
+                                    error.append(QString("product_load | queryAddProdAttribute - error: %1").arg(queryAddProdAttribute.lastError().text()));
+                                } else {
+                                    log.append(QString("%1 - Товару %2 | %3 добавлен атрибут: %4 -  *")
+                                               .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
+                                               .arg(_id)
+                                               .arg(_name)
+                                               .arg(_attr.split(",").at(x)));
+                                }
                             }
                         }
                     }
@@ -520,9 +554,22 @@ void ocMeridiaAuto::product_load()
                 if (mainStr.size() > 0){
                     QSqlQuery queryUP(mainStr, db_server);
                     queryUP.exec();
+                    if (queryUP.lastError().text().size() > 3){
+                      error.append(QString("product_load | queryUP - error: %1").arg(queryUP.lastError().text()));
+                    } else {
+                        log.append(QString("%1 - Товару %2 | %3 обновлен  *")
+                                   .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
+                                   .arg(_id)
+                                   .arg(_name));
+                    }
                 }
             }
         }
+    }
+    if (error.size() > 0){
+        log.append(QString("%1 - Ошибка: %2 *")
+                   .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
+                   .arg(error));
     }
 }
 
@@ -563,6 +610,7 @@ int ocMeridiaAuto::product_get_id(const QString prod_code, const QString prod_na
 void ocMeridiaAuto::product_insert(const QString pcode, const QString pname, const QString pgroup,
                                    const QString pimage, const QString pdesc, const QString pattr, double pprice)
 {
+    QString error;
     QSettings sett("setting.ini", QSettings::IniFormat);
     QSqlQuery queryAddProduct("INSERT INTO rmrt_product (sku, quantity, manufacturer_id, stock_status_id, "
                               "tax_class_id, status, price, image, date_added, date_modified, model) "
@@ -580,7 +628,7 @@ void ocMeridiaAuto::product_insert(const QString pcode, const QString pname, con
     queryAddProduct.bindValue(10, "model");
     queryAddProduct.exec();
     if (queryAddProduct.lastError().text().size() > 3){
-
+        error.append(QString("product_insert | queryAddProduct - error: %1").arg(queryAddProduct.lastError().text()));
     } else {
         int _ID = queryAddProduct.lastInsertId().toInt();
         //добавляем description
@@ -591,9 +639,9 @@ void ocMeridiaAuto::product_insert(const QString pcode, const QString pname, con
         queryAddProdDesc.bindValue(2, pname);
         queryAddProdDesc.bindValue(3, pdesc);
         queryAddProdDesc.exec();
-//        if (queryAddProdDesc.lastError().text().size() > 3){
-//          error.append(queryAddProdDesc.lastError().text());
-//        }
+        if (queryAddProdDesc.lastError().text().size() > 3){
+          error.append(QString("product_insert | queryAddProdDesc - error: %1").arg(queryAddProdDesc.lastError().text()));
+        }
 
         //добавляем store
         QSqlQuery queryAddProdStore("INSERT INTO rmrt_product_to_store (product_id, store_id) "
@@ -601,9 +649,9 @@ void ocMeridiaAuto::product_insert(const QString pcode, const QString pname, con
         queryAddProdStore.bindValue(0, _ID);
         queryAddProdStore.bindValue(1, _STORE);
         queryAddProdStore.exec();
-//        if (queryAddProdStore.lastError().text().size() > 3){
-//          error.append(queryAddProdStore.lastError().text());
-//        }
+        if (queryAddProdStore.lastError().text().size() > 3){
+          error.append(QString("product_insert | queryAddProdStore - error: %1").arg(queryAddProdStore.lastError().text()));
+        }
         //добавляем category
         QSqlQuery queryAddProdCat("INSERT INTO rmrt_product_to_category (product_id, category_id, main_category) "
                                    "VALUES (?, ?, ?)", db_server);
@@ -611,9 +659,9 @@ void ocMeridiaAuto::product_insert(const QString pcode, const QString pname, con
         queryAddProdCat.bindValue(1, pgroup);
         queryAddProdCat.bindValue(2, 1);
         queryAddProdCat.exec();
-//        if (queryAddProdCat.lastError().text().size() > 3){
-//          error.append(queryAddProdCat.lastError().text());
-//        }
+        if (queryAddProdCat.lastError().text().size() > 3){
+          error.append(QString("product_insert | queryAddProdCat - error: %1").arg(queryAddProdCat.lastError().text()));
+        }
 
         //добавляем аттрибуты
         if (pattr.size() > 1){
@@ -626,8 +674,31 @@ void ocMeridiaAuto::product_insert(const QString pcode, const QString pname, con
                     queryAddProdAttribute.bindValue(2, _LANG);
                     queryAddProdAttribute.bindValue(3, pattr.split(",").at(x));
                     queryAddProdAttribute.exec();
+                    if (queryAddProdAttribute.lastError().text().size() > 3){
+                      error.append(QString("product_insert | queryAddProdAttribute - error: %1").arg(queryAddProdAttribute.lastError().text()));
+                    }
                 }
             }
+        }
+    }
+    if (error.size() > 0){
+        log.append(QString("%1 - Ошибка загрузки товаров: %2 *")
+                   .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
+                   .arg(error));
+    } else {
+        log.append(QString("%1 - Добавлен товар: %2 *")
+                   .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
+                   .arg(pname));
+    }
+}
+
+void ocMeridiaAuto::writeLog()
+{
+    QFile file(QString("log_%1.txt").arg(QDateTime::currentDateTime().toString("dd-MM-yyyy_hh-mm")));
+    if (file.open(QIODevice::WriteOnly | QFile::Truncate)){
+        QTextStream out(&file);
+        for (int x = 0; x < log.size(); x++){
+            out << log.at(x) << '\r' <<'\n';
         }
     }
 }
