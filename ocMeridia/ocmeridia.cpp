@@ -34,7 +34,9 @@ ocMeridia::ocMeridia(QWidget *parent) :
     //connect(ui->toolButton_dirPL, SIGNAL(clicked(bool)), this, SLOT(setting_selectDirPL()));
 
     //file
-    connect(ui->toolButton_file, SIGNAL(clicked(bool)), this, SLOT(file_Open()));
+    connect(ui->toolButton_file, SIGNAL(clicked(bool)), this, SLOT(file_Select()));
+    connect(ui->pushButton_fm_openFile, SIGNAL(clicked(bool)), this, SLOT(file_Open_PL()));
+
 
     //category
     category_loadFromDB();
@@ -299,6 +301,7 @@ void ocMeridia::loadMaps()
 
     category_loadFromDB();
 
+
 }
 
 
@@ -353,10 +356,28 @@ void ocMeridia::setting_selectDirPL()
     se->exec();
     setting_loadListFiles();
 }
-
 //***************************************************************************
 //---------------------------FILE--------------------------------------------
-void ocMeridia::file_Open()
+void ocMeridia::file_Select()
+{
+    if (ui->radioButton_f_openMain->isChecked()){
+        ui->lineEdit_file->setText(QFileDialog::getOpenFileName(this, "Open", "HOME", "XML 1C (*.cml)"));
+        if (!ui->lineEdit_file->text().isEmpty()){
+            file_Open_Main();
+        }
+    } else if (ui->radioButton_f_openPL->isChecked()){
+        ui->lineEdit_file->setText(QFileDialog::getOpenFileName(this, "Open", "HOME", "CSV (*.csv)"));
+    }
+
+}
+
+void ocMeridia::file_Open_PL()
+{
+
+}
+
+
+void ocMeridia::file_Open_Main()
 {
     ui->progressBar->setValue(0);
     ui->progressBar->setVisible(true);
@@ -368,13 +389,9 @@ void ocMeridia::file_Open()
         ui->tableWidget_product->removeRow(r);
     }
 
-
-    QString _fname = QFileDialog::getOpenFileName(this, "Open", "/", "XML 1C (*.cml)");
-    ui->lineEdit_file->setText(_fname);
-
     QStringList result;
 
-    QFile file(_fname);
+    QFile file(ui->lineEdit_file->text());
     if (file.open(QIODevice::ReadOnly)){
         doc = new QDomDocument();
         doc->setContent(&file);
@@ -541,6 +558,41 @@ void ocMeridia::file_Open()
     ui->tableWidget_product->resizeColumnsToContents();
     ui->tableWidget_product->horizontalHeader()->setStretchLastSection(true);
     ui->progressBar->hide();
+
+}
+
+void ocMeridia::file_loadMaket()
+{
+    ui->lineEdit_file->setText(QFileDialog::getOpenFileName(this, "Open", "HOME/makets", "ocMeridia Maket (*.ini)"));
+    if (!ui->lineEdit_file->text().isEmpty()){
+        QSettings maket(ui->lineEdit_fm_maket->text(), QSettings::IniFormat);
+        ui->comboBox_f_csv_split->setCurrentText(maket.value("split").toString());
+        ui->spinBox_f_csv_firstRow->setValue(maket.value("firstRow").toInt());
+        ui->checkBox_fm_category->setChecked(maket.value("cat_check").toBool());
+        ui->checkBox_fm_articul->setChecked(maket.value("art_check").toBool());
+        ui->checkBox_fm_model->setChecked(maket.value("model_check").toBool());
+        ui->checkBox_fm_name->setChecked(maket.value("name_check").toBool());
+        ui->checkBox_fm_manuf->setChecked(maket.value("manuf_check").toBool());
+        ui->checkBox_fm_price->setChecked(maket.value("price_check").toBool());
+        ui->checkBox_fm_quan->setChecked(maket.value("quan_check").toBool());
+        ui->checkBox_fm_desc->setChecked(maket.value("desc_check").toBool());
+        ui->checkBox_fm_image->setChecked(maket.value("image_check").toBool());
+        ui->checkBox_fm_attr->setChecked(maket.value("attr_check").toBool());
+        ui->lineEdit_fm_category->setText(maket.value("cat").toString());
+        ui->lineEdit_fm_desc->setText(maket.value("desc").toString());
+        ui->lineEdit_fm_image->setText(maket.value("image").toString());
+        ui->lineEdit_fm_attr->setText(maket.value("attr").toString());
+        ui->spinBox_fm_articul->setValue(maket.value("art").toInt());
+        ui->spinBox_fm_model->setValue(maket.value("model").toInt());
+        ui->spinBox_fm_name->setValue(maket.value("name").toInt());
+        ui->spinBox_fm_manuf->setValue(maket.value("manuf").toInt());
+        ui->spinBox_fm_price->setValue(maket.value("price").toInt());
+        ui->spinBox_fm_quan->setValue(maket.value("quan").toInt());
+    }
+}
+
+void ocMeridia::file_saveMaket()
+{
 
 }
 

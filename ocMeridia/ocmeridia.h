@@ -57,6 +57,9 @@ public:
     //-attributes
     QStringList attributes_list;
 
+    //makets
+    QSettings maket;
+
 private:
     Ui::ocMeridia *ui;
 
@@ -73,7 +76,12 @@ public slots:
     void setting_loadListFiles();
     void setting_selectDirPL();
 
-    void file_Open();
+    void file_Select();
+    void file_Open_PL();
+    void file_Open_Main();
+    void file_loadMaket();
+    void file_saveMaket();
+
 
     void category_loadFromDB();
     void category_loadFromDB_parent(QTreeWidgetItem *par, QString id_parent);
