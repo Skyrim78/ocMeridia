@@ -48,6 +48,7 @@ public:
     QString _DIR;
     QMap<int,int> categoryMap;
     double _QUAN;
+    QMap<int,int> attributeMap;
 
     //-category
     int cat_activeID;
@@ -56,9 +57,15 @@ public:
 
     //-attributes
     QStringList attributes_list;
+    int att_activeID;
+    //manufacturer
+    bool _test_manufacturer;
 
     //makets
     QSettings maket;
+
+    //csv
+    QStringList csvData;
 
 private:
     Ui::ocMeridia *ui;
@@ -82,6 +89,8 @@ public slots:
     void file_loadMaket();
     void file_saveMaket();
 
+    void csv_readData();
+
 
     void category_loadFromDB();
     void category_loadFromDB_parent(QTreeWidgetItem *par, QString id_parent);
@@ -92,9 +101,18 @@ public slots:
     void category_save();
     void category_makePath(int _ID, int _PAR);
 
+    void attribute_testServer();
+    void attribute_loadFromDB();
+    void attribute_checkState();
+    void attribute_selectServer();
+    void attribute_save();
+
+    //void all_test();
+
     void product_testServer();
     void product_openForm();
     void product_loadOnServer();
+    void product_manufacturer();
 
 
 

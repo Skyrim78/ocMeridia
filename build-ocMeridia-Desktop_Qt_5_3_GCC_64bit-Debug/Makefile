@@ -731,6 +731,7 @@ moc_ocmeridia.cpp: /home/ev/Qt/5.3/gcc_64/include/QtWidgets/QMainWindow \
 		../ocMeridia/mcategory.h \
 		../ocMeridia/product_form.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
+		../ocMeridia/setting.h \
 		../ocMeridia/ocmeridia.h
 	/home/ev/Qt/5.3/gcc_64/bin/moc $(DEFINES) -I/home/ev/Qt/5.3/gcc_64/mkspecs/linux-g++ -I/media/ev/MyLinuxLive/Git/ocMeridia/ocMeridia -I/home/ev/Qt/5.3/gcc_64/include -I/home/ev/Qt/5.3/gcc_64/include/QtWidgets -I/home/ev/Qt/5.3/gcc_64/include/QtXml -I/home/ev/Qt/5.3/gcc_64/include/QtSql -I/home/ev/Qt/5.3/gcc_64/include/QtGui -I/home/ev/Qt/5.3/gcc_64/include/QtCore -I. ../ocMeridia/ocmeridia.h -o moc_ocmeridia.cpp
 
@@ -1082,15 +1083,152 @@ moc_setting.cpp: /home/ev/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
 		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfiledevice.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtGui/qvector2d.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtouchdevice.h \
-		/home/ev/Qt/5.3/gcc_64/include/QtCore/QSettings \
-		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsettings.h \
-		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
-		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtimer.h \
-		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbasictimer.h \
-		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QFileDialog \
-		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/QtSql \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/QtSqlDepends \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QtCore \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QtCoreDepends \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstractanimation.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qanimationgroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpauseanimation.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtextcodec.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qendian.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlibraryinfo.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdatetime.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbuffer.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdir.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfileinfo.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdiriterator.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfileselector.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QObject \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QStringList \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlockfile.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qloggingcategory.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qprocess.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qresource.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsavefile.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsettings.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstandardpaths.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtemporarydir.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QScopedPointer \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtemporaryfile.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstractproxymodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qidentityproxymodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstringlistmodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qjsonarray.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qjsondocument.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qjsonobject.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qeventloop.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbasictimer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmath.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmetaobject.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmimedata.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpointer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsharedmemory.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsocketnotifier.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsystemsemaphore.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtimer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtranslator.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qwineventnotifier.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmimedatabase.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmimetype.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfactoryinterface.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlibrary.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qplugin.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpluginloader.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/quuid.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstractstate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstracttransition.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qeventtransition.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfinalstate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qhistorystate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsignaltransition.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstatemachine.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qexception.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfuture.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qrunnable.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qresultstore.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfuturewatcher.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qreadwritelock.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsemaphore.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qthread.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qthreadpool.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qthreadstorage.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qwaitcondition.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qarraydataops.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbitarray.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbytearraymatcher.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcache.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcollator.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcommandlineoption.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcommandlineparser.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlinkedlist.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qqueue.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qregularexpression.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstack.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtimeline.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtimezone.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qxmlstream.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtcoreversion.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsql.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqldatabase.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqldriver.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqldriverplugin.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlerror.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlfield.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlindex.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlrecord.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlquery.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlresult.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlquerymodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qitemdelegate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qvalidator.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qicon.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qslider.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qstyle.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qframe.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlistview.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqltablemodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qtsqlversion.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QSettings \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QFileDialog \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
 		../ocMeridia/setting.h
 	/home/ev/Qt/5.3/gcc_64/bin/moc $(DEFINES) -I/home/ev/Qt/5.3/gcc_64/mkspecs/linux-g++ -I/media/ev/MyLinuxLive/Git/ocMeridia/ocMeridia -I/home/ev/Qt/5.3/gcc_64/include -I/home/ev/Qt/5.3/gcc_64/include/QtWidgets -I/home/ev/Qt/5.3/gcc_64/include/QtXml -I/home/ev/Qt/5.3/gcc_64/include/QtSql -I/home/ev/Qt/5.3/gcc_64/include/QtGui -I/home/ev/Qt/5.3/gcc_64/include/QtCore -I. ../ocMeridia/setting.h -o moc_setting.cpp
 
@@ -1380,6 +1518,7 @@ main.o: ../ocMeridia/main.cpp ../ocMeridia/ocmeridia.h \
 		../ocMeridia/mcategory.h \
 		../ocMeridia/product_form.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
+		../ocMeridia/setting.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QApplication \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qapplication.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
@@ -1649,6 +1788,7 @@ ocmeridia.o: ../ocMeridia/ocmeridia.cpp ../ocMeridia/ocmeridia.h \
 		../ocMeridia/mcategory.h \
 		../ocMeridia/product_form.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
+		../ocMeridia/setting.h \
 		ui_ocmeridia.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtCore/QVariant \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QAction \
@@ -1667,11 +1807,14 @@ ocmeridia.o: ../ocMeridia/ocmeridia.cpp ../ocMeridia/ocmeridia.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QComboBox \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QDoubleSpinBox \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qspinbox.h \
-		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QGridLayout \
-		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QFormLayout \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qformlayout.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QLayout \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlayout.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlayoutitem.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QGridLayout \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QGroupBox \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qgroupbox.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QHBoxLayout \
@@ -2429,6 +2572,8 @@ product_form.o: ../ocMeridia/product_form.cpp ../ocMeridia/product_form.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtextformat.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpen.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtextoption.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QProgressBar \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qprogressbar.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QPushButton \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qpushbutton.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QRadioButton \
@@ -2549,16 +2694,194 @@ setting.o: ../ocMeridia/setting.cpp ../ocMeridia/setting.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfiledevice.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtGui/qvector2d.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtouchdevice.h \
-		/home/ev/Qt/5.3/gcc_64/include/QtCore/QSettings \
-		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsettings.h \
-		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
-		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtimer.h \
-		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbasictimer.h \
-		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QFileDialog \
-		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/QtSql \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/QtSqlDepends \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QtCore \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QtCoreDepends \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstractanimation.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qanimationgroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpauseanimation.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtextcodec.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qendian.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlibraryinfo.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdatetime.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbuffer.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdir.h \
 		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfileinfo.h \
-		ui_setting.h
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qdiriterator.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfileselector.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QObject \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QStringList \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlockfile.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qloggingcategory.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qprocess.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qresource.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsavefile.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsettings.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstandardpaths.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtemporarydir.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QScopedPointer \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtemporaryfile.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstractproxymodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qidentityproxymodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstringlistmodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qjsonarray.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qjsondocument.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qjsonobject.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qeventloop.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbasictimer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmath.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmetaobject.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmimedata.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpointer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsharedmemory.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsocketnotifier.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsystemsemaphore.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtimer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtranslator.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qwineventnotifier.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmimedatabase.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmimetype.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfactoryinterface.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlibrary.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qplugin.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qpluginloader.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/quuid.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstractstate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qabstracttransition.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qeventtransition.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfinalstate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qhistorystate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsignaltransition.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstatemachine.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qexception.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfuture.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qrunnable.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qresultstore.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qfuturewatcher.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qreadwritelock.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qsemaphore.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qthread.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qthreadpool.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qthreadstorage.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qwaitcondition.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qarraydataops.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbitarray.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qbytearraymatcher.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcache.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcollator.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcommandlineoption.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcommandlineparser.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qlinkedlist.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qqueue.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qregularexpression.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qstack.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtimeline.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtimezone.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qxmlstream.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/qtcoreversion.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsql.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqldatabase.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqldriver.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqldriverplugin.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlerror.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlfield.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlindex.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlrecord.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlquery.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlresult.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlquerymodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qitemdelegate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qvalidator.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qicon.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qslider.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qstyle.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qframe.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlistview.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qsqltablemodel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtSql/qtsqlversion.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QSettings \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QTimer \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QFileDialog \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
+		ui_setting.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtCore/QVariant \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QAction \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qaction.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QApplication \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qapplication.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qguiapplication.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qinputmethod.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QCheckBox \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qcheckbox.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QGridLayout \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlayout.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QGroupBox \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QHeaderView \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QLabel \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlabel.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QLineEdit \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtextcursor.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtextformat.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qpen.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtGui/qtextoption.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QPushButton \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QSpacerItem \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QTableWidget \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtablewidget.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtableview.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QToolButton \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/qtoolbutton.h \
+		/home/ev/Qt/5.3/gcc_64/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o setting.o ../ocMeridia/setting.cpp
 
 moc_ocmeridia.o: moc_ocmeridia.cpp 

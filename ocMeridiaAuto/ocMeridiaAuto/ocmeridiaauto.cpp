@@ -18,18 +18,19 @@ ocMeridiaAuto::ocMeridiaAuto(QWidget *parent) :
 
         log.append(QString("Start at: %1").arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy")));
 
-        connect_db_local();
-        connect_db_server();
-        getMainFile();
-        readMainFile();
+//        connect_db_local();
+//        connect_db_server();
 
-        category_test();
-        product_load();
+//        main_file_get();
+//        main_file_read();
+
+//        category_test();
+//        product_load();
+
+        scenario_A();
 
         log.append(QString("Finish at: %1").arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy")));
         writeLog();
-    }   else {
-        qDebug() << "-";
     }
 
     timer = new QTimer(this);
@@ -68,6 +69,7 @@ void ocMeridiaAuto::connect_db_server()
     db_server.setPort(sett.value("db/port").toInt());
     db_server.setUserName(sett.value("db/user").toString());
     db_server.setPassword(sett.value("db/pass").toString());
+    db_server.setConnectOptions("MYSQL_OPT_RECONNECT = TRUE; ");
     db_server.open();
     if (db_server.isOpen()){
         log.append(QString("%1 - успешное соединение с удаленным сервером БД *").arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy")));
@@ -77,7 +79,7 @@ void ocMeridiaAuto::connect_db_server()
 
 }
 
-void ocMeridiaAuto::getMainFile()
+void ocMeridiaAuto::main_file_get()
 {
     QSqlQuery queryMainFile("SELECT files.fname FROM files WHERE files.vid = \'2\' ", db_local);
     queryMainFile.next();
@@ -89,7 +91,7 @@ void ocMeridiaAuto::getMainFile()
     }
 }
 
-void ocMeridiaAuto::readMainFile()
+void ocMeridiaAuto::main_file_read()
 {
     file_category_list.clear();
 
@@ -105,12 +107,17 @@ void ocMeridiaAuto::readMainFile()
 
         QDomNode nodeGroups = nodeCl.childNodes().at(2);
 
+        mapGroup.clear();
         for (int x = 0; x < nodeGroups.childNodes().count(); x++){
             QDomNode nodeGroup = nodeGroups.childNodes().at(x);
             file_category_list.append(QString("%1||%2||%3")
                                       .arg(nodeGroup.firstChildElement("Ид").text())
                                       .arg(nodeGroup.firstChildElement("Наименование").text())
                                       .arg(nodeGroup.firstChildElement("Родитель").text()));
+
+            QString _code = nodeGroup.firstChildElement("Ид").text();
+            QString _name = nodeGroup.firstChildElement("Наименование").text();
+            mapGroup.insert(_code, group_get_id(_code, _name));
         }
 
         //reading products
@@ -128,7 +135,7 @@ void ocMeridiaAuto::readMainFile()
 
         QDomNode nodePredAll = nodeAll.childNodes().at(idxPred);
 
-        QString line;
+        //QString line;
         QMap<QString, double> mapPrice; //ИД товаров + Цена
 
         // собираем ID товаров и цены из предложений
@@ -146,68 +153,68 @@ void ocMeridiaAuto::readMainFile()
 
         //формируем карту товаров
         mapProduct.clear();
+        mapAttribute.clear();
+
         QDomNode nodeProducts = nodeAll.childNodes().at(idxProd);
         QString _line;
+        //---
+        int _id;
+        QString _art;
+        QString _model;
+        QString _name;
+        int _id_group;
+        int _manufacturer;
+        double _price;
+        double _quan;
+        QString _desc;
+        QString _image;
+        //*********
+
         for (int y = 0; y < 500; y++){; //*/nodeProducts.childNodes().count(); y++){ //****
             QDomNode nodeProduct = nodeProducts.childNodes().at(y);
-            QString _ID = nodeProduct.firstChildElement("Ид").text();
-            if (_ID.size() == 36){
-                line.clear();
-                line.append(QString("%0").arg(nodeProduct.firstChildElement("ПолноеНаименование").text()));//Наименование
-                line.append(QString("||%0").arg(nodeProduct.firstChildElement("Группы").firstChildElement("Ид").text()));//Группа
-                line.append(QString("||%0").arg(QString::number(mapPrice.value(_ID), 'f', 2)));//Цена
-                line.append(QString("||%0").arg(nodeProduct.firstChildElement("Картинка").text()));//Картина
-                line.append(QString("||%0").arg(nodeProduct.firstChildElement("Описание").text()));//Описание
-                QDomElement elAttributes = nodeProduct.firstChildElement("ЗначенияСвойств");
-                QString line_att = "";
-                for (int x = 0; x < elAttributes.childNodes().count(); x++){
-                    QDomNode nAtt = elAttributes.childNodes().at(x);
-                    if (nAtt.firstChildElement("Ид").text() == "ae02b1ee-27c2-11e6-9800-df7e0845cb23"){ //Цвет
-                        line_att.append(QString("%0,").arg(nAtt.firstChildElement("Значение").text()));
-                    }
-                }
-                line.append(QString("||%0").arg(line_att));//Описание
-                //qDebug() << line;
-                mapProduct.insert(_ID, line);
-            } else if (_ID.size() > 36){
+
+            _line.clear();
+
+            _id = 0;
+            _art = nodeProduct.firstChildElement("Ид").text();
+
+            if (_art.size() > 36){
                 QDomElement elAttributes = nodeProduct.firstChildElement("ЗначенияСвойств");
                 for (int x = 0; x < elAttributes.childNodes().count(); x++){
                     QDomNode nAtt = elAttributes.childNodes().at(x);
                     if (nAtt.firstChildElement("Ид").text() == "ИДРодителя"){
-                        _ID =  nAtt.firstChildElement("Значение").text();
+                        _art =  nAtt.firstChildElement("Значение").text();
                     }
                 }
-                if (_ID.size() == 36){
-                    QString line_post = mapProduct.value(_ID);
-                    if (line_post.isEmpty()){
-                        line_post.append(QString("%0").arg(nodeProduct.firstChildElement("ПолноеНаименование").text()));//Наименование
-                        line_post.append(QString("||%0").arg(nodeProduct.firstChildElement("Группы").firstChildElement("Ид").text()));//Группа
-                        line_post.append(QString("||%0").arg(QString::number(mapPrice.value(_ID), 'f', 2)));//Цена
-                        line_post.append(QString("||%0").arg(nodeProduct.firstChildElement("Картинка").text()));//Картина
-                        line_post.append(QString("||%0").arg(nodeProduct.firstChildElement("Описание").text()));//Описание
-                        QDomElement elAttributes = nodeProduct.firstChildElement("ЗначенияСвойств");
-                        QString line_att = "";
-                        for (int x = 0; x < elAttributes.childNodes().count(); x++){
-                            QDomNode nAtt = elAttributes.childNodes().at(x);
-                            if (nAtt.firstChildElement("Ид").text() == "ae02b1ee-27c2-11e6-9800-df7e0845cb23"){ //Цвет
-                                line_att.append(QString("%0,").arg(nAtt.firstChildElement("Значение").text()));
-                            }
-                        }
-                        line_post.append(QString("||%0").arg(line_att));//Описание
-                        mapProduct.insert(_ID, line_post);
-                    } else {
-                        QDomElement elAttributes = nodeProduct.firstChildElement("ЗначенияСвойств");
-                        for (int x = 0; x < elAttributes.childNodes().count(); x++){
-                            QDomNode nAtt = elAttributes.childNodes().at(x);
-                            if (nAtt.firstChildElement("Ид").text() == "ae02b1ee-27c2-11e6-9800-df7e0845cb23"){ //Цвет
-                                line_post.append(QString("%0,").arg(nAtt.firstChildElement("Значение").text()));
-                            }
-                        }
-                        mapProduct.remove(_ID);
-                        mapProduct.insert(_ID, line_post);
-                    }
-                } else {
-                    qDebug() << _ID << "Нет родителя ";
+            }
+
+            _model = "model";
+            _name = nodeProduct.firstChildElement("ПолноеНаименование").text();
+            _id_group = mapGroup.value(nodeProduct.firstChildElement("Группы").firstChildElement("Ид").text());
+            _manufacturer = manufacturer_get_id("no");
+            _price = mapPrice.value(_art);
+            _quan = sett.value("oc/quan").toDouble();
+            _desc = nodeProduct.firstChildElement("Описание").text();
+            _image = nodeProduct.firstChildElement("Картинка").text();
+
+            mapProduct.insert(_art, QString("%1||%2||%3||%4||%5||%6||%7||%8||%9||%10")
+                              .arg(_id)
+                              .arg(_art)
+                              .arg(_model)
+                              .arg(_name)
+                              .arg(_id_group)
+                              .arg(_manufacturer)
+                              .arg(_price)
+                              .arg(_quan)
+                              .arg(_desc)
+                              .arg(_image));
+
+            QDomElement elAttributes = nodeProduct.firstChildElement("ЗначенияСвойств");
+            for (int x = 0; x < elAttributes.childNodes().count(); x++){
+                QDomNode nAtt = elAttributes.childNodes().at(x);
+                if (nAtt.firstChildElement("Ид").text() == "ae02b1ee-27c2-11e6-9800-df7e0845cb23"){ //Цвет
+                    mapAttribute.insert(_art, QString("%1||%2")
+                                        .arg(attribute_get_id("Цвет")).arg(nAtt.firstChildElement("Значение").text()));
                 }
             }
         }
@@ -221,6 +228,139 @@ void ocMeridiaAuto::readMainFile()
                .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
                .arg(mapProduct.size()));
 
+    qDebug() << mapProduct;
+    qDebug() << mapAttribute;
+
+}
+
+int ocMeridiaAuto::group_get_id(const QString _c, const QString _n)
+{
+    int _id = 0;
+    QSqlQuery queryA(QString("SELECT rmrt_category.category_id "
+                            "FROM rmrt_category "
+                            "WHERE rmrt_category.code = \'%0\' ")
+                    .arg(_c), db_server);
+    queryA.next();
+    if (queryA.isValid()){
+        _id = queryA.value(0).toInt();
+    } else {
+        //test2: проверяем наличие записи по имени
+        QSqlQuery queryB(QString("SELECT rmrt_category_description.category_id "
+                                  "FROM rmrt_category_description "
+                                  "WHERE rmrt_category_description.name = \"%1\" ")
+                          .arg(_n), db_server);
+        queryB.next();
+        if (queryB.isValid()){
+            _id = queryB.value(0).toInt();
+            //если такая группа есть: добавляем код1С, подставляем ID в таблицу товары, удаляем строку
+            QSqlQuery queryU(QString("UPDATE rmrt_category SET code = \'%0\' "
+                                     "WHERE rmrt_category.category_id = \'%1\' ")
+                             .arg(_c)
+                             .arg(_n), db_server);
+            queryU.exec();
+        } else {
+            // проверяем наличие категории в синонимах
+            QSqlQuery queryL(QString("SELECT cat.id_db FROM cat WHERE cat.cod = \'%1\'")
+                             .arg(_c)
+                             , db_local);
+            queryL.next();
+            if (queryL.isValid()){
+                _id = queryL.value(0).toInt();
+            } else {
+                _id = category_add(_c, _n, sett.value("load1c/group").toString());
+            }
+        }
+    }
+    return _id;
+}
+
+int ocMeridiaAuto::manufacturer_get_id(const QString _n)
+{
+    int _id = 0;
+    QSqlQuery query_test(QString("SELECT rmrt_manufacturer_description.manufacturer_id "
+                                 "FROM rmrt_manufacturer_description "
+                                 "WHERE rmrt_manufacturer_description.language_id = \'%1\' "
+                                 "AND rmrt_manufacturer_description.name = \'%2\' ")
+                         .arg(_LANG)
+                         .arg(_n), db_server);
+    query_test.next();
+    if (query_test.isValid()){
+        _id = query_test.value(0).toInt();
+    } else {
+        QSqlQuery query_add("INSERT INTO rmrt_manufacturer (name, image, sort_order) "
+                                    "VALUES (?, ?, ?)", db_server);
+        query_add.bindValue(0, _n);
+        query_add.bindValue(1, "");
+        query_add.bindValue(2, 0);
+        query_add.exec();
+        if (query_add.lastError().text().size() > 3){
+            //error.append(query_add.lastError().text());
+        } else {
+            _id = query_add.lastInsertId().toInt();
+            // desc
+            QSqlQuery queryDesc("INSERT INTO rmrt_manufacturer_description (manufacturer_id, language_id, name, description) "
+                                "VALUES (?, ?, ?, ?)", db_server);
+            queryDesc.bindValue(0, _id);
+            queryDesc.bindValue(1, _LANG);
+            queryDesc.bindValue(2, _n);
+            queryDesc.bindValue(3, _n);
+            queryDesc.exec();
+            if (queryDesc.lastError().text().size() > 3){
+                //error.append(queryDesc.lastError().text());
+            }
+            //store
+            QSqlQuery queryStore("INSERT INTO rmrt_manufacturer_to_store (manufacturer_id, store_id) "
+                                                    "VALUES (?, ?)", db_server);
+            queryStore.bindValue(0, _id);
+            queryStore.bindValue(1, _STORE);
+            queryStore.exec();
+            if (queryStore.lastError().text().size() > 3){
+                //error.append(queryStore.lastError().text());
+            }
+        }
+    }
+    return _id;
+}
+
+int ocMeridiaAuto::attribute_get_id(const QString _n)
+{
+    int _id = 0;
+    QSqlQuery query(QString("SELECT rmrt_attribute_description.attribute_id "
+                            "FROM rmrt_attribute_description "
+                            "WHERE rmrt_attribute_description.name = \'%1\' ")
+                    .arg(_n), db_server);
+    query.next();
+    if (query.isValid()){
+        _id = query.value(0).toInt();
+    } else {
+        QSqlQuery queryL(QString("SELECT att.id_db FROM att WHERE att.name = \'%1\' ")
+                         .arg(_n), db_local);
+        queryL.next();
+        if (queryL.isValid()){
+            _id = queryL.value(0).toInt();
+        } else {
+            QSqlQuery query_add("INSERT INTO rmrt_attribute (attribute_group_id, sort_order) "
+                            "VALUES (?, ?)", db_server);
+            query_add.bindValue(0, sett.value("load1c/attribute").toInt());
+            query_add.bindValue(1, 0);
+            query_add.exec();
+            if (query_add.lastError().text().size() > 3){
+                //error.append(query_add.lastError().text());
+            } else {
+                _id = query_add.lastInsertId().toInt();
+                QSqlQuery queryB("INSERT INTO rmrt_attribute_description (attribute_id, language_id, name) "
+                                 "VALUES (?, ?, ?)", db_server);
+                queryB.bindValue(0, _id);
+                queryB.bindValue(1, _LANG);
+                queryB.bindValue(2, _n);
+                queryB.exec();
+                if (queryB.lastError().text().size() > 3){
+                 //   error.append(queryB.lastError().text());
+                }
+            }
+        }
+    }
+    return _id;
 }
 
 void ocMeridiaAuto::category_test()
@@ -701,6 +841,15 @@ void ocMeridiaAuto::writeLog()
             out << log.at(x) << '\r' <<'\n';
         }
     }
+}
+
+void ocMeridiaAuto::scenario_A()
+{
+    connect_db_local();
+    connect_db_server();
+    main_file_get();
+    main_file_read();
+
 }
 
 

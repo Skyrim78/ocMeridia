@@ -22,6 +22,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
@@ -80,6 +81,7 @@ public:
     QGroupBox *groupBox_messa;
     QGridLayout *gridLayout_6;
     QLabel *l_message;
+    QProgressBar *progressBar;
 
     void setupUi(QDialog *product_form)
     {
@@ -336,6 +338,14 @@ public:
 
         gridLayout_5->addLayout(horizontalLayout_7, 0, 0, 1, 1);
 
+        progressBar = new QProgressBar(product_form);
+        progressBar->setObjectName(QStringLiteral("progressBar"));
+        progressBar->setMaximumSize(QSize(16777215, 10));
+        progressBar->setValue(0);
+        progressBar->setTextVisible(false);
+
+        gridLayout_5->addWidget(progressBar, 1, 0, 1, 1);
+
 
         retranslateUi(product_form);
 
@@ -347,7 +357,7 @@ public:
         product_form->setWindowTitle(QApplication::translate("product_form", "\320\242\320\276\320\262\320\260\321\200\321\213", 0));
         groupBox_file->setTitle(QApplication::translate("product_form", "\320\242\320\276\320\262\320\260\321\200\321\213 \320\275\320\260 \320\276\320\261\321\200\320\260\320\261\320\276\321\202\320\272\321\203", 0));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_f_product->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("product_form", "\320\232\320\276\320\264", 0));
+        ___qtablewidgetitem->setText(QApplication::translate("product_form", "\320\220\321\200\321\202\320\270\320\272\321\203\320\273", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_f_product->horizontalHeaderItem(1);
         ___qtablewidgetitem1->setText(QApplication::translate("product_form", "\320\235\320\260\320\270\320\274\320\265\320\275\320\276\320\262\320\260\320\275\320\270\320\265", 0));
         groupBox_shop->setTitle(QApplication::translate("product_form", "\320\242\320\276\320\262\320\260\321\200\321\213 \320\274\320\260\320\263\320\260\320\267\320\270\320\275\320\260", 0));

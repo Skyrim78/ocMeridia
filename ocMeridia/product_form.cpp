@@ -76,7 +76,7 @@ void product_form::loadFileProducts()
     for (int r = ui->tableWidget_f_product->rowCount() - 1; r >= 0; r--){
         ui->tableWidget_f_product->removeRow(r);
     }
-
+    ui->progressBar->setValue(0);
     for (int row = 0; row < loadProductsMap.count(); row++){
         ui->tableWidget_f_product->insertRow(row);
         QString key = loadProductsMap.keys().at(row);
@@ -86,9 +86,13 @@ void product_form::loadFileProducts()
 
         QTableWidgetItem *itemName = new QTableWidgetItem(loadProductsMap.value(key));
         ui->tableWidget_f_product->setItem(row, 1, itemName);
+
+        ui->progressBar->setValue(qFloor((row + 1) * 100 / loadProductsMap.count()));
+        QApplication::processEvents();
     }
     ui->tableWidget_f_product->resizeColumnsToContents();
     ui->tableWidget_f_product->horizontalHeader()->setStretchLastSection(true);
+    ui->progressBar->setValue(0);
 }
 
 void product_form::loadOCProducts()
@@ -191,6 +195,7 @@ void product_form::save()
 {
     QString error;
     QList<int> del_list;
+    ui->progressBar->setValue(0);
     if (ui->radioButton_add->isChecked()){
         for (int row = 0; row < ui->tableWidget_f_product->rowCount(); row++){
             if (ui->tableWidget_f_product->item(row, 0)->isSelected()){
@@ -242,18 +247,19 @@ void product_form::save()
                     }
                 }
             }
+
+            ui->progressBar->setValue(qFloor((row + 1) * 100 / ui->tableWidget_f_product->rowCount()));
+            QApplication::processEvents();
         }
     } else {
         for (int row = 0; row < ui->tableWidget_f_product->rowCount(); row++){
             if (ui->tableWidget_f_product->item(row, 0)->isSelected()){
-                qDebug() << prodID;
                 QSqlQuery queryUpProd(QString("UPDATE rmrt_product "
                                               "SET sku = \'%0\' "
                                               "WHERE rmrt_product.product_id = \'%1\'")
                                       .arg(ui->tableWidget_f_product->item(row, 0)->text())
                                       .arg(prodID), DB);
                 queryUpProd.exec();
-                qDebug() << queryUpProd.lastError();
                 if (queryUpProd.lastError().text().size() > 3){
                     error.append(queryUpProd.lastError().text());
                 } else {
@@ -271,6 +277,7 @@ void product_form::save()
             }
         }
     }
+    ui->progressBar->setValue(0);
 }
 
 void product_form::makeMessage(const QString str, bool x)

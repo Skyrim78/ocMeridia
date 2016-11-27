@@ -28,3 +28,5 @@ HEADERS  += ocmeridia.h \
 FORMS    += ocmeridia.ui \
     product_form.ui \
     setting.ui
+
+RESOURCES +=
