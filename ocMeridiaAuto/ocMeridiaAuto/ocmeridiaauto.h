@@ -21,8 +21,12 @@ public:
     ~ocMeridiaAuto();
 
     QString FILE_1C;
+
+    bool _AUTO;
     int _STORE;
     int _LANG;
+    int _STOCK;
+    int _TAX;
     int _STATUS;
     QString _DIR;
 
@@ -38,10 +42,13 @@ public:
     QStringList file_category_list; // line = ID||categoryName||ID parent
     QMap<QString, QString> mapProduct; // ArtProduct -- ID||Art||Model||Name||IDGroup||Manufacturer||Price||Quan||Desc||Image
     QMap<QString, int> mapGroup; //codeGroup -- ID_group
-    QMap<QString, QString> mapAttribute;//ArtProduct -- ID_attribute||Value
+    QMap<QString, int> mapAttributes; //nameAttribute -- ID_attribute
+    QMap<QString, QString> mapProductAttribute;//ArtProduct -- ID_attribute||Value
+    QMap<QString, QString> mapProductImage; //ArtProduct -- Image
 
     QStringList category_tempList;
-    int IDcolor;
+
+    QStringList csvData;
 
 
 private:
@@ -49,33 +56,41 @@ private:
 
 public slots:
     void read_setting();
+
     void connect_db_local();
     void connect_db_server();
 
     void main_file_get();
     void main_file_read();
+    void main_file_upload();
 
-    int group_get_id(const QString _c, const QString _n);
+    void pl_file_get();
+    void pl_file_read(const QString schema);
+    void pl_file_upload();
+
+
+
+    int group_get_id(const QString _c, const QString _n, int _v); // v = 1(main file) -- 2(pl)
     int manufacturer_get_id(const QString _n);
-    int attribute_get_id(const QString _n);
+    int attribute_get_id(const QString _n, int _v); //v = 1(main file) -- 2(pl)
+    int product_get_id(const QString prod_code, const QString prod_name);
 
-
-    void category_test();
-    void category_productChange(QString prevID, QString realID);
-    void category_productDelete(QString prevID);
     int category_add(QString cat_code, QString cat_name, QString cat_parent);
     void category_makePath(int _ID, int _PAR);
 
-    //products
-    void product_load();
-    int product_get_id(const QString prod_code, const QString prod_name);
-    void product_insert(const QString pcode, const QString pname, const QString pgroup, const QString pimage, const QString pdesc, const QString pattr, double pprice);
+    void product_insert(const QString key);
+    void product_update(const QString key, int _v); //v = 1(main file) -- 2(pl)
+
+    //-----------------
+
+
 
     //log
     void writeLog();
 
     //scenario
-    void scenario_A();
+    void scenario_A(); //for 1C
+    void scenario_B(); //for price_lists
 };
 
 #endif // OCMERIDIAAUTO_H

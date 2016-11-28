@@ -678,13 +678,29 @@
                          <item>
                           <widget class="QGroupBox" name="groupBox">
                            <property name="title">
-                            <string>Для автоматической загрузки:</string>
+                            <string/>
                            </property>
                            <layout class="QGridLayout" name="gridLayout_4">
-                            <item row="0" column="2">
-                             <widget class="QComboBox" name="comboBox_sC_group">
-                              <property name="sizeAdjustPolicy">
-                               <enum>QComboBox::AdjustToContents</enum>
+                            <item row="3" column="3">
+                             <spacer name="horizontalSpacer_13">
+                              <property name="orientation">
+                               <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="label_17">
+                              <property name="text">
+                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;* &lt;/span&gt;Новые категории добавлять в:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                               </property>
                              </widget>
                             </item>
@@ -701,17 +717,13 @@
                               </property>
                              </spacer>
                             </item>
-                            <item row="2" column="2">
-                             <widget class="QComboBox" name="comboBox_sC_att">
-                              <property name="sizeAdjustPolicy">
-                               <enum>QComboBox::AdjustToContents</enum>
-                              </property>
-                             </widget>
-                            </item>
-                            <item row="0" column="0">
-                             <widget class="QLabel" name="label_17">
+                            <item row="3" column="0">
+                             <widget class="QLabel" name="label_23">
                               <property name="text">
-                               <string>Новые категории добавлять в:</string>
+                               <string>Новые товары:</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                               </property>
                              </widget>
                             </item>
@@ -728,80 +740,56 @@
                               </property>
                              </spacer>
                             </item>
-                            <item row="2" column="0">
-                             <widget class="QLabel" name="label_18">
-                              <property name="text">
-                               <string>Новые атрибуты добавлять в:</string>
-                              </property>
-                             </widget>
-                            </item>
-                           </layout>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QGroupBox" name="groupBox_3">
-                           <property name="title">
-                            <string>Товары без цен:</string>
-                           </property>
-                           <layout class="QGridLayout" name="gridLayout_10">
-                            <item row="0" column="0">
-                             <widget class="QRadioButton" name="radioButton_sC_priceount">
-                              <property name="text">
-                               <string>пропускать</string>
-                              </property>
-                              <property name="checked">
-                               <bool>true</bool>
-                              </property>
-                             </widget>
-                            </item>
-                            <item row="0" column="1">
-                             <widget class="QRadioButton" name="radioButton_sC_pricein">
-                              <property name="text">
-                               <string>загружать</string>
-                              </property>
-                             </widget>
-                            </item>
-                            <item row="0" column="2">
-                             <spacer name="horizontalSpacer_8">
-                              <property name="orientation">
-                               <enum>Qt::Horizontal</enum>
-                              </property>
-                              <property name="sizeHint" stdset="0">
-                               <size>
-                                <width>40</width>
-                                <height>20</height>
-                               </size>
-                              </property>
-                             </spacer>
-                            </item>
-                           </layout>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QGroupBox" name="groupBox_8">
-                           <property name="title">
-                            <string>Новые товары</string>
-                           </property>
-                           <layout class="QGridLayout" name="gridLayout_21">
-                            <item row="0" column="1">
-                             <widget class="QRadioButton" name="radioButton_sC_newProdIn">
+                            <item row="3" column="2">
+                             <widget class="QCheckBox" name="checkBox_sC_new_product">
                               <property name="text">
                                <string>добавлять</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="0" column="0">
-                             <widget class="QRadioButton" name="radioButton_sC_newProdOunt">
+                            <item row="2" column="0">
+                             <widget class="QLabel" name="label_18">
                               <property name="text">
-                               <string>пропускать</string>
+                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;* &lt;/span&gt;Новые атрибуты добавлять в:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                               </property>
-                              <property name="checked">
-                               <bool>true</bool>
+                              <property name="alignment">
+                               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                               </property>
                              </widget>
                             </item>
                             <item row="0" column="2">
-                             <spacer name="horizontalSpacer_13">
+                             <widget class="QComboBox" name="comboBox_sC_group">
+                              <property name="sizeAdjustPolicy">
+                               <enum>QComboBox::AdjustToContents</enum>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="2" column="2">
+                             <widget class="QComboBox" name="comboBox_sC_att">
+                              <property name="sizeAdjustPolicy">
+                               <enum>QComboBox::AdjustToContents</enum>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="4" column="0">
+                             <widget class="QLabel" name="label_24">
+                              <property name="text">
+                               <string>Товары с 0 ценой:</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="4" column="2">
+                             <widget class="QCheckBox" name="checkBox_sC_not_price">
+                              <property name="text">
+                               <string>загружать</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="4" column="3">
+                             <spacer name="horizontalSpacer_25">
                               <property name="orientation">
                                <enum>Qt::Horizontal</enum>
                               </property>
@@ -923,13 +911,39 @@
                          <item>
                           <widget class="QGroupBox" name="groupBox_11">
                            <property name="title">
-                            <string>Для автоматической загрузки:</string>
+                            <string/>
                            </property>
                            <layout class="QGridLayout" name="gridLayout_30">
-                            <item row="0" column="2">
-                             <widget class="QComboBox" name="comboBox_sCpl_group">
-                              <property name="sizeAdjustPolicy">
-                               <enum>QComboBox::AdjustToContents</enum>
+                            <item row="3" column="3">
+                             <spacer name="horizontalSpacer_14">
+                              <property name="orientation">
+                               <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                            <item row="2" column="0">
+                             <widget class="QLabel" name="label_20">
+                              <property name="text">
+                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;* &lt;/span&gt;Новые атрибуты добавлять в:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="4" column="0">
+                             <widget class="QLabel" name="label_22">
+                              <property name="text">
+                               <string>Товары с 0 ценой:</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                               </property>
                              </widget>
                             </item>
@@ -946,6 +960,36 @@
                               </property>
                              </spacer>
                             </item>
+                            <item row="3" column="0">
+                             <widget class="QLabel" name="label_21">
+                              <property name="text">
+                               <string>Новые товары:</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="label_19">
+                              <property name="text">
+                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;* &lt;/span&gt;Новые категории добавлять в:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="3" column="2">
+                             <widget class="QCheckBox" name="checkBox_sCpl_new_product">
+                              <property name="text">
+                               <string>добавлять</string>
+                              </property>
+                              <property name="checked">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
                             <item row="2" column="2">
                              <widget class="QComboBox" name="comboBox_sCpl_att">
                               <property name="sizeAdjustPolicy">
@@ -953,10 +997,10 @@
                               </property>
                              </widget>
                             </item>
-                            <item row="0" column="0">
-                             <widget class="QLabel" name="label_19">
+                            <item row="4" column="2">
+                             <widget class="QCheckBox" name="checkBox_sCpl_not_price">
                               <property name="text">
-                               <string>Новые категории добавлять в:</string>
+                               <string>загружать</string>
                               </property>
                              </widget>
                             </item>
@@ -973,82 +1017,14 @@
                               </property>
                              </spacer>
                             </item>
-                            <item row="2" column="0">
-                             <widget class="QLabel" name="label_20">
-                              <property name="text">
-                               <string>Новые атрибуты добавлять в:</string>
-                              </property>
-                             </widget>
-                            </item>
-                           </layout>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QGroupBox" name="groupBox_6">
-                           <property name="title">
-                            <string>Неизвестные товары:</string>
-                           </property>
-                           <layout class="QGridLayout" name="gridLayout_17">
-                            <item row="0" column="0">
-                             <widget class="QRadioButton" name="radioButton_sCpl_prodout">
-                              <property name="text">
-                               <string>пропускать</string>
-                              </property>
-                              <property name="checked">
-                               <bool>false</bool>
-                              </property>
-                             </widget>
-                            </item>
-                            <item row="0" column="1">
-                             <widget class="QRadioButton" name="radioButton_sCpl_prodin">
-                              <property name="text">
-                               <string>добавлять</string>
-                              </property>
-                              <property name="checked">
-                               <bool>true</bool>
-                              </property>
-                             </widget>
-                            </item>
                             <item row="0" column="2">
-                             <spacer name="horizontalSpacer_14">
-                              <property name="orientation">
-                               <enum>Qt::Horizontal</enum>
-                              </property>
-                              <property name="sizeHint" stdset="0">
-                               <size>
-                                <width>40</width>
-                                <height>20</height>
-                               </size>
-                              </property>
-                             </spacer>
-                            </item>
-                           </layout>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QGroupBox" name="groupBox_9">
-                           <property name="title">
-                            <string>Товары без цен:</string>
-                           </property>
-                           <layout class="QGridLayout" name="gridLayout_22">
-                            <item row="0" column="0">
-                             <widget class="QRadioButton" name="radioButton_sC_priceount_2">
-                              <property name="text">
-                               <string>пропускать</string>
-                              </property>
-                              <property name="checked">
-                               <bool>true</bool>
+                             <widget class="QComboBox" name="comboBox_sCpl_group">
+                              <property name="sizeAdjustPolicy">
+                               <enum>QComboBox::AdjustToContents</enum>
                               </property>
                              </widget>
                             </item>
-                            <item row="0" column="1">
-                             <widget class="QRadioButton" name="radioButton_sC_pricein_2">
-                              <property name="text">
-                               <string>загружать</string>
-                              </property>
-                             </widget>
-                            </item>
-                            <item row="0" column="2">
+                            <item row="4" column="3">
                              <spacer name="horizontalSpacer_16">
                               <property name="orientation">
                                <enum>Qt::Horizontal</enum>
@@ -1067,7 +1043,7 @@
                          <item>
                           <widget class="QGroupBox" name="groupBox_7">
                            <property name="title">
-                            <string>У известных товаров обновлять:</string>
+                            <string>При загрузке известных товаров обновлять:</string>
                            </property>
                            <layout class="QGridLayout" name="gridLayout_18">
                             <item row="0" column="0">
@@ -1128,7 +1104,7 @@
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_10">
                   <property name="text">
-                   <string>* - только для автоматической загрузки</string>
+                   <string>&lt;span style=&quot; color:#ff0000;&quot;&gt;* - только для автоматической загрузки&lt;/span&gt;</string>
                   </property>
                  </widget>
                 </item>

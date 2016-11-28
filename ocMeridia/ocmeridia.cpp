@@ -96,11 +96,9 @@ void ocMeridia::readSetting()
     ui->lineEdit_sB_dir->setText(sett.value("oc/dir").toString());
 
     //--------------------loads
-    ui->radioButton_sC_priceount->setChecked(sett.value("load1c/prod_out").toBool());
-    ui->radioButton_sC_pricein->setChecked(sett.value("load1c/prod_in").toBool());
-    //ui->doubleSpinBox_sC_pricein->setValue(sett.value("load1c/prod_price").toDouble());
-    ui->radioButton_sC_newProdOunt->setChecked(sett.value("load1c/new_prod_out").toBool());
-    ui->radioButton_sC_newProdIn->setChecked(sett.value("load1c/new_prod_in").toBool());
+    ui->checkBox_sC_new_product->setChecked(sett.value("load1c/new_product").toBool());
+    ui->checkBox_sC_not_price->setChecked(sett.value("load1c/not_price").toBool());
+
     ui->checkBox_sC_upname->setChecked(sett.value("load1c/up_name").toBool());
     ui->checkBox_sC_upmanuf->setChecked(sett.value("load1c/up_manuf").toBool());
     ui->checkBox_sC_upprice->setChecked(sett.value("load1c/up_price").toBool());
@@ -110,8 +108,8 @@ void ocMeridia::readSetting()
     ui->checkBox_sC_upattribute->setChecked(sett.value("load1c/up_attribute").toBool());
 
 
-    ui->radioButton_sCpl_prodout->setChecked(sett.value("loadpl/prod_out").toBool());
-    ui->radioButton_sCpl_prodin->setChecked(sett.value("loadpl/prod_in").toBool());
+    ui->checkBox_sCpl_new_product->setChecked(sett.value("loadpl/new_product").toBool());
+    ui->checkBox_sCpl_not_price->setChecked(sett.value("loadpl/not_price").toBool());
     ui->radioButton_sCpl_upall->setChecked(sett.value("loadpl/up_all").toBool());
     ui->radioButton_sCpl_upprice->setChecked(sett.value("loadpl/up_price").toBool());
 
@@ -159,16 +157,14 @@ void ocMeridia::writeSetting()
     sett.setValue("quan", ui->doubleSpinBox_sB_quan->value());
     sett.setValue("dir", ui->lineEdit_sB_dir->text());
     sett.endGroup();
+
     sett.beginGroup("load1c");
-    //sett.setValue("cat_out", ui->radioButton_sC_catout->isChecked());
-   // sett.setValue("cat_in", ui->radioButton_sC_catin->isChecked());
     sett.setValue("group", categoryMap.value(ui->comboBox_sC_group->currentIndex()));
     sett.setValue("attribute", attributeMap.value(ui->comboBox_sC_att->currentIndex()));
-    sett.setValue("prod_out", ui->radioButton_sC_priceount->isChecked());
-    sett.setValue("prod_in", ui->radioButton_sC_pricein->isChecked());
-    //sett.setValue("prod_price", ui->doubleSpinBox_sC_pricein->value());
-    sett.setValue("new_prod_out", ui->radioButton_sC_newProdOunt->isChecked());
-    sett.setValue("new_prod_in", ui->radioButton_sC_newProdIn->isChecked());
+
+    sett.setValue("new_product", ui->checkBox_sC_new_product->isChecked());
+    sett.setValue("not_price", ui->checkBox_sC_not_price->isChecked());
+
     sett.setValue("up_name", ui->checkBox_sC_upname->isChecked());
     sett.setValue("up_manuf", ui->checkBox_sC_upmanuf->isChecked());
     sett.setValue("up_price", ui->checkBox_sC_upprice->isChecked());
@@ -177,13 +173,15 @@ void ocMeridia::writeSetting()
     sett.setValue("up_image", ui->checkBox_sC_upimage->isChecked());
     sett.setValue("up_attribute", ui->checkBox_sC_upattribute->isChecked());
     sett.endGroup();
+
     sett.beginGroup("loadpl");
     sett.setValue("group", categoryMap.value(ui->comboBox_sCpl_group->currentIndex()));
     sett.setValue("attribute", attributeMap.value(ui->comboBox_sCpl_att->currentIndex()));
-    sett.setValue("prod_out", ui->radioButton_sCpl_prodout->isChecked());
-    sett.setValue("prod_in", ui->radioButton_sCpl_prodin->isChecked());
+
+    sett.setValue("new_product", ui->checkBox_sCpl_new_product->isChecked());
+    sett.setValue("not_price", ui->checkBox_sCpl_not_price->isChecked());
+
     sett.setValue("up_all", ui->radioButton_sCpl_upall->isChecked());
-    sett.setValue("up_price", ui->radioButton_sCpl_upprice->isChecked());
     sett.endGroup();
     sett.beginGroup("auto");
     sett.setValue("1cdir", ui->lineEdit_sD_dir1c->text());
@@ -975,7 +973,7 @@ void ocMeridia::csv_readData()
         }
         //удаление первых строк аттрибутов
 
-        int numA = (ui->spinBox_f_csv_firstRow->value() - 1) * column_list_image.size();
+        int numA = (ui->spinBox_f_csv_firstRow->value() - 1) * column_list_attr.size();
         for (int r = numA - 1; r >= 0; r--){
             ui->tableWidget_prod_attributes->removeRow(r);
         }
@@ -1650,21 +1648,85 @@ void ocMeridia::product_loadOnServer()
             if (ui->radioButton_prod_onlyGroup->isChecked()){
                 int target_group = categoryMap.value(ui->comboBox_prod_group->currentIndex());
                 if (_group_id == target_group){
+                    if (ui->radioButton_f_openMain->isChecked()){ // загрузка основного файла
+                        if (_id == 0){
+                            idxIN = true;
+                            idxUP = false;
+                            //add?
+                            if (ui->checkBox_sC_new_product->isChecked()){
+                                idxIN = true;
+                                // price?
+                                if (_price == 0.00){
+                                    if (ui->checkBox_sC_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
+                                        idxIN = false;
+                                    } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                        idxIN = true;
+                                    }
+                                }
+                            } else {
+                                idxIN = false;
+                            }
+                        } else if (_id > 0){
+                            idxUP = true;
+                            idxIN = false;
+
+                            if (_price == 0.00){
+                                if (ui->checkBox_sC_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
+                                    idxUP = true;
+                                } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                    idxUP = false;
+                                }
+                            }
+                        }
+                    } else if (ui->radioButton_f_openPL->isChecked()){
+                        if (_id == 0){
+                            idxIN = true;
+                            idxUP = false;
+                            //add?
+                            if (ui->checkBox_sCpl_new_product->isChecked()){
+                                idxIN = true;
+                                // price?
+                                if (_price == 0.00){
+                                    if (ui->checkBox_sCpl_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
+                                        idxIN = false;
+                                    } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                        idxIN = true;
+                                    }
+                                }
+                            } else {
+                                idxIN = false;
+                            }
+                        } else if (_id > 0){
+                            idxUP = true;
+                            idxIN = false;
+
+                            if (_price == 0.00){
+                                if (ui->checkBox_sCpl_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
+                                    idxUP = true;
+                                } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                    idxUP = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (ui->radioButton_prod_all->isChecked()){
+                if (ui->radioButton_f_openMain->isChecked()){
                     if (_id == 0){
                         idxIN = true;
                         idxUP = false;
                         //add?
-                        if (ui->radioButton_sC_newProdIn->isChecked()){
+                        if (ui->checkBox_sC_new_product->isChecked()){
                             idxIN = true;
                             // price?
                             if (_price == 0.00){
-                                if (ui->radioButton_sC_priceount->isChecked()){ // если в настройках стоит пропускать с 0 ценой
+                                if (ui->checkBox_sC_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
                                     idxIN = false;
-                                } else if (ui->radioButton_sC_pricein->isChecked()) { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
                                     idxIN = true;
                                 }
                             }
-                        } else if (ui->radioButton_sC_newProdOunt->isChecked()){
+                        } else {
                             idxIN = false;
                         }
                     } else if (_id > 0){
@@ -1672,46 +1734,45 @@ void ocMeridia::product_loadOnServer()
                         idxIN = false;
 
                         if (_price == 0.00){
-                            if (ui->radioButton_sC_priceount->isChecked()){ // если в настройках стоит пропускать с 0 ценой
+                            if (ui->checkBox_sC_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
                                 idxUP = false;
-                            } else if (ui->radioButton_sC_pricein->isChecked()) { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                            } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                idxUP = true;
+                            }
+                        }
+                    }
+                } else if (ui->radioButton_f_openPL->isChecked()){
+                    if (_id == 0){
+                        idxIN = true;
+                        idxUP = false;
+                        //add?
+                        if (ui->checkBox_sCpl_new_product->isChecked()){
+                            idxIN = true;
+                            // price?
+                            if (_price == 0.00){
+                                if (ui->checkBox_sCpl_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
+                                    idxIN = false;
+                                } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                    idxIN = true;
+                                }
+                            }
+                        } else {
+                            idxIN = false;
+                        }
+                    } else if (_id > 0){
+                        idxUP = true;
+                        idxIN = false;
+
+                        if (_price == 0.00){
+                            if (ui->checkBox_sCpl_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
+                                idxUP = false;
+                            } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
                                 idxUP = true;
                             }
                         }
                     }
                 }
-            } else if (ui->radioButton_prod_all->isChecked()){
-                if (_id == 0){
-                    idxIN = true;
-                    idxUP = false;
-                    //add?
-                    if (ui->radioButton_sC_newProdIn->isChecked()){
-                        idxIN = true;
-                        // price?
-                        if (_price == 0.00){
-                            if (ui->radioButton_sC_priceount->isChecked()){ // если в настройках стоит пропускать с 0 ценой
-                                idxIN = false;
-                            } else if (ui->radioButton_sC_pricein->isChecked()) { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
-                                idxIN = true;
-                            }
-                        }
-                    } else if (ui->radioButton_sC_newProdOunt->isChecked()){
-                        idxIN = false;
-                    }
-                } else if (_id > 0){
-                    idxUP = true;
-                    idxIN = false;
-
-                    if (_price == 0.00){
-                        if (ui->radioButton_sC_priceount->isChecked()){ // если в настройках стоит пропускать с 0 ценой
-                            idxUP = false;
-                        } else if (ui->radioButton_sC_pricein->isChecked()) { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
-                            idxUP = true;
-                        }
-                    }
-                }
             }
-
             if (idxIN){
 //                if (!ui->tableWidget_product->item(row, 5)->text().isEmpty()){
 //                    image = _DIR.append("/").append(ui->tableWidget_product->item(row, 5)->text());
