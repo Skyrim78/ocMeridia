@@ -78,6 +78,8 @@ void setting::pl_load()
         }
         row++;
     }
+    ui->tableWidget_pl->resizeColumnsToContents();
+    ui->tableWidget_pl->horizontalHeader()->setStretchLastSection(true);
 }
 
 void setting::pl_add()

@@ -57,6 +57,7 @@ public:
 
     //-attributes
     QStringList attributes_list;
+    QMap<QString, QString> attributeProductMap;
     int att_activeID;
     //manufacturer
     bool _test_manufacturer;

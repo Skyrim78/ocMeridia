@@ -195,14 +195,17 @@ void ocMeridia::writeSetting()
 
 void ocMeridia::setting_connect_netDB()
 {
-    db_server = QSqlDatabase::addDatabase("QMYSQL", "serverDB");
-    db_server.setDatabaseName(ui->lineEdit_sA_dbname->text());
-    db_server.setHostName(ui->lineEdit_sA_host->text());
-    db_server.setPort(ui->spinBox_sA_port->value());
-    db_server.setUserName(ui->lineEdit_sA_username->text());
-    db_server.setPassword(ui->lineEdit_sA_pass->text());
-    db_server.setConnectOptions("MYSQL_OPT_RECONNECT=TRUE;");
-    db_server.open();
+    if (!ui->lineEdit_sA_dbname->text().isEmpty()){
+        db_server = QSqlDatabase::addDatabase("QMYSQL", "serverDB");
+        db_server.setDatabaseName(ui->lineEdit_sA_dbname->text());
+        db_server.setHostName(ui->lineEdit_sA_host->text());
+        db_server.setPort(ui->spinBox_sA_port->value());
+        db_server.setUserName(ui->lineEdit_sA_username->text());
+        db_server.setPassword(ui->lineEdit_sA_pass->text());
+        db_server.setConnectOptions("MYSQL_OPT_RECONNECT=TRUE;");
+        db_server.open();
+    }
+
 
     if (db_server.isOpen()){
         makeMessage("К удаленной БД подключено", true);
@@ -549,7 +552,7 @@ void ocMeridia::file_Open_Main()
         QDomNode nodeProducts = nodeAll.childNodes().at(idxProd);
 
         QStringList att_list;
-        for (int y = 0; y < 500; y++){; //*/nodeProducts.childNodes().count(); y++){ //****
+        for (int y = 0; y < 5000; y++){; //*/nodeProducts.childNodes().count(); y++){ //****
             QDomNode nodeProduct = nodeProducts.childNodes().at(y);
             QString _ID = nodeProduct.firstChildElement("Ид").text();
             if (_ID.size() == 36){
@@ -565,9 +568,14 @@ void ocMeridia::file_Open_Main()
                     QDomNode nAtt = elAttributes.childNodes().at(x);
                     if (nAtt.firstChildElement("Ид").text() == "ae02b1ee-27c2-11e6-9800-df7e0845cb23"){ //Цвет
                         QString color = nAtt.firstChildElement("Значение").text();
-                        att_list.append(QString("%1|Цвет|%3")
-                                         .arg(_ID)
-                                         .arg(color));
+                        QString att_str = attributeProductMap.value(_ID);
+                        if (att_str.isEmpty()){
+                            attributeProductMap.insert(_ID, QString("Цвет|%3 ").arg(color));
+                        } else {
+                            att_str.append(" ").append(color);
+                            attributeProductMap.remove(_ID);
+                            attributeProductMap.insert(_ID, att_str);
+                        }
                     }
                 }
                 mapProduct.insert(_ID, line);
@@ -593,9 +601,14 @@ void ocMeridia::file_Open_Main()
                             QDomNode nAtt = elAttributes.childNodes().at(x);
                             if (nAtt.firstChildElement("Ид").text() == "ae02b1ee-27c2-11e6-9800-df7e0845cb23"){ //Цвет
                                 QString color = nAtt.firstChildElement("Значение").text();
-                                att_list.append(QString("%1|Цвет|%3")
-                                                 .arg(_ID)
-                                                 .arg(color));
+                                QString att_str = attributeProductMap.value(_ID);
+                                if (att_str.isEmpty()){
+                                    attributeProductMap.insert(_ID, QString("Цвет|%3 ").arg(color));
+                                } else {
+                                    att_str.append(" ").append(color);
+                                    attributeProductMap.remove(_ID);
+                                    attributeProductMap.insert(_ID, att_str);
+                                }
                             }
                         }
                         mapProduct.insert(_ID, line_post);
@@ -606,16 +619,21 @@ void ocMeridia::file_Open_Main()
                             QDomNode nAtt = elAttributes.childNodes().at(x);
                             if (nAtt.firstChildElement("Ид").text() == "ae02b1ee-27c2-11e6-9800-df7e0845cb23"){ //Цвет
                                 QString color = nAtt.firstChildElement("Значение").text();
-                                att_list.append(QString("%1|Цвет|%3")
-                                                 .arg(_ID)
-                                                 .arg(color));
+                                QString att_str = attributeProductMap.value(_ID);
+                                if (att_str.isEmpty()){
+                                    attributeProductMap.insert(_ID, QString("Цвет|%3 ").arg(color));
+                                } else {
+                                    att_str.append(" ").append(color);
+                                    attributeProductMap.remove(_ID);
+                                    attributeProductMap.insert(_ID, att_str);
+                                }
                             }
                         }
                     }
                 }
             }
 
-            ui->progressBar->setValue(qFloor((y+1) * 100 / 500)); //*/nodeProducts.childNodes().count()));
+            ui->progressBar->setValue(qFloor((y+1) * 100 / 5000)); //*/nodeProducts.childNodes().count()));
             QApplication::processEvents();
         }
         for (int x = 0; x < mapProduct.count(); x++){
@@ -650,12 +668,18 @@ void ocMeridia::file_Open_Main()
             ui->progressBar->setValue(qFloor((x+1) * 100 / mapProduct.count()));
             QApplication::processEvents();
         }
-        //attribute
-        for (int row = 0; row < att_list.size(); row++){
+       for (int row = 0; row < attributeProductMap.count(); row++){
             ui->tableWidget_prod_attributes->insertRow(row);
-            for (int col = 0; col < att_list.at(row).split("|").size(); col++){
-                QTableWidgetItem *item = new QTableWidgetItem(att_list.at(row).split("|").at(col));
-                ui->tableWidget_prod_attributes->setItem(row, col, item);
+
+            QString key = attributeProductMap.keys().at(row);
+
+            QTableWidgetItem *itemID = new QTableWidgetItem(key);
+            ui->tableWidget_prod_attributes->setItem(row, 0, itemID);
+
+            for (int col = 0; col < attributeProductMap.value(key).split("|").size(); col++){
+
+                QTableWidgetItem *item = new QTableWidgetItem( attributeProductMap.value(key).split("|").at(col));
+                ui->tableWidget_prod_attributes->setItem(row, col + 1, item);
             }
         }
     }
@@ -1496,6 +1520,27 @@ void ocMeridia::attribute_testServer()
     }
     ui->progressBar->hide();
 
+    //--test
+//    QList<int> del_row;
+//    for (int row = 1; row < ui->tableWidget_prod_attributes->rowCount(); row++){
+//        QString A1 = ui->tableWidget_prod_attributes->item(row, 0)->text();
+//        QString A0 = ui->tableWidget_prod_attributes->item(row - 1, 0)->text();
+//        QString B1 = ui->tableWidget_prod_attributes->item(row, 1)->text();
+//        QString B0 = ui->tableWidget_prod_attributes->item(row - 1, 1)->text();
+//        QString C1 = ui->tableWidget_prod_attributes->item(row, 2)->text();
+//        QString C0 = ui->tableWidget_prod_attributes->item(row - 1, 2)->text();
+//        if (A1 == A0 && B1 == B0){
+//            QTableWidgetItem *itemC = new QTableWidgetItem(QString("%1 %2").arg(C0).arg(C1));
+//            ui->tableWidget_prod_attributes->setItem(row, 2, itemC);
+//            del_row.append(row - 1);
+//        }
+//    }
+//    if (del_row.size() > 0){
+//        for (int x = del_row.size()-1; x >= 0; x--){
+//            ui->tableWidget_prod_attributes->removeRow(del_row.at(x));
+//        }
+//    }
+
 }
 
 void ocMeridia::product_testServer()
@@ -1658,9 +1703,9 @@ void ocMeridia::product_loadOnServer()
                                 // price?
                                 if (_price == 0.00){
                                     if (ui->checkBox_sC_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
-                                        idxIN = false;
-                                    } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
                                         idxIN = true;
+                                    } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                        idxIN = false;
                                     }
                                 }
                             } else {
@@ -1688,9 +1733,9 @@ void ocMeridia::product_loadOnServer()
                                 // price?
                                 if (_price == 0.00){
                                     if (ui->checkBox_sCpl_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
-                                        idxIN = false;
-                                    } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
                                         idxIN = true;
+                                    } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                        idxIN = false;
                                     }
                                 }
                             } else {
@@ -1721,9 +1766,9 @@ void ocMeridia::product_loadOnServer()
                             // price?
                             if (_price == 0.00){
                                 if (ui->checkBox_sC_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
-                                    idxIN = false;
-                                } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
                                     idxIN = true;
+                                } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                    idxIN = false;
                                 }
                             }
                         } else {
@@ -1735,9 +1780,9 @@ void ocMeridia::product_loadOnServer()
 
                         if (_price == 0.00){
                             if (ui->checkBox_sC_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
-                                idxUP = false;
-                            } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
                                 idxUP = true;
+                            } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                idxUP = false;
                             }
                         }
                     }
@@ -1751,9 +1796,9 @@ void ocMeridia::product_loadOnServer()
                             // price?
                             if (_price == 0.00){
                                 if (ui->checkBox_sCpl_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
-                                    idxIN = false;
-                                } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
                                     idxIN = true;
+                                } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                    idxIN = false;
                                 }
                             }
                         } else {
@@ -1765,9 +1810,9 @@ void ocMeridia::product_loadOnServer()
 
                         if (_price == 0.00){
                             if (ui->checkBox_sCpl_not_price->isChecked()){ // если в настройках стоит пропускать с 0 ценой
-                                idxUP = false;
-                            } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
                                 idxUP = true;
+                            } else { // если в настройках стоит товары с 0 ценой добавлять с ценой Х
+                                idxUP = false;
                             }
                         }
                     }
@@ -1852,6 +1897,8 @@ void ocMeridia::product_loadOnServer()
                                 queryAddProdAttribute.bindValue(3, value_attribute);
                                 queryAddProdAttribute.exec();
                                 if (queryAddProdAttribute.lastError().text().size() > 3){
+                                    qDebug() << queryAddProdAttribute.lastError();
+                                    qDebug() << _ID << id_attribute << value_attribute;
                                   error.append(queryAddProdAttribute.lastError().text());
                                 }
                             }

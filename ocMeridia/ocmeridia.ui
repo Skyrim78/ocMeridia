@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>870</width>
-    <height>807</height>
+    <width>941</width>
+    <height>818</height>
    </rect>
   </property>
   <property name="font">
@@ -40,7 +40,7 @@
                <enum>QTabWidget::North</enum>
               </property>
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <property name="elideMode">
                <enum>Qt::ElideNone</enum>
@@ -306,13 +306,13 @@
                    <widget class="QPushButton" name="pushButton_sA_connect">
                     <property name="minimumSize">
                      <size>
-                      <width>120</width>
+                      <width>150</width>
                       <height>30</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>120</width>
+                      <width>150</width>
                       <height>30</height>
                      </size>
                     </property>
@@ -1409,75 +1409,30 @@
              <string>Макет разбора CSV</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
-             <item row="0" column="0" colspan="3">
-              <layout class="QHBoxLayout" name="horizontalLayout_38">
-               <item>
-                <widget class="QPushButton" name="pushButton_fm_load">
-                 <property name="minimumSize">
-                  <size>
-                   <width>110</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>110</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Загрузить</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_fm_maket">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_fm_save">
-                 <property name="minimumSize">
-                  <size>
-                   <width>110</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>110</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Сохранить</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+             <item row="4" column="3">
+              <widget class="QPushButton" name="pushButton_fm_openFile">
+               <property name="minimumSize">
+                <size>
+                 <width>120</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>120</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Применить</string>
+               </property>
+              </widget>
              </item>
              <item row="1" column="0">
               <layout class="QHBoxLayout" name="horizontalLayout_21">
@@ -2012,7 +1967,7 @@
                </property>
               </spacer>
              </item>
-             <item row="3" column="2">
+             <item row="3" column="3">
               <spacer name="horizontalSpacer_17">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -2025,10 +1980,93 @@
                </property>
               </spacer>
              </item>
+             <item row="0" column="0" colspan="4">
+              <layout class="QHBoxLayout" name="horizontalLayout_38">
+               <item>
+                <widget class="QPushButton" name="pushButton_fm_load">
+                 <property name="minimumSize">
+                  <size>
+                   <width>120</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>120</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Загрузить</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_fm_maket">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_fm_save">
+                 <property name="minimumSize">
+                  <size>
+                   <width>120</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>120</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Сохранить</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="4" column="0" colspan="3">
+              <spacer name="horizontalSpacer_18">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="3" column="0" colspan="2">
            <spacer name="verticalSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -2040,44 +2078,6 @@
              </size>
             </property>
            </spacer>
-          </item>
-          <item row="4" column="0">
-           <spacer name="horizontalSpacer_18">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="4" column="1">
-           <widget class="QPushButton" name="pushButton_fm_openFile">
-            <property name="minimumSize">
-             <size>
-              <width>110</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>110</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Применить</string>
-            </property>
-           </widget>
           </item>
          </layout>
         </widget>
@@ -2254,7 +2254,7 @@
                         </font>
                        </property>
                        <property name="text">
-                        <string>...</string>
+                        <string>U</string>
                        </property>
                       </widget>
                      </item>
@@ -2320,13 +2320,13 @@
                       <widget class="QPushButton" name="pushButton_cat_save">
                        <property name="minimumSize">
                         <size>
-                         <width>110</width>
+                         <width>120</width>
                          <height>30</height>
                         </size>
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>110</width>
+                         <width>120</width>
                          <height>30</height>
                         </size>
                        </property>
@@ -2527,7 +2527,7 @@
                         </font>
                        </property>
                        <property name="text">
-                        <string>...</string>
+                        <string>U</string>
                        </property>
                       </widget>
                      </item>
@@ -2593,13 +2593,13 @@
                       <widget class="QPushButton" name="pushButton_attr_save">
                        <property name="minimumSize">
                         <size>
-                         <width>110</width>
+                         <width>120</width>
                          <height>30</height>
                         </size>
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>110</width>
+                         <width>120</width>
                          <height>30</height>
                         </size>
                        </property>
@@ -2919,19 +2919,23 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_prod_group"/>
+               <widget class="QComboBox" name="comboBox_prod_group">
+                <property name="sizeAdjustPolicy">
+                 <enum>QComboBox::AdjustToContents</enum>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_loadOnServer">
                 <property name="minimumSize">
                  <size>
-                  <width>110</width>
+                  <width>120</width>
                   <height>30</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>110</width>
+                  <width>120</width>
                   <height>30</height>
                  </size>
                 </property>
@@ -3014,8 +3018,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>870</width>
-     <height>20</height>
+     <width>941</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>

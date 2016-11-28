@@ -163,7 +163,7 @@ void ocMeridiaAuto::main_file_read()
         QString _image;
         //*********
 
-        for (int y = 0; y < 4000; y++){; //*/nodeProducts.childNodes().count(); y++){ //****
+        for (int y = 0; y < /*4000; y++){; //*/nodeProducts.childNodes().count(); y++){ //****
             QDomNode nodeProduct = nodeProducts.childNodes().at(y);
             _art = nodeProduct.firstChildElement("Ид").text();
 
@@ -206,8 +206,16 @@ void ocMeridiaAuto::main_file_read()
             for (int x = 0; x < elAttributes.childNodes().count(); x++){
                 QDomNode nAtt = elAttributes.childNodes().at(x);
                 if (nAtt.firstChildElement("Ид").text() == "ae02b1ee-27c2-11e6-9800-df7e0845cb23"){ //Цвет
-                    mapProductAttribute.insertMulti(_art, QString("%1||%2")
-                                        .arg(attribute_get_id("Цвет", 1)).arg(nAtt.firstChildElement("Значение").text()));
+
+                    QString att_str = mapProductAttribute.value(_art);
+                    if (!att_str.isEmpty()){
+                        att_str.append(" ").append(nAtt.firstChildElement("Значение").text());
+                        mapProductAttribute.remove(_art);
+                        mapProductAttribute.insertMulti(_art, att_str);
+                    } else {
+                        mapProductAttribute.insertMulti(_art, QString("%1||%2")
+                                            .arg(attribute_get_id("Цвет", 1)).arg(nAtt.firstChildElement("Значение").text()));
+                    }
                 }
             }
         }
@@ -290,6 +298,11 @@ void ocMeridiaAuto::pl_file_get()
                 QByteArray ar = file.readLine();
                 csvData.append(ar);
             }
+            log.append("*********************************************************");
+            log.append(QString("%1 - Загружен прайс-лист: %2 *")
+                       .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
+                       .arg(fname));
+
         }
         file.close();
         if (csvData.size() > 0){
@@ -305,6 +318,10 @@ void ocMeridiaAuto::pl_file_read(const QString schema)
     mapProduct.clear();
     mapProductAttribute.clear();
     mapProductImage.clear();
+
+    log.append(QString("%1 - Загружена схема разбора: %2 *")
+               .arg(QDateTime::currentDateTime().toString("hh:mm:ss dd.MM.yyyy"))
+               .arg(schema));
 
     QSettings maket(schema, QSettings::IniFormat);
     QSettings sett("setting.ini", QSettings::IniFormat);
@@ -382,7 +399,7 @@ void ocMeridiaAuto::pl_file_read(const QString schema)
     //*****************************************************
     //------------products---------------------------------
     //собираем данные
-    for (int row = 0; row < 100/*csvData.size()*/; row++){
+    for (int row = 0; row < /*100/*/csvData.size(); row++){
 
         //variable
         int _id = 0;
@@ -899,6 +916,7 @@ void ocMeridiaAuto::product_insert(const QString key)
                     queryAddProdAttribute.exec();
                     if (queryAddProdAttribute.lastError().text().size() > 3){
                       error.append(QString("product_insert | queryAddProdAttribute - error: %1").arg(queryAddProdAttribute.lastError().text()));
+                      error.append(QString("product_id: %1 -- att_id: %2 -- att_value: %3").arg(_id).arg(attribute_id).arg(attribute_value));
                     }
                 }
             }
