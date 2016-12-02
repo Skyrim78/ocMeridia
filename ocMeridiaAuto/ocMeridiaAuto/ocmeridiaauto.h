@@ -7,6 +7,7 @@
 #include <QSettings>
 #include <QTimer>
 #include <QFileDialog>
+#include <qmath.h>
 
 namespace Ui {
 class ocMeridiaAuto;

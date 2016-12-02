@@ -45,7 +45,6 @@ public:
     QToolButton *toolButton_pl_add;
     QToolButton *toolButton_pl_del_N;
     QSpacerItem *verticalSpacer;
-    QToolButton *toolButton_about;
     QVBoxLayout *verticalLayout_2;
     QGroupBox *groupBox_pl_form;
     QGridLayout *gridLayout;
@@ -133,14 +132,6 @@ public:
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
-
-        toolButton_about = new QToolButton(groupBox_pl);
-        toolButton_about->setObjectName(QStringLiteral("toolButton_about"));
-        toolButton_about->setMinimumSize(QSize(30, 30));
-        toolButton_about->setMaximumSize(QSize(30, 30));
-        toolButton_about->setFont(font1);
-
-        verticalLayout->addWidget(toolButton_about);
 
 
         horizontalLayout_6->addLayout(verticalLayout);
@@ -305,7 +296,6 @@ public:
         groupBox_pl->setTitle(QApplication::translate("setting", "\320\237\321\200\320\260\320\271\321\201-\320\273\320\270\321\201\321\202\321\213", 0));
         toolButton_pl_add->setText(QApplication::translate("setting", "+", 0));
         toolButton_pl_del_N->setText(QApplication::translate("setting", "-", 0));
-        toolButton_about->setText(QApplication::translate("setting", "?", 0));
         groupBox_pl_form->setTitle(QString());
         label->setText(QApplication::translate("setting", "\320\240\320\260\321\201\320\277\320\276\320\273\320\276\320\266\320\265\320\275\320\270\320\265 \321\204\320\260\320\271\320\273\320\260:", 0));
         toolButton_pl_sel_name->setText(QApplication::translate("setting", "...", 0));

@@ -438,7 +438,13 @@ void ocMeridiaAuto::pl_file_read(const QString schema)
         }
 
         if (maket.value("price_check").toBool()){
-            _price = csvData.at(row).split(splA).at(col_price).toDouble();
+            double temp_price = csvData.at(row).split(splA).at(col_price).toDouble();
+            if (maket.value("price_corr_check").toBool()){
+                double _pr = temp_price * maket.value("price_corr").toInt() * 0.01;
+                _price = temp_price + _pr;
+            } else {
+                _price = temp_price;
+            }
         }
 
         if (maket.value("quan_check").toBool()){
@@ -484,8 +490,8 @@ void ocMeridiaAuto::pl_file_read(const QString schema)
                               .arg(_name)
                               .arg(_id_group)
                               .arg(_manufacturer)
-                              .arg(_price)
-                              .arg(_quan)
+                              .arg(QString::number(_price, 'f', 2))
+                              .arg(QString::number(_quan, 'f', 2))
                               .arg(_desc)
                               .arg(_image));
         }

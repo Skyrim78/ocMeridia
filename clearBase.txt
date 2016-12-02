@@ -1,0 +1,13 @@
+DELETE FROM `rmrt_category` WHERE `rmrt_category`.`category_id` > 57;
+DELETE FROM `rmrt_category_description` WHERE `rmrt_category_description`.`category_id` > 57;
+DELETE FROM `rmrt_category_path` WHERE `rmrt_category_path`.`category_id` > 57;
+DELETE FROM `rmrt_category_to_store` WHERE `rmrt_category_to_store`.`category_id` > 57;
+DELETE FROM `rmrt_product` WHERE `rmrt_product`.`product_id` > 49;
+DELETE FROM `rmrt_product_attribute` WHERE `rmrt_product_attribute`.`product_id` > 49;
+DELETE FROM `rmrt_product_description` WHERE `rmrt_product_description`.`product_id` > 49;
+DELETE FROM `rmrt_product_to_category` WHERE `rmrt_product_to_category`.`product_id` > 49;
+DELETE FROM `rmrt_product_to_store` WHERE `rmrt_product_to_store`.`product_id` > 49;
+DELETE FROM `rmrt_product_image` WHERE `product_id` > 49;
+DELETE FROM `rmrt_manufacturer` WHERE `manufacturer_id` > 10;
+DELETE FROM `rmrt_manufacturer_description` WHERE `manufacturer_id` > 10;
+DELETE FROM `rmrt_manufacturer_to_store` WHERE `manufacturer_id` > 10;

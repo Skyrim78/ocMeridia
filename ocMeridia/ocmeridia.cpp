@@ -720,6 +720,8 @@ void ocMeridia::file_loadMaket()
         ui->checkBox_fm_desc->setChecked(maket.value("desc_check").toBool());
         ui->checkBox_fm_image->setChecked(maket.value("image_check").toBool());
         ui->checkBox_fm_attr->setChecked(maket.value("attr_check").toBool());
+        ui->checkBox_fm_price_corr->setChecked(maket.value("price_corr_check").toBool());
+
         ui->lineEdit_fm_category->setText(maket.value("cat").toString());
         ui->lineEdit_fm_desc->setText(maket.value("desc").toString());
         ui->lineEdit_fm_image->setText(maket.value("image").toString());
@@ -730,6 +732,7 @@ void ocMeridia::file_loadMaket()
         ui->spinBox_fm_manuf->setValue(maket.value("manuf").toInt());
         ui->spinBox_fm_price->setValue(maket.value("price").toInt());
         ui->spinBox_fm_quan->setValue(maket.value("quan").toInt());
+        ui->spinBox_fm_price_cor->setValue(maket.value("price_corr").toInt());
     } else {
         ui->comboBox_f_csv_split->setCurrentIndex(0);
         ui->spinBox_f_csv_firstRow->setValue(1);
@@ -743,6 +746,7 @@ void ocMeridia::file_loadMaket()
         ui->checkBox_fm_desc->setChecked(false);
         ui->checkBox_fm_image->setChecked(false);
         ui->checkBox_fm_attr->setChecked(false);
+        ui->checkBox_fm_price_corr->setChecked(false);
         ui->lineEdit_fm_category->clear();
         ui->lineEdit_fm_desc->clear();
         ui->lineEdit_fm_image->clear();
@@ -753,6 +757,7 @@ void ocMeridia::file_loadMaket()
         ui->spinBox_fm_manuf->setValue(1);
         ui->spinBox_fm_price->setValue(1);
         ui->spinBox_fm_quan->setValue(1);
+        ui->spinBox_fm_price_cor->setValue(0);
     }
 }
 
@@ -774,6 +779,8 @@ void ocMeridia::file_saveMaket()
     maket.setValue("desc_check", ui->checkBox_fm_desc->isChecked());
     maket.setValue("image_check", ui->checkBox_fm_image->isChecked());
     maket.setValue("attr_check", ui->checkBox_fm_attr->isChecked());
+    maket.setValue("price_corr_check", ui->checkBox_fm_price_corr->isChecked());
+
     maket.setValue("cat", ui->lineEdit_fm_category->text());
     maket.setValue("desc", ui->lineEdit_fm_desc->text());
     maket.setValue("image", ui->lineEdit_fm_image->text());
@@ -784,6 +791,7 @@ void ocMeridia::file_saveMaket()
     maket.setValue("manuf", ui->spinBox_fm_manuf->value());
     maket.setValue("price", ui->spinBox_fm_price->value());
     maket.setValue("quan", ui->spinBox_fm_quan->value());
+    maket.setValue("price_corr", ui->spinBox_fm_price_cor->value());
 }
 //***************************************************
 //------------------CSV-------------------------------
@@ -922,6 +930,12 @@ void ocMeridia::csv_readData()
 
             if (ui->checkBox_fm_price->isChecked()){
                 _price.append(lineA.split(splA).at(ui->spinBox_fm_price->value() - 1));
+                if (ui->checkBox_fm_price_corr->isChecked()){
+                    _price.clear();
+                    double _pr = lineA.split(splA).at(ui->spinBox_fm_price->value() - 1).toDouble();
+                    _price.append(QString::number(_pr + (_pr * (ui->spinBox_fm_price_cor->value() * 0.01)), 'f', 2));
+                }
+
             }
             product_line.append(QString("||%1").arg(_price));
 
