@@ -1467,7 +1467,7 @@ void ocMeridia::attribute_save()
 
             QSqlQuery query("INSERT INTO `att` (`name`, `id_db`) VALUES (?, ?)", db_local);
             query.bindValue(0, ui->tableWidget_cat_file->item(crow, 0)->text());
-            query.bindValue(1, cat_activeID);
+            query.bindValue(1, att_activeID);
             query.exec();
 
             if (query.lastError().text().size() > 3){

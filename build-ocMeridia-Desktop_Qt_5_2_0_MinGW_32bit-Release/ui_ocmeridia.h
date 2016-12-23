@@ -380,8 +380,8 @@ public:
         lineEdit_sA_host->setObjectName(QStringLiteral("lineEdit_sA_host"));
         sizePolicy1.setHeightForWidth(lineEdit_sA_host->sizePolicy().hasHeightForWidth());
         lineEdit_sA_host->setSizePolicy(sizePolicy1);
-        lineEdit_sA_host->setMinimumSize(QSize(200, 0));
-        lineEdit_sA_host->setMaximumSize(QSize(200, 16777215));
+        lineEdit_sA_host->setMinimumSize(QSize(300, 0));
+        lineEdit_sA_host->setMaximumSize(QSize(350, 16777215));
 
         formLayout->setWidget(1, QFormLayout::FieldRole, lineEdit_sA_host);
 
@@ -1362,7 +1362,7 @@ public:
         spinBox_fm_price_cor->setFrame(true);
         spinBox_fm_price_cor->setAlignment(Qt::AlignCenter);
         spinBox_fm_price_cor->setAccelerated(true);
-        spinBox_fm_price_cor->setMinimum(1);
+        spinBox_fm_price_cor->setMinimum(-100);
         spinBox_fm_price_cor->setMaximum(100);
         spinBox_fm_price_cor->setSingleStep(1);
         spinBox_fm_price_cor->setValue(1);
