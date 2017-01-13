@@ -87,7 +87,7 @@ public:
     {
         if (product_form->objectName().isEmpty())
             product_form->setObjectName(QStringLiteral("product_form"));
-        product_form->resize(858, 622);
+        product_form->resize(907, 622);
         QFont font;
         font.setPointSize(10);
         product_form->setFont(font);
@@ -261,6 +261,7 @@ public:
         lineEdit_name->setMinimumSize(QSize(0, 25));
         lineEdit_name->setMaximumSize(QSize(16777215, 25));
         lineEdit_name->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        lineEdit_name->setClearButtonEnabled(false);
 
         horizontalLayout_3->addWidget(lineEdit_name);
 

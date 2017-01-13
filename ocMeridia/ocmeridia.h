@@ -115,6 +115,9 @@ public slots:
     void product_loadOnServer();
     void product_manufacturer();
 
+    //подмена категорий в новых товарах на установленную в настройках
+    void product_change_group();
+
 
 
     void makeMessage(const QString str, bool x);

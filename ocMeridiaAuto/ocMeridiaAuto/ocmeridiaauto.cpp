@@ -190,6 +190,13 @@ void ocMeridiaAuto::main_file_read()
             }
             _id = product_get_id(_art, _name);
 
+            //для новых товаров подмена группы на установленную в настройках
+            if (_id == 0){
+                if (sett.value("load1c/np_group").toBool()){
+                    _id_group = sett.value("load1c/np_group_id").toInt();
+                }
+            }
+
             mapProduct.insert(_art, QString("%1||%2||%3||%4||%5||%6||%7||%8||%9||%10")
                               .arg(_id)
                               .arg(_art)
@@ -481,6 +488,15 @@ void ocMeridiaAuto::pl_file_read(const QString schema)
         }
 
         _id = product_get_id(_art, _name);
+
+        //для новых товаров подмена группы на установленную в настройках
+        if (_id == 0){
+            if (sett.value("loadpl/np_group").toBool()){
+                _id_group = sett.value("loadpl/np_group_id").toInt();
+            }
+        }
+
+
         int numRow = row - first_row + 1; //номер строки связанного товара
         if (numRow >= 0){
             mapProduct.insert(QString::number(row - 1), QString("%1||%2||%3||%4||%5||%6||%7||%8||%9||%10")
@@ -839,7 +855,8 @@ int ocMeridiaAuto::product_get_id(const QString prod_code, const QString prod_na
     return _id;
 }
 
-void ocMeridiaAuto::product_insert(const QString key)
+void ocMeridiaAuto::
+product_insert(const QString key)
 {
     QString error;
     QSettings sett("setting.ini", QSettings::IniFormat);
@@ -849,6 +866,9 @@ void ocMeridiaAuto::product_insert(const QString key)
     QString _model = mapProduct.value(key).split("||").at(2);
     QString _name = mapProduct.value(key).split("||").at(3);
     int _id_group = mapProduct.value(key).split("||").at(4).toInt();
+
+
+
     int _manufacturer = mapProduct.value(key).split("||").at(5).toInt();
     double _price = mapProduct.value(key).split("||").at(6).toDouble();
     double _quan = mapProduct.value(key).split("||").at(7).toDouble();

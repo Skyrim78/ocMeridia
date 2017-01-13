@@ -98,6 +98,7 @@ void ocMeridia::readSetting()
     //--------------------loads
     ui->checkBox_sC_new_product->setChecked(sett.value("load1c/new_product").toBool());
     ui->checkBox_sC_not_price->setChecked(sett.value("load1c/not_price").toBool());
+    ui->checkBox_sC_np_group->setChecked(sett.value("load1c/np_group").toBool());
 
     ui->checkBox_sC_upname->setChecked(sett.value("load1c/up_name").toBool());
     ui->checkBox_sC_upmanuf->setChecked(sett.value("load1c/up_manuf").toBool());
@@ -108,8 +109,11 @@ void ocMeridia::readSetting()
     ui->checkBox_sC_upattribute->setChecked(sett.value("load1c/up_attribute").toBool());
 
 
+
     ui->checkBox_sCpl_new_product->setChecked(sett.value("loadpl/new_product").toBool());
     ui->checkBox_sCpl_not_price->setChecked(sett.value("loadpl/not_price").toBool());
+    ui->checkBox_sCpl_np_group->setChecked(sett.value("loadpl/np_group").toBool());
+
     ui->radioButton_sCpl_upall->setChecked(sett.value("loadpl/up_all").toBool());
     ui->radioButton_sCpl_upprice->setChecked(sett.value("loadpl/up_price").toBool());
 
@@ -164,6 +168,9 @@ void ocMeridia::writeSetting()
 
     sett.setValue("new_product", ui->checkBox_sC_new_product->isChecked());
     sett.setValue("not_price", ui->checkBox_sC_not_price->isChecked());
+    sett.setValue("np_group", ui->checkBox_sC_np_group->isChecked());
+    sett.setValue("np_group_id", categoryMap.value(ui->comboBox_sC_np_group->currentIndex()));
+
 
     sett.setValue("up_name", ui->checkBox_sC_upname->isChecked());
     sett.setValue("up_manuf", ui->checkBox_sC_upmanuf->isChecked());
@@ -180,6 +187,8 @@ void ocMeridia::writeSetting()
 
     sett.setValue("new_product", ui->checkBox_sCpl_new_product->isChecked());
     sett.setValue("not_price", ui->checkBox_sCpl_not_price->isChecked());
+    sett.setValue("np_group", ui->checkBox_sCpl_np_group->isChecked());
+    sett.setValue("np_group_id", categoryMap.value(ui->comboBox_sCpl_np_group->currentIndex()));
 
     sett.setValue("up_all", ui->radioButton_sCpl_upall->isChecked());
     sett.endGroup();
@@ -1058,6 +1067,8 @@ void ocMeridia::category_loadFromDB()
     ui->comboBox_sCpl_group->clear();
     ui->comboBox_sC_group->clear();
     ui->comboBox_prod_group->clear();
+    ui->comboBox_sC_np_group->clear();
+    ui->comboBox_sCpl_np_group->clear();
     categoryMap.clear();
     QSqlQuery qCategory(QString("SELECT rmrt_category_description.category_id, rmrt_category_description.name "
                                 "FROM rmrt_category_description "
@@ -1066,11 +1077,16 @@ void ocMeridia::category_loadFromDB()
         ui->comboBox_sC_group->addItem(qCategory.value(1).toString());
         ui->comboBox_sCpl_group->addItem(qCategory.value(1).toString());
         ui->comboBox_prod_group->addItem(qCategory.value(1).toString());
+        ui->comboBox_sCpl_np_group->addItem(qCategory.value(1).toString());
+        ui->comboBox_sC_np_group->addItem(qCategory.value(1).toString());
         categoryMap.insert(ui->comboBox_sC_group->count() - 1, qCategory.value(0).toInt());
     }
     QSettings sett("setting.ini", QSettings::IniFormat);
     ui->comboBox_sC_group->setCurrentIndex(categoryMap.key(sett.value("load1c/group").toInt()));
     ui->comboBox_sCpl_group->setCurrentIndex(categoryMap.key(sett.value("loadpl/group").toInt()));
+    ui->comboBox_sC_np_group->setCurrentIndex(categoryMap.key(sett.value("load1c/np_group_id").toInt()));
+    ui->comboBox_sCpl_np_group->setCurrentIndex(categoryMap.key(sett.value("loadpl/np_group_id").toInt()));
+
 
 }
 
@@ -1628,6 +1644,10 @@ void ocMeridia::product_testServer()
             QApplication::processEvents();
         }
         ui->progressBar->hide();
+        //замена категорий новых товаров на указанную в настройках
+        if (ui->checkBox_sC_np_group->isChecked()){
+            product_change_group();
+        }
     }
 }
 
@@ -2109,6 +2129,18 @@ void ocMeridia::product_manufacturer()
         _test_manufacturer = true;
     }
 
+}
+
+void ocMeridia::product_change_group()
+{
+    for (int row = 0; row < ui->tableWidget_product->rowCount(); row++){
+        int id = ui->tableWidget_product->item(row, 0)->text().toInt();
+        if (id == 0){
+            QTableWidgetItem *item = new QTableWidgetItem();
+            item->setText(QString::number(categoryMap.value(ui->comboBox_sC_np_group->currentIndex())));
+            ui->tableWidget_product->setItem(row, 4, item);
+        }
+    }
 }
 
 
