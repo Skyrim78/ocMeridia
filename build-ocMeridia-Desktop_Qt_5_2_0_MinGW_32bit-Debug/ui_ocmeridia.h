@@ -1888,7 +1888,7 @@ public:
 
         retranslateUi(ocMeridia);
 
-        tabWidget_main->setCurrentIndex(3);
+        tabWidget_main->setCurrentIndex(1);
         tabWidget_setting->setCurrentIndex(0);
         tabWidget->setCurrentIndex(0);
 
