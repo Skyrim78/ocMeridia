@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1072</width>
-    <height>818</height>
+    <width>1100</width>
+    <height>781</height>
    </rect>
   </property>
   <property name="font">
@@ -25,7 +25,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget_main">
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tab_setting">
          <attribute name="title">
@@ -2336,6 +2336,31 @@
                       </spacer>
                      </item>
                      <item>
+                      <widget class="QToolButton" name="toolButton_cat_connect">
+                       <property name="minimumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>C</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QToolButton" name="toolButton_cat_update">
                        <property name="minimumSize">
                         <size>
@@ -2607,6 +2632,31 @@
                         </size>
                        </property>
                       </spacer>
+                     </item>
+                     <item>
+                      <widget class="QToolButton" name="toolButton_att_connect">
+                       <property name="minimumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>C</string>
+                       </property>
+                      </widget>
                      </item>
                      <item>
                       <widget class="QToolButton" name="toolButton_att_update">
@@ -3120,7 +3170,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1072</width>
+     <width>1100</width>
      <height>20</height>
     </rect>
    </property>

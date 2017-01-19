@@ -66,6 +66,10 @@ ocMeridia::ocMeridia(QWidget *parent) :
     connect(ui->pushButton_loadOnServer, SIGNAL(clicked(bool)), this, SLOT(product_loadOnServer()));
     connect(ui->pushButton_prod_test, SIGNAL(clicked(bool)), this, SLOT(product_testServer()));
 
+    //связи
+    connect(ui->toolButton_cat_connect, SIGNAL(clicked(bool)), this, SLOT(local_connect()));
+    connect(ui->toolButton_att_connect, SIGNAL(clicked(bool)), this, SLOT(local_connect()));
+
     //test
     //connect(ui->toolButton_test, SIGNAL(clicked(bool)), ui->toolButton_test, SLOT(hide()));
 }
@@ -1166,6 +1170,7 @@ void ocMeridia::category_testServer()
                                      .arg(ui->tableWidget_cat_file->item(row, 0)->text())
                                      .arg(queryS2.value(0).toString()), db_server);
                     queryU.exec();
+                    qDebug() << queryU.lastError();
                     // меняем в таблице товаров код1С на ID групп магазина
                     for (int rowp = 0; rowp < ui->tableWidget_product->rowCount(); rowp++){
                         QString productG1C = ui->tableWidget_product->item(rowp, 4)->text();
@@ -2141,6 +2146,12 @@ void ocMeridia::product_change_group()
             ui->tableWidget_product->setItem(row, 4, item);
         }
     }
+}
+
+void ocMeridia::local_connect()
+{
+    local *loc = new local(db_local, db_server, this);
+    loc->exec();
 }
 
 
