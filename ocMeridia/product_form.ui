@@ -101,7 +101,7 @@
                 <string>все</string>
                </property>
                <property name="checked">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -109,6 +109,9 @@
               <widget class="QRadioButton" name="radioButton_s_cod">
                <property name="text">
                 <string>без Кода 1С</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
                </property>
               </widget>
              </item>

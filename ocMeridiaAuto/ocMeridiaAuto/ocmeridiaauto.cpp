@@ -589,38 +589,54 @@ int ocMeridiaAuto::group_get_id(const QString _c, const QString _n, int _v)
     if (queryA.isValid()){
         _id = queryA.value(0).toInt();
     } else {
-        //test2: проверяем наличие записи по имени
-        QSqlQuery queryB(QString("SELECT rmrt_category_description.category_id "
-                                  "FROM rmrt_category_description "
-                                  "WHERE rmrt_category_description.name = \"%1\" ")
-                          .arg(_n), db_server);
-        queryB.next();
-        if (queryB.isValid()){
-            _id = queryB.value(0).toInt();
-            //если такая группа есть: добавляем код1С, подставляем ID в таблицу товары, удаляем строку
-            QSqlQuery queryU(QString("UPDATE rmrt_category SET code = \'%0\' "
-                                     "WHERE rmrt_category.category_id = \'%1\' ")
-                             .arg(_c)
-                             .arg(_n), db_server);
-            queryU.exec();
+        // проверяем наличие категории в синонимах
+        QSqlQuery queryL(QString("SELECT cat.id_db FROM cat WHERE cat.cod = \'%1\'")
+                         .arg(_c)
+                         , db_local);
+        queryL.next();
+        if (queryL.isValid()){
+            _id = queryL.value(0).toInt();
         } else {
-            // проверяем наличие категории в синонимах
-            QSqlQuery queryL(QString("SELECT cat.id_db FROM cat WHERE cat.cod = \'%1\'")
-                             .arg(_c)
-                             , db_local);
-            queryL.next();
-            if (queryL.isValid()){
-                _id = queryL.value(0).toInt();
-            } else {
-                QSettings sett("setting.ini", QSettings::IniFormat);
-                if (_v == 1){ //main file
-                    _id = category_add(_c, _n, sett.value("load1c/group").toString());
-                } else if (_v == 2){ //pl file
-                    _id = category_add(_c, _n, sett.value("loadpl/group").toString());
-                }
-
+            QSettings sett("setting.ini", QSettings::IniFormat);
+            if (_v == 1){ //main file
+                _id = category_add(_c, _n, sett.value("load1c/group").toString());
+            } else if (_v == 2){ //pl file
+                _id = category_add(_c, _n, sett.value("loadpl/group").toString());
             }
+
         }
+//        //test2: проверяем наличие записи по имени
+//        QSqlQuery queryB(QString("SELECT rmrt_category_description.category_id "
+//                                  "FROM rmrt_category_description "
+//                                  "WHERE rmrt_category_description.name = \"%1\" ")
+//                          .arg(_n), db_server);
+//        queryB.next();
+//        if (queryB.isValid()){
+//            _id = queryB.value(0).toInt();
+//            //если такая группа есть: добавляем код1С, подставляем ID в таблицу товары, удаляем строку
+//            QSqlQuery queryU(QString("UPDATE rmrt_category SET code = \'%0\' "
+//                                     "WHERE rmrt_category.category_id = \'%1\' ")
+//                             .arg(_c)
+//                             .arg(_n), db_server);
+//            queryU.exec();
+//        } else {
+//            // проверяем наличие категории в синонимах
+//            QSqlQuery queryL(QString("SELECT cat.id_db FROM cat WHERE cat.cod = \'%1\'")
+//                             .arg(_c)
+//                             , db_local);
+//            queryL.next();
+//            if (queryL.isValid()){
+//                _id = queryL.value(0).toInt();
+//            } else {
+//                QSettings sett("setting.ini", QSettings::IniFormat);
+//                if (_v == 1){ //main file
+//                    _id = category_add(_c, _n, sett.value("load1c/group").toString());
+//                } else if (_v == 2){ //pl file
+//                    _id = category_add(_c, _n, sett.value("loadpl/group").toString());
+//                }
+
+//            }
+//        }
     }
     return _id;
 }
@@ -676,46 +692,72 @@ int ocMeridiaAuto::manufacturer_get_id(const QString _n)
 int ocMeridiaAuto::attribute_get_id(const QString _n, int _v)
 {
     int _id = 0;
-    QSqlQuery query(QString("SELECT rmrt_attribute_description.attribute_id "
-                            "FROM rmrt_attribute_description "
-                            "WHERE rmrt_attribute_description.name = \'%1\' ")
-                    .arg(_n), db_server);
-    query.next();
-    if (query.isValid()){
-        _id = query.value(0).toInt();
+    QSqlQuery queryL(QString("SELECT att.id_db FROM att WHERE att.name = \'%1\' ")
+                     .arg(_n), db_local);
+    queryL.next();
+    if (queryL.isValid()){
+        _id = queryL.value(0).toInt();
     } else {
-        QSqlQuery queryL(QString("SELECT att.id_db FROM att WHERE att.name = \'%1\' ")
-                         .arg(_n), db_local);
-        queryL.next();
-        if (queryL.isValid()){
-            _id = queryL.value(0).toInt();
-        } else {
-            QSettings sett("setting.ini", QSettings::IniFormat);
-            QSqlQuery query_add("INSERT INTO rmrt_attribute (attribute_group_id, sort_order) "
-                            "VALUES (?, ?)", db_server);
-            if (_v == 1){
-                query_add.bindValue(0, sett.value("load1c/attribute").toInt());
-            } else if (_v == 2){
-                query_add.bindValue(0, sett.value("loadpl/attribute").toInt());
-            }
-            query_add.bindValue(1, 0);
-            query_add.exec();
-            if (query_add.lastError().text().size() > 3){
-                //error.append(query_add.lastError().text());
-            } else {
-                _id = query_add.lastInsertId().toInt();
-                QSqlQuery queryB("INSERT INTO rmrt_attribute_description (attribute_id, language_id, name) "
-                                 "VALUES (?, ?, ?)", db_server);
-                queryB.bindValue(0, _id);
-                queryB.bindValue(1, _LANG);
-                queryB.bindValue(2, _n);
-                queryB.exec();
-                if (queryB.lastError().text().size() > 3){
-                 //   error.append(queryB.lastError().text());
-                }
-            }
+        QSettings sett("setting.ini", QSettings::IniFormat);
+        QSqlQuery query_add("INSERT INTO rmrt_attribute (attribute_group_id, sort_order) "
+                        "VALUES (?, ?)", db_server);
+        if (_v == 1){
+            query_add.bindValue(0, sett.value("load1c/attribute").toInt());
+        } else if (_v == 2){
+            query_add.bindValue(0, sett.value("loadpl/attribute").toInt());
+        }
+        query_add.bindValue(1, 0);
+        query_add.exec();
+        if (!query_add.lastError().isValid()){
+            _id = query_add.lastInsertId().toInt();
+            QSqlQuery queryB("INSERT INTO rmrt_attribute_description (attribute_id, language_id, name) "
+                             "VALUES (?, ?, ?)", db_server);
+            queryB.bindValue(0, _id);
+            queryB.bindValue(1, _LANG);
+            queryB.bindValue(2, _n);
+            queryB.exec();
         }
     }
+//    QSqlQuery query(QString("SELECT rmrt_attribute_description.attribute_id "
+//                            "FROM rmrt_attribute_description "
+//                            "WHERE rmrt_attribute_description.name = \'%1\' ")
+//                    .arg(_n), db_server);
+//    query.next();
+//    if (query.isValid()){
+//        _id = query.value(0).toInt();
+//    } else {
+//        QSqlQuery queryL(QString("SELECT att.id_db FROM att WHERE att.name = \'%1\' ")
+//                         .arg(_n), db_local);
+//        queryL.next();
+//        if (queryL.isValid()){
+//            _id = queryL.value(0).toInt();
+//        } else {
+//            QSettings sett("setting.ini", QSettings::IniFormat);
+//            QSqlQuery query_add("INSERT INTO rmrt_attribute (attribute_group_id, sort_order) "
+//                            "VALUES (?, ?)", db_server);
+//            if (_v == 1){
+//                query_add.bindValue(0, sett.value("load1c/attribute").toInt());
+//            } else if (_v == 2){
+//                query_add.bindValue(0, sett.value("loadpl/attribute").toInt());
+//            }
+//            query_add.bindValue(1, 0);
+//            query_add.exec();
+//            if (query_add.lastError().text().size() > 3){
+//                //error.append(query_add.lastError().text());
+//            } else {
+//                _id = query_add.lastInsertId().toInt();
+//                QSqlQuery queryB("INSERT INTO rmrt_attribute_description (attribute_id, language_id, name) "
+//                                 "VALUES (?, ?, ?)", db_server);
+//                queryB.bindValue(0, _id);
+//                queryB.bindValue(1, _LANG);
+//                queryB.bindValue(2, _n);
+//                queryB.exec();
+//                if (queryB.lastError().text().size() > 3){
+//                 //   error.append(queryB.lastError().text());
+//                }
+//            }
+//        }
+//    }
     return _id;
 }
 

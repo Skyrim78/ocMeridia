@@ -66,6 +66,10 @@ ocMeridia::ocMeridia(QWidget *parent) :
     connect(ui->pushButton_loadOnServer, SIGNAL(clicked(bool)), this, SLOT(product_loadOnServer()));
     connect(ui->pushButton_prod_test, SIGNAL(clicked(bool)), this, SLOT(product_testServer()));
 
+    //связи
+    connect(ui->toolButton_cat_connect, SIGNAL(clicked(bool)), this, SLOT(edit_connection()));
+    connect(ui->toolButton_att_connect, SIGNAL(clicked(bool)), this, SLOT(edit_connection()));
+
     //test
     //connect(ui->toolButton_test, SIGNAL(clicked(bool)), ui->toolButton_test, SLOT(hide()));
 }
@@ -1153,52 +1157,73 @@ void ocMeridia::category_testServer()
                 // cтроки для удаления
                 del_list.append(row);
             } else {
-                //test2: проверяем наличие записи по имени
-                QSqlQuery queryS2(QString("SELECT rmrt_category_description.category_id "
-                                          "FROM rmrt_category_description "
-                                          "WHERE rmrt_category_description.name = \"%1\" ")
-                                  .arg(ui->tableWidget_cat_file->item(row, 1)->text()), db_server);
-                queryS2.next();
-                if (queryS2.isValid()){
-                    //если такая группа есть: добавляем код1С, подставляем ID в таблицу товары, удаляем строку
-                    QSqlQuery queryU(QString("UPDATE rmrt_category SET code = \'%0\' "
-                                             "WHERE rmrt_category.category_id = \'%1\' ")
-                                     .arg(ui->tableWidget_cat_file->item(row, 0)->text())
-                                     .arg(queryS2.value(0).toString()), db_server);
-                    queryU.exec();
-                    // меняем в таблице товаров код1С на ID групп магазина
+                // проверяем наличие категории в синонимах
+                QSqlQuery queryL(QString("SELECT cat.id_db FROM cat WHERE cat.cod = \'%1\'")
+                                 .arg(ui->tableWidget_cat_file->item(row, 0)->text())
+                                 , db_local);
+                queryL.next();
+                if (queryL.isValid()){
+                    // меняем в таблице товаров код1С на ID группы из справочника синонимов
                     for (int rowp = 0; rowp < ui->tableWidget_product->rowCount(); rowp++){
                         QString productG1C = ui->tableWidget_product->item(rowp, 4)->text();
                         QString group1C = ui->tableWidget_cat_file->item(row, 0)->text();
                         if (productG1C == group1C){
-                            QTableWidgetItem *item = new QTableWidgetItem(queryS2.value(0).toString());
+                            QTableWidgetItem *item = new QTableWidgetItem(queryL.value(0).toString());
                             ui->tableWidget_product->setItem(rowp, 4, item);
                         }
                     }
                     // cтроки для удаления
                     del_list.append(row);
                 } else {
-                    // проверяем наличие категории в синонимах
-                    QSqlQuery queryL(QString("SELECT cat.id_db FROM cat WHERE cat.cod = \'%1\'")
-                                     .arg(ui->tableWidget_cat_file->item(row, 0)->text())
-                                     , db_local);
-                    queryL.next();
-                    if (queryL.isValid()){
-                        // меняем в таблице товаров код1С на ID группы из справочника синонимов
-                        for (int rowp = 0; rowp < ui->tableWidget_product->rowCount(); rowp++){
-                            QString productG1C = ui->tableWidget_product->item(rowp, 4)->text();
-                            QString group1C = ui->tableWidget_cat_file->item(row, 0)->text();
-                            if (productG1C == group1C){
-                                QTableWidgetItem *item = new QTableWidgetItem(queryL.value(0).toString());
-                                ui->tableWidget_product->setItem(rowp, 4, item);
-                            }
-                        }
-                        // cтроки для удаления
-                        del_list.append(row);
-                    } else {
-                    //оставляем в ручную обработку
-                    }
+                //оставляем в ручную обработку
                 }
+
+//                //test2: проверяем наличие записи по имени
+//                QSqlQuery queryS2(QString("SELECT rmrt_category_description.category_id "
+//                                          "FROM rmrt_category_description "
+//                                          "WHERE rmrt_category_description.name = \"%1\" ")
+//                                  .arg(ui->tableWidget_cat_file->item(row, 1)->text()), db_server);
+//                queryS2.next();
+//                if (queryS2.isValid()){
+//                    //если такая группа есть: добавляем код1С, подставляем ID в таблицу товары, удаляем строку
+//                    QSqlQuery queryU(QString("UPDATE rmrt_category SET code = \'%0\' "
+//                                             "WHERE rmrt_category.category_id = \'%1\' ")
+//                                     .arg(ui->tableWidget_cat_file->item(row, 0)->text())
+//                                     .arg(queryS2.value(0).toString()), db_server);
+//                    queryU.exec();
+//                    // меняем в таблице товаров код1С на ID групп магазина
+//                    for (int rowp = 0; rowp < ui->tableWidget_product->rowCount(); rowp++){
+//                        QString productG1C = ui->tableWidget_product->item(rowp, 4)->text();
+//                        QString group1C = ui->tableWidget_cat_file->item(row, 0)->text();
+//                        if (productG1C == group1C){
+//                            QTableWidgetItem *item = new QTableWidgetItem(queryS2.value(0).toString());
+//                            ui->tableWidget_product->setItem(rowp, 4, item);
+//                        }
+//                    }
+//                    // cтроки для удаления
+//                    del_list.append(row);
+//                } else {
+//                    // проверяем наличие категории в синонимах
+//                    QSqlQuery queryL(QString("SELECT cat.id_db FROM cat WHERE cat.cod = \'%1\'")
+//                                     .arg(ui->tableWidget_cat_file->item(row, 0)->text())
+//                                     , db_local);
+//                    queryL.next();
+//                    if (queryL.isValid()){
+//                        // меняем в таблице товаров код1С на ID группы из справочника синонимов
+//                        for (int rowp = 0; rowp < ui->tableWidget_product->rowCount(); rowp++){
+//                            QString productG1C = ui->tableWidget_product->item(rowp, 4)->text();
+//                            QString group1C = ui->tableWidget_cat_file->item(row, 0)->text();
+//                            if (productG1C == group1C){
+//                                QTableWidgetItem *item = new QTableWidgetItem(queryL.value(0).toString());
+//                                ui->tableWidget_product->setItem(rowp, 4, item);
+//                            }
+//                        }
+//                        // cтроки для удаления
+//                        del_list.append(row);
+//                    } else {
+//                    //оставляем в ручную обработку
+//                    }
+//                }
             }
             ui->progressBar->setValue(qFloor((row + 1) * 100 / ui->tableWidget_cat_file->rowCount()));
             QApplication::processEvents();
@@ -1482,7 +1507,7 @@ void ocMeridia::attribute_save()
             int crow = ui->tableWidget_fileAttr->currentRow();
 
             QSqlQuery query("INSERT INTO `att` (`name`, `id_db`) VALUES (?, ?)", db_local);
-            query.bindValue(0, ui->tableWidget_cat_file->item(crow, 0)->text());
+            query.bindValue(0, ui->tableWidget_fileAttr->item(crow, 0)->text());
             query.bindValue(1, att_activeID);
             query.exec();
 
@@ -1510,23 +1535,32 @@ void ocMeridia::attribute_testServer()
         for (int row = 0; row < ui->tableWidget_fileAttr->rowCount(); row++){
             int id_attribute = 0;
             QString str_attribute = ui->tableWidget_fileAttr->item(row, 0)->text();
-            QSqlQuery query(QString("SELECT rmrt_attribute_description.attribute_id "
-                                    "FROM rmrt_attribute_description "
-                                    "WHERE rmrt_attribute_description.name = \'%1\' ")
-                            .arg(str_attribute), db_server);
-            query.next();
-            if (query.isValid()){
-                id_attribute = query.value(0).toInt();
+            QSqlQuery queryL(QString("SELECT att.id_db FROM att WHERE att.name = \'%1\' ")
+                             .arg(str_attribute), db_local);
+            queryL.next();
+            if (queryL.isValid()){
+                id_attribute = queryL.value(0).toInt();
                 del_list.append(row);
-            } else {
-                QSqlQuery queryL(QString("SELECT att.id_db FROM att WHERE att.name = \'%1\' ")
-                                 .arg(str_attribute), db_local);
-                queryL.next();
-                if (queryL.isValid()){
-                    id_attribute = queryL.value(0).toInt();
-                    del_list.append(row);
-                }
             }
+
+
+//            QSqlQuery query(QString("SELECT rmrt_attribute_description.attribute_id "
+//                                    "FROM rmrt_attribute_description "
+//                                    "WHERE rmrt_attribute_description.name = \'%1\' ")
+//                            .arg(str_attribute), db_server);
+//            query.next();
+//            if (query.isValid()){
+//                id_attribute = query.value(0).toInt();
+//                del_list.append(row);
+//            } else {
+//                QSqlQuery queryL(QString("SELECT att.id_db FROM att WHERE att.name = \'%1\' ")
+//                                 .arg(str_attribute), db_local);
+//                queryL.next();
+//                if (queryL.isValid()){
+//                    id_attribute = queryL.value(0).toInt();
+//                    del_list.append(row);
+//                }
+//            }
             if (id_attribute > 0){
                 for (int rowA = 0; rowA < ui->tableWidget_prod_attributes->rowCount(); rowA++){
                     if (str_attribute == ui->tableWidget_prod_attributes->item(rowA, 1)->text()){
@@ -2141,6 +2175,12 @@ void ocMeridia::product_change_group()
             ui->tableWidget_product->setItem(row, 4, item);
         }
     }
+}
+
+void ocMeridia::edit_connection()
+{
+    local *l = new local(db_local, db_server, this);
+    l->exec();
 }
 
 

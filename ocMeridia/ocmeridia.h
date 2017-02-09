@@ -11,6 +11,7 @@
 #include "mcategory.h"
 #include "product_form.h"
 #include "setting.h"
+#include "local.h"
 
 namespace Ui {
 class ocMeridia;
@@ -118,7 +119,8 @@ public slots:
     //подмена категорий в новых товарах на установленную в настройках
     void product_change_group();
 
-
+    //связи
+    void edit_connection();
 
     void makeMessage(const QString str, bool x);
 

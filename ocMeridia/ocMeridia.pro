@@ -15,14 +15,21 @@ TEMPLATE = app
 SOURCES += main.cpp\
         ocmeridia.cpp \
     product_form.cpp \
-    setting.cpp
+    setting.cpp \
+    local.cpp \
+    ctrlsproduct.cpp \
+    ctrlscategory.cpp
 
 HEADERS  += ocmeridia.h \
     product_form.h \
-    setting.h
+    setting.h \
+    local.h \
+    ctrlsproduct.h \
+    ctrlscategory.h
 
 FORMS    += ocmeridia.ui \
     product_form.ui \
-    setting.ui
+    setting.ui \
+    local.ui
 
 RESOURCES +=
