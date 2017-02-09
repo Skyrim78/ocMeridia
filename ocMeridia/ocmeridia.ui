@@ -6,13 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-<<<<<<< HEAD
     <width>1216</width>
     <height>852</height>
-=======
-    <width>1100</width>
-    <height>781</height>
->>>>>>> 3c9ad353c05f73199b5c0d19ebfcdb275c143364
    </rect>
   </property>
   <property name="font">
@@ -30,11 +25,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget_main">
         <property name="currentIndex">
-<<<<<<< HEAD
          <number>1</number>
-=======
-         <number>2</number>
->>>>>>> 3c9ad353c05f73199b5c0d19ebfcdb275c143364
         </property>
         <widget class="QWidget" name="tab_setting">
          <attribute name="title">
@@ -3179,13 +3170,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-<<<<<<< HEAD
      <width>1216</width>
      <height>26</height>
-=======
-     <width>1100</width>
-     <height>20</height>
->>>>>>> 3c9ad353c05f73199b5c0d19ebfcdb275c143364
     </rect>
    </property>
   </widget>

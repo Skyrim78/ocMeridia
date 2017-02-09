@@ -247,7 +247,6 @@ public:
     QSpacerItem *horizontalSpacer_3;
     QRadioButton *radioButton_cat_equi;
     QSpacerItem *horizontalSpacer_2;
-    QToolButton *toolButton_cat_connect;
     QToolButton *toolButton_cat_update;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_cat_active;
@@ -271,7 +270,6 @@ public:
     QSpacerItem *horizontalSpacer_20;
     QRadioButton *radioButton_att_equi;
     QSpacerItem *horizontalSpacer_21;
-    QToolButton *toolButton_att_connect;
     QToolButton *toolButton_att_update;
     QHBoxLayout *horizontalLayout_15;
     QLabel *label_attr_active;
@@ -312,7 +310,7 @@ public:
     {
         if (ocMeridia->objectName().isEmpty())
             ocMeridia->setObjectName(QStringLiteral("ocMeridia"));
-        ocMeridia->resize(1100, 781);
+        ocMeridia->resize(1072, 818);
         QFont font;
         font.setPointSize(10);
         ocMeridia->setFont(font);
@@ -1515,14 +1513,6 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer_2);
 
-        toolButton_cat_connect = new QToolButton(groupBox_cat_form);
-        toolButton_cat_connect->setObjectName(QStringLiteral("toolButton_cat_connect"));
-        toolButton_cat_connect->setMinimumSize(QSize(30, 30));
-        toolButton_cat_connect->setMaximumSize(QSize(30, 30));
-        toolButton_cat_connect->setFont(font1);
-
-        horizontalLayout_4->addWidget(toolButton_cat_connect);
-
         toolButton_cat_update = new QToolButton(groupBox_cat_form);
         toolButton_cat_update->setObjectName(QStringLiteral("toolButton_cat_update"));
         toolButton_cat_update->setMinimumSize(QSize(30, 30));
@@ -1655,14 +1645,6 @@ public:
         horizontalSpacer_21 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_13->addItem(horizontalSpacer_21);
-
-        toolButton_att_connect = new QToolButton(groupBox_cat_form_2);
-        toolButton_att_connect->setObjectName(QStringLiteral("toolButton_att_connect"));
-        toolButton_att_connect->setMinimumSize(QSize(30, 30));
-        toolButton_att_connect->setMaximumSize(QSize(30, 30));
-        toolButton_att_connect->setFont(font1);
-
-        horizontalLayout_13->addWidget(toolButton_att_connect);
 
         toolButton_att_update = new QToolButton(groupBox_cat_form_2);
         toolButton_att_update->setObjectName(QStringLiteral("toolButton_att_update"));
@@ -1931,7 +1913,7 @@ public:
         ocMeridia->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ocMeridia);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1100, 20));
+        menuBar->setGeometry(QRect(0, 0, 1072, 20));
         ocMeridia->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ocMeridia);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -1942,7 +1924,7 @@ public:
 
         retranslateUi(ocMeridia);
 
-        tabWidget_main->setCurrentIndex(2);
+        tabWidget_main->setCurrentIndex(0);
         tabWidget_setting->setCurrentIndex(2);
         tabWidget->setCurrentIndex(0);
 
@@ -2062,7 +2044,6 @@ public:
         pushButton_cat_test->setText(QApplication::translate("ocMeridia", "test", 0));
         radioButton_cat_add->setText(QApplication::translate("ocMeridia", "+", 0));
         radioButton_cat_equi->setText(QApplication::translate("ocMeridia", "=", 0));
-        toolButton_cat_connect->setText(QApplication::translate("ocMeridia", "C", 0));
         toolButton_cat_update->setText(QApplication::translate("ocMeridia", "U", 0));
         label_cat_active->setText(QApplication::translate("ocMeridia", "\320\240\320\276\320\264\320\270\321\202\320\265\320\273\321\214:", 0));
         toolButtoncat_par_clear->setText(QApplication::translate("ocMeridia", "...", 0));
@@ -2078,7 +2059,6 @@ public:
         pushButton_att_test->setText(QApplication::translate("ocMeridia", "test", 0));
         radioButton_att_add->setText(QApplication::translate("ocMeridia", "+", 0));
         radioButton_att_equi->setText(QApplication::translate("ocMeridia", "=", 0));
-        toolButton_att_connect->setText(QApplication::translate("ocMeridia", "C", 0));
         toolButton_att_update->setText(QApplication::translate("ocMeridia", "U", 0));
         label_attr_active->setText(QApplication::translate("ocMeridia", "\320\240\320\276\320\264\320\270\321\202\320\265\320\273\321\214:", 0));
         toolButtoncat_attr_act_clear->setText(QApplication::translate("ocMeridia", "...", 0));

@@ -147,13 +147,12 @@ public:
 
         radioButton_s_all = new QRadioButton(groupBox_shop);
         radioButton_s_all->setObjectName(QStringLiteral("radioButton_s_all"));
-        radioButton_s_all->setChecked(false);
+        radioButton_s_all->setChecked(true);
 
         horizontalLayout_6->addWidget(radioButton_s_all);
 
         radioButton_s_cod = new QRadioButton(groupBox_shop);
         radioButton_s_cod->setObjectName(QStringLiteral("radioButton_s_cod"));
-        radioButton_s_cod->setChecked(true);
 
         horizontalLayout_6->addWidget(radioButton_s_cod);
 

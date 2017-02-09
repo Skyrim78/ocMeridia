@@ -16,24 +16,16 @@ SOURCES += main.cpp\
         ocmeridia.cpp \
     product_form.cpp \
     setting.cpp \
-<<<<<<< HEAD
     local.cpp \
     ctrlsproduct.cpp \
     ctrlscategory.cpp
-=======
-    local.cpp
->>>>>>> 3c9ad353c05f73199b5c0d19ebfcdb275c143364
 
 HEADERS  += ocmeridia.h \
     product_form.h \
     setting.h \
-<<<<<<< HEAD
     local.h \
     ctrlsproduct.h \
     ctrlscategory.h
-=======
-    local.h
->>>>>>> 3c9ad353c05f73199b5c0d19ebfcdb275c143364
 
 FORMS    += ocmeridia.ui \
     product_form.ui \
