@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ocMeridia_t {
-    QByteArrayData data[43];
-    char stringdata[661];
+    QByteArrayData data[45];
+    char stringdata[698];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -69,9 +69,11 @@ QT_MOC_LITERAL(36, 564, 18),
 QT_MOC_LITERAL(37, 583, 16),
 QT_MOC_LITERAL(38, 600, 20),
 QT_MOC_LITERAL(39, 621, 20),
-QT_MOC_LITERAL(40, 642, 11),
-QT_MOC_LITERAL(41, 654, 3),
-QT_MOC_LITERAL(42, 658, 1)
+QT_MOC_LITERAL(40, 642, 20),
+QT_MOC_LITERAL(41, 663, 15),
+QT_MOC_LITERAL(42, 679, 11),
+QT_MOC_LITERAL(43, 691, 3),
+QT_MOC_LITERAL(44, 695, 1)
     },
     "ocMeridia\0readSetting\0\0writeSetting\0"
     "loadMaps\0setting_connect_netDB\0"
@@ -90,8 +92,8 @@ QT_MOC_LITERAL(42, 658, 1)
     "attribute_checkState\0attribute_selectServer\0"
     "attribute_save\0product_testServer\0"
     "product_openForm\0product_loadOnServer\0"
-    "product_manufacturer\0makeMessage\0str\0"
-    "x\0"
+    "product_manufacturer\0product_change_group\0"
+    "edit_connection\0makeMessage\0str\0x\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -101,7 +103,7 @@ static const uint qt_meta_data_ocMeridia[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      33,   14, // methods
+      35,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -109,39 +111,41 @@ static const uint qt_meta_data_ocMeridia[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  179,    2, 0x0a,
-       3,    0,  180,    2, 0x0a,
-       4,    0,  181,    2, 0x0a,
-       5,    0,  182,    2, 0x0a,
-       6,    0,  183,    2, 0x0a,
-       7,    0,  184,    2, 0x0a,
-       8,    1,  185,    2, 0x0a,
-      10,    0,  188,    2, 0x0a,
-      11,    0,  189,    2, 0x0a,
-      12,    0,  190,    2, 0x0a,
-      13,    0,  191,    2, 0x0a,
-      14,    0,  192,    2, 0x0a,
-      15,    0,  193,    2, 0x0a,
-      16,    0,  194,    2, 0x0a,
-      17,    0,  195,    2, 0x0a,
-      18,    0,  196,    2, 0x0a,
-      19,    0,  197,    2, 0x0a,
-      20,    2,  198,    2, 0x0a,
-      24,    0,  203,    2, 0x0a,
-      25,    0,  204,    2, 0x0a,
-      26,    0,  205,    2, 0x0a,
-      27,    0,  206,    2, 0x0a,
-      28,    2,  207,    2, 0x0a,
-      31,    0,  212,    2, 0x0a,
-      32,    0,  213,    2, 0x0a,
-      33,    0,  214,    2, 0x0a,
-      34,    0,  215,    2, 0x0a,
-      35,    0,  216,    2, 0x0a,
-      36,    0,  217,    2, 0x0a,
-      37,    0,  218,    2, 0x0a,
-      38,    0,  219,    2, 0x0a,
-      39,    0,  220,    2, 0x0a,
-      40,    2,  221,    2, 0x0a,
+       1,    0,  189,    2, 0x0a,
+       3,    0,  190,    2, 0x0a,
+       4,    0,  191,    2, 0x0a,
+       5,    0,  192,    2, 0x0a,
+       6,    0,  193,    2, 0x0a,
+       7,    0,  194,    2, 0x0a,
+       8,    1,  195,    2, 0x0a,
+      10,    0,  198,    2, 0x0a,
+      11,    0,  199,    2, 0x0a,
+      12,    0,  200,    2, 0x0a,
+      13,    0,  201,    2, 0x0a,
+      14,    0,  202,    2, 0x0a,
+      15,    0,  203,    2, 0x0a,
+      16,    0,  204,    2, 0x0a,
+      17,    0,  205,    2, 0x0a,
+      18,    0,  206,    2, 0x0a,
+      19,    0,  207,    2, 0x0a,
+      20,    2,  208,    2, 0x0a,
+      24,    0,  213,    2, 0x0a,
+      25,    0,  214,    2, 0x0a,
+      26,    0,  215,    2, 0x0a,
+      27,    0,  216,    2, 0x0a,
+      28,    2,  217,    2, 0x0a,
+      31,    0,  222,    2, 0x0a,
+      32,    0,  223,    2, 0x0a,
+      33,    0,  224,    2, 0x0a,
+      34,    0,  225,    2, 0x0a,
+      35,    0,  226,    2, 0x0a,
+      36,    0,  227,    2, 0x0a,
+      37,    0,  228,    2, 0x0a,
+      38,    0,  229,    2, 0x0a,
+      39,    0,  230,    2, 0x0a,
+      40,    0,  231,    2, 0x0a,
+      41,    0,  232,    2, 0x0a,
+      42,    2,  233,    2, 0x0a,
 
  // slots: parameters
     QMetaType::Void,
@@ -176,7 +180,9 @@ static const uint qt_meta_data_ocMeridia[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString, QMetaType::Bool,   41,   42,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString, QMetaType::Bool,   43,   44,
 
        0        // eod
 };
@@ -218,7 +224,9 @@ void ocMeridia::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 29: _t->product_openForm(); break;
         case 30: _t->product_loadOnServer(); break;
         case 31: _t->product_manufacturer(); break;
-        case 32: _t->makeMessage((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 32: _t->product_change_group(); break;
+        case 33: _t->edit_connection(); break;
+        case 34: _t->makeMessage((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         default: ;
         }
     }
@@ -249,13 +257,13 @@ int ocMeridia::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 33)
+        if (_id < 35)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 33;
+        _id -= 35;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 33)
+        if (_id < 35)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 33;
+        _id -= 35;
     }
     return _id;
 }

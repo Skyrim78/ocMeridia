@@ -119,8 +119,15 @@ public slots:
     //подмена категорий в новых товарах на установленную в настройках
     void product_change_group();
 
+<<<<<<< HEAD
     //связи
     void edit_connection();
+=======
+    //связи категорий и аттрибутов
+    void local_connect();
+
+
+>>>>>>> 3c9ad353c05f73199b5c0d19ebfcdb275c143364
 
     void makeMessage(const QString str, bool x);
 

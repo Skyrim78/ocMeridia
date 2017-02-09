@@ -106,18 +106,21 @@ public:
     QVBoxLayout *verticalLayout_6;
     QGroupBox *groupBox;
     QGridLayout *gridLayout_4;
-    QSpacerItem *horizontalSpacer_13;
-    QLabel *label_17;
-    QSpacerItem *horizontalSpacer_7;
-    QLabel *label_23;
-    QSpacerItem *horizontalSpacer_22;
-    QCheckBox *checkBox_sC_new_product;
-    QLabel *label_18;
-    QComboBox *comboBox_sC_group;
-    QComboBox *comboBox_sC_att;
-    QLabel *label_24;
     QCheckBox *checkBox_sC_not_price;
+    QLabel *label_17;
+    QComboBox *comboBox_sC_att;
+    QCheckBox *checkBox_sC_new_product;
+    QSpacerItem *horizontalSpacer_7;
+    QLabel *label_18;
+    QLabel *label_23;
+    QComboBox *comboBox_sC_group;
+    QLabel *label_24;
     QSpacerItem *horizontalSpacer_25;
+    QSpacerItem *horizontalSpacer_22;
+    QCheckBox *checkBox_sC_np_group;
+    QComboBox *comboBox_sC_np_group;
+    QSpacerItem *horizontalSpacer_26;
+    QSpacerItem *horizontalSpacer_28;
     QGroupBox *groupBox_4;
     QGridLayout *gridLayout_11;
     QVBoxLayout *verticalLayout_10;
@@ -135,18 +138,21 @@ public:
     QVBoxLayout *verticalLayout_8;
     QGroupBox *groupBox_11;
     QGridLayout *gridLayout_30;
-    QSpacerItem *horizontalSpacer_14;
+    QSpacerItem *horizontalSpacer_16;
     QLabel *label_20;
-    QLabel *label_22;
-    QSpacerItem *horizontalSpacer_23;
-    QLabel *label_21;
-    QLabel *label_19;
-    QCheckBox *checkBox_sCpl_new_product;
+    QComboBox *comboBox_sCpl_group;
     QComboBox *comboBox_sCpl_att;
+    QCheckBox *checkBox_sCpl_new_product;
+    QLabel *label_21;
+    QSpacerItem *horizontalSpacer_23;
+    QLabel *label_19;
     QCheckBox *checkBox_sCpl_not_price;
     QSpacerItem *horizontalSpacer_24;
-    QComboBox *comboBox_sCpl_group;
-    QSpacerItem *horizontalSpacer_16;
+    QLabel *label_22;
+    QSpacerItem *horizontalSpacer_14;
+    QCheckBox *checkBox_sCpl_np_group;
+    QSpacerItem *horizontalSpacer_29;
+    QComboBox *comboBox_sCpl_np_group;
     QGroupBox *groupBox_7;
     QGridLayout *gridLayout_18;
     QRadioButton *radioButton_sCpl_upall;
@@ -241,6 +247,7 @@ public:
     QSpacerItem *horizontalSpacer_3;
     QRadioButton *radioButton_cat_equi;
     QSpacerItem *horizontalSpacer_2;
+    QToolButton *toolButton_cat_connect;
     QToolButton *toolButton_cat_update;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_cat_active;
@@ -264,6 +271,7 @@ public:
     QSpacerItem *horizontalSpacer_20;
     QRadioButton *radioButton_att_equi;
     QSpacerItem *horizontalSpacer_21;
+    QToolButton *toolButton_att_connect;
     QToolButton *toolButton_att_update;
     QHBoxLayout *horizontalLayout_15;
     QLabel *label_attr_active;
@@ -304,7 +312,7 @@ public:
     {
         if (ocMeridia->objectName().isEmpty())
             ocMeridia->setObjectName(QStringLiteral("ocMeridia"));
-        ocMeridia->resize(941, 818);
+        ocMeridia->resize(1216, 852);
         QFont font;
         font.setPointSize(10);
         ocMeridia->setFont(font);
@@ -655,9 +663,10 @@ public:
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
-        horizontalSpacer_13 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        checkBox_sC_not_price = new QCheckBox(groupBox);
+        checkBox_sC_not_price->setObjectName(QStringLiteral("checkBox_sC_not_price"));
 
-        gridLayout_4->addItem(horizontalSpacer_13, 3, 3, 1, 1);
+        gridLayout_4->addWidget(checkBox_sC_not_price, 5, 2, 1, 1);
 
         label_17 = new QLabel(groupBox);
         label_17->setObjectName(QStringLiteral("label_17"));
@@ -665,24 +674,20 @@ public:
 
         gridLayout_4->addWidget(label_17, 0, 0, 1, 1);
 
-        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        comboBox_sC_att = new QComboBox(groupBox);
+        comboBox_sC_att->setObjectName(QStringLiteral("comboBox_sC_att"));
+        comboBox_sC_att->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
-        gridLayout_4->addItem(horizontalSpacer_7, 0, 3, 1, 1);
-
-        label_23 = new QLabel(groupBox);
-        label_23->setObjectName(QStringLiteral("label_23"));
-        label_23->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(label_23, 3, 0, 1, 1);
-
-        horizontalSpacer_22 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_22, 2, 3, 1, 1);
+        gridLayout_4->addWidget(comboBox_sC_att, 2, 2, 1, 1);
 
         checkBox_sC_new_product = new QCheckBox(groupBox);
         checkBox_sC_new_product->setObjectName(QStringLiteral("checkBox_sC_new_product"));
 
         gridLayout_4->addWidget(checkBox_sC_new_product, 3, 2, 1, 1);
+
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_7, 0, 3, 1, 2);
 
         label_18 = new QLabel(groupBox);
         label_18->setObjectName(QStringLiteral("label_18"));
@@ -690,32 +695,50 @@ public:
 
         gridLayout_4->addWidget(label_18, 2, 0, 1, 1);
 
+        label_23 = new QLabel(groupBox);
+        label_23->setObjectName(QStringLiteral("label_23"));
+        label_23->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_23, 3, 0, 1, 1);
+
         comboBox_sC_group = new QComboBox(groupBox);
         comboBox_sC_group->setObjectName(QStringLiteral("comboBox_sC_group"));
         comboBox_sC_group->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
         gridLayout_4->addWidget(comboBox_sC_group, 0, 2, 1, 1);
 
-        comboBox_sC_att = new QComboBox(groupBox);
-        comboBox_sC_att->setObjectName(QStringLiteral("comboBox_sC_att"));
-        comboBox_sC_att->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-
-        gridLayout_4->addWidget(comboBox_sC_att, 2, 2, 1, 1);
-
         label_24 = new QLabel(groupBox);
         label_24->setObjectName(QStringLiteral("label_24"));
         label_24->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_4->addWidget(label_24, 4, 0, 1, 1);
-
-        checkBox_sC_not_price = new QCheckBox(groupBox);
-        checkBox_sC_not_price->setObjectName(QStringLiteral("checkBox_sC_not_price"));
-
-        gridLayout_4->addWidget(checkBox_sC_not_price, 4, 2, 1, 1);
+        gridLayout_4->addWidget(label_24, 5, 0, 1, 1);
 
         horizontalSpacer_25 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_4->addItem(horizontalSpacer_25, 4, 3, 1, 1);
+        gridLayout_4->addItem(horizontalSpacer_25, 5, 3, 1, 2);
+
+        horizontalSpacer_22 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_22, 2, 3, 1, 2);
+
+        checkBox_sC_np_group = new QCheckBox(groupBox);
+        checkBox_sC_np_group->setObjectName(QStringLiteral("checkBox_sC_np_group"));
+
+        gridLayout_4->addWidget(checkBox_sC_np_group, 4, 2, 1, 1);
+
+        comboBox_sC_np_group = new QComboBox(groupBox);
+        comboBox_sC_np_group->setObjectName(QStringLiteral("comboBox_sC_np_group"));
+        comboBox_sC_np_group->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+
+        gridLayout_4->addWidget(comboBox_sC_np_group, 4, 3, 1, 1);
+
+        horizontalSpacer_26 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_26, 3, 3, 1, 1);
+
+        horizontalSpacer_28 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_28, 4, 0, 1, 1);
 
 
         verticalLayout_6->addWidget(groupBox);
@@ -805,9 +828,9 @@ public:
         gridLayout_30->setSpacing(6);
         gridLayout_30->setContentsMargins(11, 11, 11, 11);
         gridLayout_30->setObjectName(QStringLiteral("gridLayout_30"));
-        horizontalSpacer_14 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_16 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_30->addItem(horizontalSpacer_14, 3, 3, 1, 1);
+        gridLayout_30->addItem(horizontalSpacer_16, 7, 3, 1, 1);
 
         label_20 = new QLabel(groupBox_11);
         label_20->setObjectName(QStringLiteral("label_20"));
@@ -815,33 +838,11 @@ public:
 
         gridLayout_30->addWidget(label_20, 2, 0, 1, 1);
 
-        label_22 = new QLabel(groupBox_11);
-        label_22->setObjectName(QStringLiteral("label_22"));
-        label_22->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        comboBox_sCpl_group = new QComboBox(groupBox_11);
+        comboBox_sCpl_group->setObjectName(QStringLiteral("comboBox_sCpl_group"));
+        comboBox_sCpl_group->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
-        gridLayout_30->addWidget(label_22, 4, 0, 1, 1);
-
-        horizontalSpacer_23 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_30->addItem(horizontalSpacer_23, 0, 3, 1, 1);
-
-        label_21 = new QLabel(groupBox_11);
-        label_21->setObjectName(QStringLiteral("label_21"));
-        label_21->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_30->addWidget(label_21, 3, 0, 1, 1);
-
-        label_19 = new QLabel(groupBox_11);
-        label_19->setObjectName(QStringLiteral("label_19"));
-        label_19->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_30->addWidget(label_19, 0, 0, 1, 1);
-
-        checkBox_sCpl_new_product = new QCheckBox(groupBox_11);
-        checkBox_sCpl_new_product->setObjectName(QStringLiteral("checkBox_sCpl_new_product"));
-        checkBox_sCpl_new_product->setChecked(true);
-
-        gridLayout_30->addWidget(checkBox_sCpl_new_product, 3, 2, 1, 1);
+        gridLayout_30->addWidget(comboBox_sCpl_group, 0, 2, 1, 1);
 
         comboBox_sCpl_att = new QComboBox(groupBox_11);
         comboBox_sCpl_att->setObjectName(QStringLiteral("comboBox_sCpl_att"));
@@ -849,24 +850,61 @@ public:
 
         gridLayout_30->addWidget(comboBox_sCpl_att, 2, 2, 1, 1);
 
+        checkBox_sCpl_new_product = new QCheckBox(groupBox_11);
+        checkBox_sCpl_new_product->setObjectName(QStringLiteral("checkBox_sCpl_new_product"));
+        checkBox_sCpl_new_product->setChecked(true);
+
+        gridLayout_30->addWidget(checkBox_sCpl_new_product, 3, 2, 1, 1);
+
+        label_21 = new QLabel(groupBox_11);
+        label_21->setObjectName(QStringLiteral("label_21"));
+        label_21->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_30->addWidget(label_21, 3, 0, 1, 1);
+
+        horizontalSpacer_23 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_30->addItem(horizontalSpacer_23, 0, 3, 1, 1);
+
+        label_19 = new QLabel(groupBox_11);
+        label_19->setObjectName(QStringLiteral("label_19"));
+        label_19->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_30->addWidget(label_19, 0, 0, 1, 1);
+
         checkBox_sCpl_not_price = new QCheckBox(groupBox_11);
         checkBox_sCpl_not_price->setObjectName(QStringLiteral("checkBox_sCpl_not_price"));
 
-        gridLayout_30->addWidget(checkBox_sCpl_not_price, 4, 2, 1, 1);
+        gridLayout_30->addWidget(checkBox_sCpl_not_price, 7, 2, 1, 1);
 
         horizontalSpacer_24 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         gridLayout_30->addItem(horizontalSpacer_24, 2, 3, 1, 1);
 
-        comboBox_sCpl_group = new QComboBox(groupBox_11);
-        comboBox_sCpl_group->setObjectName(QStringLiteral("comboBox_sCpl_group"));
-        comboBox_sCpl_group->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+        label_22 = new QLabel(groupBox_11);
+        label_22->setObjectName(QStringLiteral("label_22"));
+        label_22->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_30->addWidget(comboBox_sCpl_group, 0, 2, 1, 1);
+        gridLayout_30->addWidget(label_22, 7, 0, 1, 1);
 
-        horizontalSpacer_16 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_14 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_30->addItem(horizontalSpacer_16, 4, 3, 1, 1);
+        gridLayout_30->addItem(horizontalSpacer_14, 3, 3, 1, 1);
+
+        checkBox_sCpl_np_group = new QCheckBox(groupBox_11);
+        checkBox_sCpl_np_group->setObjectName(QStringLiteral("checkBox_sCpl_np_group"));
+
+        gridLayout_30->addWidget(checkBox_sCpl_np_group, 5, 2, 1, 1);
+
+        horizontalSpacer_29 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_30->addItem(horizontalSpacer_29, 5, 0, 1, 1);
+
+        comboBox_sCpl_np_group = new QComboBox(groupBox_11);
+        comboBox_sCpl_np_group->setObjectName(QStringLiteral("comboBox_sCpl_np_group"));
+        comboBox_sCpl_np_group->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+
+        gridLayout_30->addWidget(comboBox_sCpl_np_group, 5, 3, 1, 1);
 
 
         verticalLayout_8->addWidget(groupBox_11);
@@ -1477,6 +1515,14 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer_2);
 
+        toolButton_cat_connect = new QToolButton(groupBox_cat_form);
+        toolButton_cat_connect->setObjectName(QStringLiteral("toolButton_cat_connect"));
+        toolButton_cat_connect->setMinimumSize(QSize(30, 30));
+        toolButton_cat_connect->setMaximumSize(QSize(30, 30));
+        toolButton_cat_connect->setFont(font1);
+
+        horizontalLayout_4->addWidget(toolButton_cat_connect);
+
         toolButton_cat_update = new QToolButton(groupBox_cat_form);
         toolButton_cat_update->setObjectName(QStringLiteral("toolButton_cat_update"));
         toolButton_cat_update->setMinimumSize(QSize(30, 30));
@@ -1609,6 +1655,14 @@ public:
         horizontalSpacer_21 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_13->addItem(horizontalSpacer_21);
+
+        toolButton_att_connect = new QToolButton(groupBox_cat_form_2);
+        toolButton_att_connect->setObjectName(QStringLiteral("toolButton_att_connect"));
+        toolButton_att_connect->setMinimumSize(QSize(30, 30));
+        toolButton_att_connect->setMaximumSize(QSize(30, 30));
+        toolButton_att_connect->setFont(font1);
+
+        horizontalLayout_13->addWidget(toolButton_att_connect);
 
         toolButton_att_update = new QToolButton(groupBox_cat_form_2);
         toolButton_att_update->setObjectName(QStringLiteral("toolButton_att_update"));
@@ -1877,7 +1931,7 @@ public:
         ocMeridia->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ocMeridia);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 941, 26));
+        menuBar->setGeometry(QRect(0, 0, 1216, 26));
         ocMeridia->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ocMeridia);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -1889,7 +1943,7 @@ public:
         retranslateUi(ocMeridia);
 
         tabWidget_main->setCurrentIndex(1);
-        tabWidget_setting->setCurrentIndex(0);
+        tabWidget_setting->setCurrentIndex(2);
         tabWidget->setCurrentIndex(0);
 
 
@@ -1922,12 +1976,13 @@ public:
         tabWidget_setting->setTabText(tabWidget_setting->indexOf(tab_main), QApplication::translate("ocMeridia", "\320\236\320\261\321\211\320\270\320\265", 0));
         groupBox_2->setTitle(QApplication::translate("ocMeridia", "\320\224\320\273\321\217 1\320\241", 0));
         groupBox->setTitle(QString());
+        checkBox_sC_not_price->setText(QApplication::translate("ocMeridia", "\320\267\320\260\320\263\321\200\321\203\320\266\320\260\321\202\321\214", 0));
         label_17->setText(QApplication::translate("ocMeridia", "<html><head/><body><p><span style=\" color:#ff0000;\">* </span>\320\235\320\276\320\262\321\213\320\265 \320\272\320\260\321\202\320\265\320\263\320\276\321\200\320\270\320\270 \320\264\320\276\320\261\320\260\320\262\320\273\321\217\321\202\321\214 \320\262:</p></body></html>", 0));
-        label_23->setText(QApplication::translate("ocMeridia", "\320\235\320\276\320\262\321\213\320\265 \321\202\320\276\320\262\320\260\321\200\321\213:", 0));
         checkBox_sC_new_product->setText(QApplication::translate("ocMeridia", "\320\264\320\276\320\261\320\260\320\262\320\273\321\217\321\202\321\214", 0));
         label_18->setText(QApplication::translate("ocMeridia", "<html><head/><body><p><span style=\" color:#ff0000;\">* </span>\320\235\320\276\320\262\321\213\320\265 \320\260\321\202\321\200\320\270\320\261\321\203\321\202\321\213 \320\264\320\276\320\261\320\260\320\262\320\273\321\217\321\202\321\214 \320\262:</p></body></html>", 0));
+        label_23->setText(QApplication::translate("ocMeridia", "\320\235\320\276\320\262\321\213\320\265 \321\202\320\276\320\262\320\260\321\200\321\213:", 0));
         label_24->setText(QApplication::translate("ocMeridia", "\320\242\320\276\320\262\320\260\321\200\321\213 \321\201 0 \321\206\320\265\320\275\320\276\320\271:", 0));
-        checkBox_sC_not_price->setText(QApplication::translate("ocMeridia", "\320\267\320\260\320\263\321\200\321\203\320\266\320\260\321\202\321\214", 0));
+        checkBox_sC_np_group->setText(QApplication::translate("ocMeridia", "\320\262\321\201\320\265 \320\262 \320\272\320\260\321\202\320\265\320\263\320\276\321\200\320\270\321\216", 0));
         groupBox_4->setTitle(QApplication::translate("ocMeridia", "\320\237\321\200\320\270 \320\267\320\260\320\263\321\200\321\203\320\267\320\272\320\265 \320\270\320\267\320\262\320\265\321\201\321\202\320\275\321\213\321\205 \321\202\320\276\320\262\320\260\321\200\320\276\320\262 \320\276\320\261\320\275\320\276\320\262\320\273\321\217\321\202\321\214:", 0));
         checkBox_sC_upname->setText(QApplication::translate("ocMeridia", "\320\235\320\260\320\270\320\274\320\265\320\275\320\276\320\262\320\260\320\275\320\270\320\265", 0));
         checkBox_sC_upmanuf->setText(QApplication::translate("ocMeridia", "\320\237\321\200\320\276\320\270\320\267\320\262\320\276\320\264\320\270\321\202\320\265\320\273\321\217", 0));
@@ -1939,11 +1994,12 @@ public:
         groupBox_sCpl_catout->setTitle(QApplication::translate("ocMeridia", "\320\224\320\273\321\217 \320\277\321\200\320\260\320\271\321\201-\320\273\320\270\321\201\321\202\320\276\320\262", 0));
         groupBox_11->setTitle(QString());
         label_20->setText(QApplication::translate("ocMeridia", "<html><head/><body><p><span style=\" color:#ff0000;\">* </span>\320\235\320\276\320\262\321\213\320\265 \320\260\321\202\321\200\320\270\320\261\321\203\321\202\321\213 \320\264\320\276\320\261\320\260\320\262\320\273\321\217\321\202\321\214 \320\262:</p></body></html>", 0));
-        label_22->setText(QApplication::translate("ocMeridia", "\320\242\320\276\320\262\320\260\321\200\321\213 \321\201 0 \321\206\320\265\320\275\320\276\320\271:", 0));
+        checkBox_sCpl_new_product->setText(QApplication::translate("ocMeridia", "\320\264\320\276\320\261\320\260\320\262\320\273\321\217\321\202\321\214", 0));
         label_21->setText(QApplication::translate("ocMeridia", "\320\235\320\276\320\262\321\213\320\265 \321\202\320\276\320\262\320\260\321\200\321\213:", 0));
         label_19->setText(QApplication::translate("ocMeridia", "<html><head/><body><p><span style=\" color:#ff0000;\">* </span>\320\235\320\276\320\262\321\213\320\265 \320\272\320\260\321\202\320\265\320\263\320\276\321\200\320\270\320\270 \320\264\320\276\320\261\320\260\320\262\320\273\321\217\321\202\321\214 \320\262:</p></body></html>", 0));
-        checkBox_sCpl_new_product->setText(QApplication::translate("ocMeridia", "\320\264\320\276\320\261\320\260\320\262\320\273\321\217\321\202\321\214", 0));
         checkBox_sCpl_not_price->setText(QApplication::translate("ocMeridia", "\320\267\320\260\320\263\321\200\321\203\320\266\320\260\321\202\321\214", 0));
+        label_22->setText(QApplication::translate("ocMeridia", "\320\242\320\276\320\262\320\260\321\200\321\213 \321\201 0 \321\206\320\265\320\275\320\276\320\271:", 0));
+        checkBox_sCpl_np_group->setText(QApplication::translate("ocMeridia", "\320\262\321\201\320\265 \320\262 \320\272\320\260\321\202\320\265\320\263\320\276\321\200\320\270\321\216", 0));
         groupBox_7->setTitle(QApplication::translate("ocMeridia", "\320\237\321\200\320\270 \320\267\320\260\320\263\321\200\321\203\320\267\320\272\320\265 \320\270\320\267\320\262\320\265\321\201\321\202\320\275\321\213\321\205 \321\202\320\276\320\262\320\260\321\200\320\276\320\262 \320\276\320\261\320\275\320\276\320\262\320\273\321\217\321\202\321\214:", 0));
         radioButton_sCpl_upall->setText(QApplication::translate("ocMeridia", "\320\262\321\201\320\265", 0));
         radioButton_sCpl_upprice->setText(QApplication::translate("ocMeridia", "\321\202\320\276\320\273\321\214\320\272\320\276 \321\206\320\265\320\275\321\203", 0));
@@ -2006,6 +2062,7 @@ public:
         pushButton_cat_test->setText(QApplication::translate("ocMeridia", "test", 0));
         radioButton_cat_add->setText(QApplication::translate("ocMeridia", "+", 0));
         radioButton_cat_equi->setText(QApplication::translate("ocMeridia", "=", 0));
+        toolButton_cat_connect->setText(QApplication::translate("ocMeridia", "C", 0));
         toolButton_cat_update->setText(QApplication::translate("ocMeridia", "U", 0));
         label_cat_active->setText(QApplication::translate("ocMeridia", "\320\240\320\276\320\264\320\270\321\202\320\265\320\273\321\214:", 0));
         toolButtoncat_par_clear->setText(QApplication::translate("ocMeridia", "...", 0));
@@ -2021,6 +2078,7 @@ public:
         pushButton_att_test->setText(QApplication::translate("ocMeridia", "test", 0));
         radioButton_att_add->setText(QApplication::translate("ocMeridia", "+", 0));
         radioButton_att_equi->setText(QApplication::translate("ocMeridia", "=", 0));
+        toolButton_att_connect->setText(QApplication::translate("ocMeridia", "C", 0));
         toolButton_att_update->setText(QApplication::translate("ocMeridia", "U", 0));
         label_attr_active->setText(QApplication::translate("ocMeridia", "\320\240\320\276\320\264\320\270\321\202\320\265\320\273\321\214:", 0));
         toolButtoncat_attr_act_clear->setText(QApplication::translate("ocMeridia", "...", 0));

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ocMeridiaAuto_t {
-    QByteArrayData data[32];
-    char stringdata[349];
+    QByteArrayData data[34];
+    char stringdata[385];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,44 +34,48 @@ QT_MOC_LITERAL(1, 14, 12),
 QT_MOC_LITERAL(2, 27, 0),
 QT_MOC_LITERAL(3, 28, 16),
 QT_MOC_LITERAL(4, 45, 17),
-QT_MOC_LITERAL(5, 63, 11),
-QT_MOC_LITERAL(6, 75, 12),
-QT_MOC_LITERAL(7, 88, 13),
-QT_MOC_LITERAL(8, 102, 22),
-QT_MOC_LITERAL(9, 125, 6),
-QT_MOC_LITERAL(10, 132, 6),
-QT_MOC_LITERAL(11, 139, 22),
-QT_MOC_LITERAL(12, 162, 12),
-QT_MOC_LITERAL(13, 175, 8),
-QT_MOC_LITERAL(14, 184, 8),
-QT_MOC_LITERAL(15, 193, 10),
-QT_MOC_LITERAL(16, 204, 17),
-QT_MOC_LITERAL(17, 222, 3),
-QT_MOC_LITERAL(18, 226, 4),
-QT_MOC_LITERAL(19, 231, 12),
-QT_MOC_LITERAL(20, 244, 14),
-QT_MOC_LITERAL(21, 259, 9),
-QT_MOC_LITERAL(22, 269, 9),
-QT_MOC_LITERAL(23, 279, 14),
-QT_MOC_LITERAL(24, 294, 5),
-QT_MOC_LITERAL(25, 300, 5),
-QT_MOC_LITERAL(26, 306, 6),
-QT_MOC_LITERAL(27, 313, 6),
-QT_MOC_LITERAL(28, 320, 5),
-QT_MOC_LITERAL(29, 326, 5),
-QT_MOC_LITERAL(30, 332, 6),
-QT_MOC_LITERAL(31, 339, 8)
+QT_MOC_LITERAL(5, 63, 13),
+QT_MOC_LITERAL(6, 77, 14),
+QT_MOC_LITERAL(7, 92, 16),
+QT_MOC_LITERAL(8, 109, 11),
+QT_MOC_LITERAL(9, 121, 12),
+QT_MOC_LITERAL(10, 134, 6),
+QT_MOC_LITERAL(11, 141, 14),
+QT_MOC_LITERAL(12, 156, 12),
+QT_MOC_LITERAL(13, 169, 2),
+QT_MOC_LITERAL(14, 172, 2),
+QT_MOC_LITERAL(15, 175, 2),
+QT_MOC_LITERAL(16, 178, 19),
+QT_MOC_LITERAL(17, 198, 16),
+QT_MOC_LITERAL(18, 215, 14),
+QT_MOC_LITERAL(19, 230, 9),
+QT_MOC_LITERAL(20, 240, 9),
+QT_MOC_LITERAL(21, 250, 12),
+QT_MOC_LITERAL(22, 263, 8),
+QT_MOC_LITERAL(23, 272, 8),
+QT_MOC_LITERAL(24, 281, 10),
+QT_MOC_LITERAL(25, 292, 17),
+QT_MOC_LITERAL(26, 310, 3),
+QT_MOC_LITERAL(27, 314, 4),
+QT_MOC_LITERAL(28, 319, 14),
+QT_MOC_LITERAL(29, 334, 3),
+QT_MOC_LITERAL(30, 338, 14),
+QT_MOC_LITERAL(31, 353, 8),
+QT_MOC_LITERAL(32, 362, 10),
+QT_MOC_LITERAL(33, 373, 10)
     },
     "ocMeridiaAuto\0read_setting\0\0"
     "connect_db_local\0connect_db_server\0"
-    "getMainFile\0readMainFile\0category_test\0"
-    "category_productChange\0prevID\0realID\0"
-    "category_productDelete\0category_add\0"
+    "main_file_get\0main_file_read\0"
+    "main_file_upload\0pl_file_get\0pl_file_read\0"
+    "schema\0pl_file_upload\0group_get_id\0"
+    "_c\0_n\0_v\0manufacturer_get_id\0"
+    "attribute_get_id\0product_get_id\0"
+    "prod_code\0prod_name\0category_add\0"
     "cat_code\0cat_name\0cat_parent\0"
-    "category_makePath\0_ID\0_PAR\0product_load\0"
-    "product_get_id\0prod_code\0prod_name\0"
-    "product_insert\0pcode\0pname\0pgroup\0"
-    "pimage\0pdesc\0pattr\0pprice\0writeLog\0"
+    "category_makePath\0_ID\0_PAR\0product_insert\0"
+    "key\0product_update\0writeLog\0scenario_A\0"
+    "scenario_B\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -81,7 +85,7 @@ static const uint qt_meta_data_ocMeridiaAuto[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      20,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -89,20 +93,26 @@ static const uint qt_meta_data_ocMeridiaAuto[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   84,    2, 0x0a,
-       3,    0,   85,    2, 0x0a,
-       4,    0,   86,    2, 0x0a,
-       5,    0,   87,    2, 0x0a,
-       6,    0,   88,    2, 0x0a,
-       7,    0,   89,    2, 0x0a,
-       8,    2,   90,    2, 0x0a,
-      11,    1,   95,    2, 0x0a,
-      12,    3,   98,    2, 0x0a,
-      16,    2,  105,    2, 0x0a,
-      19,    0,  110,    2, 0x0a,
-      20,    2,  111,    2, 0x0a,
-      23,    7,  116,    2, 0x0a,
-      31,    0,  131,    2, 0x0a,
+       1,    0,  114,    2, 0x0a,
+       3,    0,  115,    2, 0x0a,
+       4,    0,  116,    2, 0x0a,
+       5,    0,  117,    2, 0x0a,
+       6,    0,  118,    2, 0x0a,
+       7,    0,  119,    2, 0x0a,
+       8,    0,  120,    2, 0x0a,
+       9,    1,  121,    2, 0x0a,
+      11,    0,  124,    2, 0x0a,
+      12,    3,  125,    2, 0x0a,
+      16,    1,  132,    2, 0x0a,
+      17,    2,  135,    2, 0x0a,
+      18,    2,  140,    2, 0x0a,
+      21,    3,  145,    2, 0x0a,
+      25,    2,  152,    2, 0x0a,
+      28,    1,  157,    2, 0x0a,
+      30,    2,  160,    2, 0x0a,
+      31,    0,  165,    2, 0x0a,
+      32,    0,  166,    2, 0x0a,
+      33,    0,  167,    2, 0x0a,
 
  // slots: parameters
     QMetaType::Void,
@@ -111,13 +121,19 @@ static const uint qt_meta_data_ocMeridiaAuto[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,    9,   10,
-    QMetaType::Void, QMetaType::QString,    9,
-    QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString,   13,   14,   15,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,   17,   18,
     QMetaType::Void,
-    QMetaType::Int, QMetaType::QString, QMetaType::QString,   21,   22,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Double,   24,   25,   26,   27,   28,   29,   30,
+    QMetaType::Void, QMetaType::QString,   10,
+    QMetaType::Void,
+    QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Int,   13,   14,   15,
+    QMetaType::Int, QMetaType::QString,   14,
+    QMetaType::Int, QMetaType::QString, QMetaType::Int,   14,   15,
+    QMetaType::Int, QMetaType::QString, QMetaType::QString,   19,   20,
+    QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString,   22,   23,   24,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   26,   27,
+    QMetaType::Void, QMetaType::QString,   29,
+    QMetaType::Void, QMetaType::QString, QMetaType::Int,   29,   15,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -131,19 +147,28 @@ void ocMeridiaAuto::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 0: _t->read_setting(); break;
         case 1: _t->connect_db_local(); break;
         case 2: _t->connect_db_server(); break;
-        case 3: _t->getMainFile(); break;
-        case 4: _t->readMainFile(); break;
-        case 5: _t->category_test(); break;
-        case 6: _t->category_productChange((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 7: _t->category_productDelete((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 8: { int _r = _t->category_add((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])));
+        case 3: _t->main_file_get(); break;
+        case 4: _t->main_file_read(); break;
+        case 5: _t->main_file_upload(); break;
+        case 6: _t->pl_file_get(); break;
+        case 7: _t->pl_file_read((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 8: _t->pl_file_upload(); break;
+        case 9: { int _r = _t->group_get_id((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])));
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
-        case 9: _t->category_makePath((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 10: _t->product_load(); break;
-        case 11: { int _r = _t->product_get_id((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])));
+        case 10: { int _r = _t->manufacturer_get_id((*reinterpret_cast< const QString(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
-        case 12: _t->product_insert((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5])),(*reinterpret_cast< const QString(*)>(_a[6])),(*reinterpret_cast< double(*)>(_a[7]))); break;
-        case 13: _t->writeLog(); break;
+        case 11: { int _r = _t->attribute_get_id((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])));
+            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
+        case 12: { int _r = _t->product_get_id((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])));
+            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
+        case 13: { int _r = _t->category_add((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])));
+            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
+        case 14: _t->category_makePath((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 15: _t->product_insert((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 16: _t->product_update((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 17: _t->writeLog(); break;
+        case 18: _t->scenario_A(); break;
+        case 19: _t->scenario_B(); break;
         default: ;
         }
     }
@@ -174,13 +199,13 @@ int ocMeridiaAuto::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 20;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 20)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 14;
+        _id -= 20;
     }
     return _id;
 }

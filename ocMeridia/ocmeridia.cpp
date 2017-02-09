@@ -67,8 +67,13 @@ ocMeridia::ocMeridia(QWidget *parent) :
     connect(ui->pushButton_prod_test, SIGNAL(clicked(bool)), this, SLOT(product_testServer()));
 
     //связи
+<<<<<<< HEAD
     connect(ui->toolButton_cat_connect, SIGNAL(clicked(bool)), this, SLOT(edit_connection()));
     connect(ui->toolButton_att_connect, SIGNAL(clicked(bool)), this, SLOT(edit_connection()));
+=======
+    connect(ui->toolButton_cat_connect, SIGNAL(clicked(bool)), this, SLOT(local_connect()));
+    connect(ui->toolButton_att_connect, SIGNAL(clicked(bool)), this, SLOT(local_connect()));
+>>>>>>> 3c9ad353c05f73199b5c0d19ebfcdb275c143364
 
     //test
     //connect(ui->toolButton_test, SIGNAL(clicked(bool)), ui->toolButton_test, SLOT(hide()));
@@ -1157,6 +1162,7 @@ void ocMeridia::category_testServer()
                 // cтроки для удаления
                 del_list.append(row);
             } else {
+<<<<<<< HEAD
                 // проверяем наличие категории в синонимах
                 QSqlQuery queryL(QString("SELECT cat.id_db FROM cat WHERE cat.cod = \'%1\'")
                                  .arg(ui->tableWidget_cat_file->item(row, 0)->text())
@@ -1164,6 +1170,23 @@ void ocMeridia::category_testServer()
                 queryL.next();
                 if (queryL.isValid()){
                     // меняем в таблице товаров код1С на ID группы из справочника синонимов
+=======
+                //test2: проверяем наличие записи по имени
+                QSqlQuery queryS2(QString("SELECT rmrt_category_description.category_id "
+                                          "FROM rmrt_category_description "
+                                          "WHERE rmrt_category_description.name = \"%1\" ")
+                                  .arg(ui->tableWidget_cat_file->item(row, 1)->text()), db_server);
+                queryS2.next();
+                if (queryS2.isValid()){
+                    //если такая группа есть: добавляем код1С, подставляем ID в таблицу товары, удаляем строку
+                    QSqlQuery queryU(QString("UPDATE rmrt_category SET code = \'%0\' "
+                                             "WHERE rmrt_category.category_id = \'%1\' ")
+                                     .arg(ui->tableWidget_cat_file->item(row, 0)->text())
+                                     .arg(queryS2.value(0).toString()), db_server);
+                    queryU.exec();
+                    qDebug() << queryU.lastError();
+                    // меняем в таблице товаров код1С на ID групп магазина
+>>>>>>> 3c9ad353c05f73199b5c0d19ebfcdb275c143364
                     for (int rowp = 0; rowp < ui->tableWidget_product->rowCount(); rowp++){
                         QString productG1C = ui->tableWidget_product->item(rowp, 4)->text();
                         QString group1C = ui->tableWidget_cat_file->item(row, 0)->text();
@@ -2177,10 +2200,17 @@ void ocMeridia::product_change_group()
     }
 }
 
+<<<<<<< HEAD
 void ocMeridia::edit_connection()
 {
     local *l = new local(db_local, db_server, this);
     l->exec();
+=======
+void ocMeridia::local_connect()
+{
+    local *loc = new local(db_local, db_server, this);
+    loc->exec();
+>>>>>>> 3c9ad353c05f73199b5c0d19ebfcdb275c143364
 }
 
 
