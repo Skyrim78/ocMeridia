@@ -8,11 +8,20 @@
 #include <QTimer>
 #include <QFileDialog>
 #include <QTreeWidgetItem>
+#include <QTextCodec>
 #include "mcategory.h"
 #include "product_form.h"
 #include "setting.h"
 #include "local.h"
-
+#include "pref.h"
+//----test
+#include "ctrlfile.h"
+#include "ctrlpreference.h"
+#include "ctrlscategory.h"
+#include "ctrlsproduct.h"
+#include "ctrlmanufacturer.h"
+#include "ctrloptions.h"
+#include "ctrlattribute.h"
 namespace Ui {
 class ocMeridia;
 }
@@ -69,21 +78,24 @@ public:
     //csv
     QStringList csvData;
 
+    //---------test
+    ctrlFile *cFile;
+    preference *cPreference;
+    ctrlSCategory *cCategory;
+    ctrlSProduct *cProduct;
+    ctrlManufacturer *cManufacturer;
+    ctrlOptions *cOption;
+    ctrlAttribute *cAttribute;
+
+
 private:
     Ui::ocMeridia *ui;
 
 public slots:
     void readSetting();
-    void writeSetting();
-    void loadMaps();
 
     void setting_connect_netDB();
     void setting_connect_locDB();
-    void setting_testConnect();
-    void setting_changeLangStore(int idx);
-    void setting_selectDir1C();
-    void setting_loadListFiles();
-    void setting_selectDirPL();
 
     void file_Select();
     void file_Open_PL();
@@ -93,7 +105,6 @@ public slots:
 
     void csv_readData();
 
-
     void category_loadFromDB();
     void category_loadFromDB_parent(QTreeWidgetItem *par, QString id_parent);
     void category_selectServer();
@@ -101,7 +112,6 @@ public slots:
 
     void category_testServer();
     void category_save();
-    void category_makePath(int _ID, int _PAR);
 
     void attribute_testServer();
     void attribute_loadFromDB();
@@ -109,12 +119,16 @@ public slots:
     void attribute_selectServer();
     void attribute_save();
 
+    void options_testServer();
+
     //void all_test();
 
     void product_testServer();
     void product_openForm();
     void product_loadOnServer();
     void product_manufacturer();
+    void product_saveXML();
+    void product_saveCSV();
 
     //подмена категорий в новых товарах на установленную в настройках
     void product_change_group();
@@ -124,6 +138,15 @@ public slots:
 
     void makeMessage(const QString str, bool x);
 
+    //----test
+    void openXML();
+    void openCSV();
+    void remakeStatus();
+    void remakeGroup();
+    void remakeQuantity();
+
+private slots:
+    void on_aPref_triggered();
 };
 
 #endif // OCMERIDIA_H

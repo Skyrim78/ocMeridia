@@ -11,6 +11,8 @@ product_form::product_form(int l, int s, QSqlDatabase db, QMap<QString,QString> 
     _LANG = l;
     _STORE = s;
 
+    cCategory = new ctrlSCategory(db, "rmrt", _STORE);
+
     ui->groupBox_messa->hide();
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), ui->groupBox_messa, SLOT(hide()));
@@ -58,16 +60,20 @@ product_form::~product_form()
 
 void product_form::loadGroups()
 {
-    QSqlQuery query(QString("SELECT rmrt_category_description.category_id, rmrt_category_description.name "
-                            "FROM rmrt_category_description "
-                            "WHERE rmrt_category_description.language_id = \'%0\' "
-                            "ORDER BY rmrt_category_description.name ").arg(_LANG), DB);
-    int x = 0;
-    while(query.next()){
-        ui->comboBox_form_group->addItem(query.value(1).toString());
-        ui->comboBox_s_group->addItem(query.value(1).toString());
-        groupsMap.insert(x, query.value(0).toInt());
-        x++;
+    groupsMap.clear();
+    ui->comboBox_form_group->clear();
+    ui->comboBox_s_group->clear();
+
+    QMap<int, QMap<QString,QVariant> > MAP = cCategory->get_categories();
+    for (int x = 0; x < MAP.count(); x++){
+        QMap<QString,QVariant> _map = MAP.value(x);
+
+        int id = _map.value("categoryId").toInt();
+        QString name = cCategory->get_road(id, _LANG);
+
+        ui->comboBox_form_group->addItem(name);
+        ui->comboBox_s_group->addItem(name);
+        groupsMap.insert(x, id);
     }
 }
 

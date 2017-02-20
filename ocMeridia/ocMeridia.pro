@@ -18,18 +18,33 @@ SOURCES += main.cpp\
     setting.cpp \
     local.cpp \
     ctrlsproduct.cpp \
-    ctrlscategory.cpp
+    ctrlscategory.cpp \
+    ctrlfile.cpp \
+    ctrlpreference.cpp \
+    pref.cpp \
+    ctrlmanufacturer.cpp \
+    ctrldb.cpp \
+    ctrloptions.cpp \
+    ctrlattribute.cpp
 
 HEADERS  += ocmeridia.h \
     product_form.h \
     setting.h \
     local.h \
     ctrlsproduct.h \
-    ctrlscategory.h
+    ctrlscategory.h \
+    ctrlfile.h \
+    ctrlpreference.h \
+    pref.h \
+    ctrlmanufacturer.h \
+    ctrldb.h \
+    ctrloptions.h \
+    ctrlattribute.h
 
 FORMS    += ocmeridia.ui \
     product_form.ui \
     setting.ui \
-    local.ui
+    local.ui \
+    pref.ui
 
 RESOURCES +=

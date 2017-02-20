@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QtSql/QtSql>
 #include <QTimer>
+#include "ctrlscategory.h"
 
 namespace Ui {
 class product_form;
@@ -26,6 +27,8 @@ public:
 
     QMap<int, int> groupsMap;
     int prodID;
+
+    ctrlSCategory *cCategory;
 
 private:
     Ui::product_form *ui;
