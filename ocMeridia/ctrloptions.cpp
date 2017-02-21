@@ -26,6 +26,7 @@ int ctrlOptions::get_optionID(QString _name)
                             "WHERE (`%0_option_description`.`name` = \'%1\') ")
                     .arg(PREFIX)
                     .arg(_name), DB);
+    //qDebug() << "get_optionID -"<<query.lastError();
     query.next();
     if (query.isValid()){
         _id = query.value(0).toInt();

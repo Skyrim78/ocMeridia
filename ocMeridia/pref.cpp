@@ -127,7 +127,7 @@ void Pref::load()
     //OC
     ui->comboBox_sB_lang_2->setCurrentIndex(langMap.key(cPref->get_OC_lang()));
     ui->comboBox_sB_tax_2->setCurrentIndex(taxMap.key(cPref->get_OC_tax()));
-    ui->doubleSpinBox_sB_quan_2->setValue(cPref->get_OC_quan());
+    //ui->doubleSpinBox_sB_quan_2->setValue(cPref->get_OC_quan());
     ui->lineEdit_sB_dir_2->setText(cPref->get_OC_dir());
 
     //XML
@@ -199,7 +199,7 @@ void Pref::save()
     //OC
     cPref->save_OC_lang(langMap.value(ui->comboBox_sB_lang_2->currentIndex()));
     cPref->save_OC_tax(taxMap.value(ui->comboBox_sB_tax_2->currentIndex()));
-    cPref->save_OC_quan(ui->doubleSpinBox_sB_quan_2->value());
+    //cPref->save_OC_quan(ui->doubleSpinBox_sB_quan_2->value());
     cPref->save_OC_dir(ui->lineEdit_sB_dir_2->text());
 
     //XML

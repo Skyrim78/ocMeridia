@@ -1,0 +1,17 @@
+delete from `rmrt_category` where `rmrt_category`.`category_id` > '1637';
+delete from `rmrt_category_description` where `rmrt_category_description`.`category_id` > '1637';
+delete from `rmrt_category_path` where `rmrt_category_path`.`category_id` > '1637';
+delete from `rmrt_category_to_store` where `rmrt_category_to_store`.`category_id` > '1637';
+delete from `rmrt_attribute` where `rmrt_attribute`.`attribute_id` > '0';
+delete from `rmrt_attribute_description` where `rmrt_attribute_description`.`attribute_id` > '0';
+delete from `rmrt_attribute_group` where `rmrt_attribute_group`.`attribute_group_id` > '9';
+delete from `rmrt_attribute_group_description` where `rmrt_attribute_group_description`.`attribute_group_id` > '9';
+delete from `rmrt_product` where `rmrt_product`.`product_id` > '0';
+delete from `rmrt_product_attribute` where `rmrt_product_attribute`.`product_id` > '0';
+delete from `rmrt_product_description` where `rmrt_product_description`.`product_id` > '0';
+delete from `rmrt_product_image` where `rmrt_product_image`.`product_id` > '0';
+delete from `rmrt_product_option` where `rmrt_product_option`.`product_option_id` > '0';
+delete from `rmrt_product_option_value` where `rmrt_product_option_value`.`product_option_value_id` > '0';
+delete from `rmrt_product_special` where `rmrt_product_special`.`product_id` > '0';
+delete from `rmrt_product_to_category` where `rmrt_product_to_category`.`product_id` > '0';
+delete from `rmrt_product_to_store` where `rmrt_product_to_store`.`product_id` > '0';

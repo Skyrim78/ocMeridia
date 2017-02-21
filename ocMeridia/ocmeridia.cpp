@@ -10,6 +10,9 @@ ocMeridia::ocMeridia(QWidget *parent) :
     cFile = new ctrlFile();
     cPreference = new preference();
 
+    ui->pushButton_cat_test->hide();
+    ui->pushButton_att_test->hide();
+
 
     ui->groupBox_messa->hide();
     timer = new QTimer(this);
@@ -1841,6 +1844,9 @@ void ocMeridia::openXML()
     for (int r = ui->tableWidget_prod_image->rowCount() - 1; r >= 0; r--){
         ui->tableWidget_prod_image->removeRow(r);
     }
+    for (int r = ui->tableWidget_prod_option->rowCount() - 1; r >= 0; r--){
+        ui->tableWidget_prod_option->removeRow(r);
+    }
 
 
     cFile->readXML(ui->lineEdit_file->text());
@@ -1944,6 +1950,8 @@ void ocMeridia::openXML()
     ui->tableWidget_prod_attributes->horizontalHeader()->setStretchLastSection(true);
     ui->tableWidget_prod_image->resizeColumnsToContents();
     ui->tableWidget_prod_image->horizontalHeader()->setStretchLastSection(true);
+    ui->tableWidget_prod_option->resizeColumnsToContents();
+    ui->tableWidget_prod_option->horizontalHeader()->setStretchLastSection(true);
 
 }
 
@@ -1966,6 +1974,9 @@ void ocMeridia::openCSV()
         ui->tableWidget_prod_image->removeRow(r);
     }
 
+    for (int r = ui->tableWidget_prod_option->rowCount() - 1; r >= 0; r--){
+        ui->tableWidget_prod_option->removeRow(r);
+    }
 
     QFile file(ui->lineEdit_file->text());
     if (file.open(QIODevice::ReadOnly)){
@@ -2082,6 +2093,8 @@ void ocMeridia::openCSV()
     ui->tableWidget_prod_attributes->horizontalHeader()->setStretchLastSection(true);
     ui->tableWidget_prod_image->resizeColumnsToContents();
     ui->tableWidget_prod_image->horizontalHeader()->setStretchLastSection(true);
+    ui->tableWidget_prod_option->resizeColumnsToContents();
+    ui->tableWidget_prod_option->horizontalHeader()->setStretchLastSection(true);
 }
 
 void ocMeridia::remakeStatus()

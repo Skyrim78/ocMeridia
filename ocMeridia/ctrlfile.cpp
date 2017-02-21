@@ -208,6 +208,7 @@ void ctrlFile::readXMLGroups(QDomDocument *doc)
         group.insert("parent", nodeGroup.firstChildElement("Родитель").text());
         mapGroup.insert(x, group);
     }
+
 }
 
 void ctrlFile::readXMLAttributes(QDomDocument *doc)
